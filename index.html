@@ -1,0 +1,1624 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pemesanan Baju</title>
+
+<style>
+/* ===================================================== */
+/* ================= STYLE DASAR WEBSITE ================ */
+/* ===================================================== */
+
+*{
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    margin:0;
+    padding:10px;
+    background:#f4f4f4;
+}
+
+.container{
+    max-width:700px;
+    margin:auto;
+    background:#fff;
+    padding:15px;
+    padding-bottom:120px;
+    border-radius:14px;
+    box-shadow:0 4px 10px rgba(0,0,0,.1);
+}
+
+/* ===================================================== */
+/* ================= JUDUL WEBSITE ====================== */
+/* ===================================================== */
+
+.title-box{
+    text-align:center;
+    margin-bottom:12px;
+}
+
+.title-box h2{
+    margin:0;
+    font-size:28px;
+    color:#2196F3;
+}
+
+.title-box p{
+    margin-top:5px;
+    color:#666;
+    font-size:14px;
+    font-weight:bold;
+}
+
+/* ===================================================== */
+/* ================= NOTE BOX PEMESANAN ================ */
+/* ===================================================== */
+
+.note-box{
+    background:linear-gradient(135deg,#fff7d6,#ffe9a8);
+    border:2px solid #ffb300;
+    color:#7a5200;
+    padding:9px 12px;
+    border-radius:12px;
+    font-size:13px;
+    font-weight:700;
+    text-align:center;
+    margin-bottom:12px;
+    line-height:1.5;
+    box-shadow:0 0 10px rgba(255,179,0,.18);
+    animation:pulseNote 1s infinite;
+}
+
+.note-box::before{
+    content:"⚠️ PENTING ⚠️";
+    display:block;
+    font-size:20px;
+    margin-bottom:5px;
+    color:#d97706;
+    font-weight:900;
+    letter-spacing:.3px;
+}
+
+.note-highlight{
+    color:#d32f2f;
+    font-weight:900;
+}
+
+@keyframes pulseNote{
+    0%{ transform:scale(1); }
+    50%{ transform:scale(1.005); }
+    100%{ transform:scale(1); }
+}
+
+/* ===================================================== */
+/* ================= COUNTDOWN PREMIUM ================= */
+/* ===================================================== */
+
+.countdown-box{
+    background:linear-gradient(135deg,#2196F3,#1565C0);
+    border-radius:14px;
+    padding:10px 12px;
+    margin:12px 0;
+    color:white;
+    box-shadow:0 5px 15px rgba(33,150,243,.30);
+    display:block;
+    width:100%;
+    animation:glowCountdown 1s infinite;
+}
+
+.countdown-row{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+}
+
+.countdown-title{
+    font-size:14px;
+    font-weight:900;
+    text-transform:uppercase;
+    text-align:center;
+    white-space:nowrap;
+}
+
+.countdown-wrapper{
+    display:flex;
+    justify-content:center;
+    gap:8px;
+    flex-wrap:wrap;
+}
+
+.count-item{
+    background:rgba(255,255,255,.20);
+    min-width:58px;
+    padding:7px 8px;
+    border-radius:10px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+}
+
+.count-number{
+    font-size:20px;
+    font-weight:900;
+    line-height:1;
+    width:100%;
+    text-align:center;
+}
+
+.count-label{
+    font-size:9px;
+    margin-top:3px;
+    text-transform:uppercase;
+    width:100%;
+    text-align:center;
+}
+
+@keyframes glowCountdown{
+    0%{
+        transform:scale(1);
+        box-shadow:0 5px 15px rgba(33,150,243,.30);
+    }
+
+    50%{
+        transform:scale(1.005);
+        box-shadow:0 8px 22px rgba(33,150,243,.45);
+    }
+
+    100%{
+        transform:scale(1);
+        box-shadow:0 5px 15px rgba(33,150,243,.30);
+    }
+}
+
+@media(max-width:480px){
+    .countdown-box{
+        padding:8px 6px;
+    }
+
+    .countdown-row{
+        gap:8px;
+    }
+
+    .countdown-title{
+        font-size:12px;
+        width:100%;
+        text-align:center;
+    }
+
+    .count-item{
+        min-width:46px;
+        padding:5px 4px;
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        justify-content:center;
+        text-align:center;
+    }
+
+    .count-number{
+        font-size:16px;
+        text-align:center;
+    }
+
+    .count-label{
+        font-size:8px;
+        text-align:center;
+    }
+}
+
+/* ===================================================== */
+/* ================= STATUS INTERNET ==================== */
+/* ===================================================== */
+
+.network-status{
+    display:none;
+    background:#ffebee;
+    color:#b71c1c;
+    border:2px solid #f44336;
+    padding:8px 10px;
+    border-radius:10px;
+    font-size:13px;
+    font-weight:bold;
+    text-align:center;
+    margin-bottom:10px;
+    line-height:1.5;
+}
+
+.network-status.show{
+    display:block;
+}
+
+/* ===================================================== */
+/* ================= INPUT FORM ========================= */
+/* ===================================================== */
+
+input[type="text"],
+input[type="tel"]{
+    width:100%;
+    padding:14px;
+    margin:8px 0;
+    border-radius:10px;
+    border:1px solid #ccc;
+    font-size:15px;
+}
+
+label{
+    font-weight:bold;
+    display:block;
+    margin-top:10px;
+}
+
+/* ===================================================== */
+/* ================= PILIHAN RADIO ====================== */
+/* ===================================================== */
+
+.radio-group{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+}
+
+.radio-group label{
+    border:2px solid #ccc;
+    border-radius:10px;
+    padding:8px 12px;
+    cursor:pointer;
+    transition:.2s;
+    user-select:none;
+    font-size:14px;
+}
+
+.radio-group input{
+    display:none;
+}
+
+.radio-group label.active{
+    background:#2196F3;
+    color:#fff;
+    border-color:#2196F3;
+}
+
+.radio-group label.disabled{
+    opacity:.4;
+    pointer-events:none;
+}
+
+/* ===================================================== */
+/* ================= TOMBOL SIZE CHART ================== */
+/* ===================================================== */
+
+.size-chart-btn{
+    background:#FF9800;
+    color:white;
+    border:none;
+    border-radius:8px;
+    padding:8px 12px;
+    cursor:pointer;
+    font-weight:bold;
+    transition:.2s;
+}
+
+.size-chart-btn:hover{
+    transform:scale(1.03);
+}
+
+/* ===================================================== */
+/* ================= TOMBOL FORM ======================== */
+/* ===================================================== */
+
+.button-group{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-top:10px;
+}
+
+.left-buttons{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    background:#2196F3;
+    color:white;
+    border:none;
+    padding:10px 14px;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.btn-send{
+    background:#4CAF50;
+}
+
+button:disabled{
+    opacity:.6;
+    cursor:not-allowed;
+}
+
+.btn-send.closed,
+.btn-send.offline{
+    background:#9e9e9e !important;
+    color:white !important;
+    cursor:not-allowed;
+    box-shadow:none;
+}
+
+/* ===================================================== */
+/* ================= TABEL DATA ========================= */
+/* ===================================================== */
+
+table{
+    width:100%;
+    margin-top:15px;
+    border-collapse:collapse;
+    font-size:13px;
+}
+
+th,td{
+    padding:8px;
+    border:1px solid #ddd;
+    text-align:center;
+}
+
+.table-wrapper{
+    width:100%;
+    overflow-x:auto;
+}
+
+.delete-btn{
+    background:#f44336;
+    color:white;
+    border:none;
+    padding:6px 10px;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+/* ===================================================== */
+/* ================= FLOATING WHATSAPP ================= */
+/* ===================================================== */
+
+.floating-wa{
+    position:fixed;
+    right:15px;
+    bottom:calc(env(safe-area-inset-bottom, 20px) + 20px);
+    z-index:999;
+    border-radius:10px;
+    padding:5px 10px;
+    font-size:12px;
+    transition:.3s;
+}
+
+.floating-btn{
+    background:#25D366;
+    color:white;
+    border:none;
+    border-radius:50px;
+    padding:12px 18px;
+    font-weight:bold;
+    cursor:pointer;
+    box-shadow:0 4px 10px rgba(0,0,0,.2);
+}
+
+.wa-dropdown{
+    display:none;
+    flex-direction:column;
+    margin-bottom:10px;
+    gap:8px;
+}
+
+.wa-dropdown button{
+    background:#25D366;
+    color:white;
+    border:none;
+    border-radius:10px;
+    padding:10px;
+    cursor:pointer;
+}
+
+/* ===================================================== */
+/* ================= POPUP CUSTOM ======================= */
+/* ===================================================== */
+
+.popup-overlay{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,.5);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+}
+
+.popup-box{
+    background:white;
+    padding:20px;
+    width:90%;
+    max-width:320px;
+    border-radius:16px;
+    text-align:center;
+    animation:popupShow .2s ease;
+}
+
+.popup-icon{
+    font-size:48px;
+    margin-bottom:10px;
+}
+
+.popup-message{
+    font-size:15px;
+    margin-bottom:18px;
+    line-height:1.5;
+}
+
+.popup-buttons{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+}
+
+.popup-buttons button{
+    border:none;
+    border-radius:10px;
+    padding:10px 16px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.popup-ok{
+    background:#2196F3;
+    color:white;
+}
+
+.popup-cancel{
+    background:#ddd;
+}
+
+.loading-spinner{
+    width:42px;
+    height:42px;
+    border:5px solid #ddd;
+    border-top:5px solid #2196F3;
+    border-radius:50%;
+    margin:0 auto 12px;
+    animation:spin .8s linear infinite;
+}
+
+.success-check{
+    width:52px;
+    height:52px;
+    border-radius:50%;
+    background:#4CAF50;
+    color:white;
+    font-size:32px;
+    margin:0 auto 12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+@keyframes spin{
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+@keyframes popupShow{
+    from{
+        transform:scale(.9);
+        opacity:0;
+    }
+
+    to{
+        transform:scale(1);
+        opacity:1;
+    }
+}
+
+/* ===================================================== */
+/* ================= POPUP SIZE CHART ================== */
+/* ===================================================== */
+
+.sizechart-overlay{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.6);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:99999;
+}
+
+.sizechart-box{
+    position:relative;
+    width:90%;
+    max-width:900px;
+    background:white;
+    padding:15px;
+    border-radius:15px;
+    animation:popupZoom .2s ease;
+}
+
+.sizechart-image{
+    width:100%;
+    border-radius:10px;
+    touch-action:pinch-zoom;
+}
+
+.sizechart-close{
+    position:absolute;
+    top:8px;
+    right:12px;
+    font-size:28px;
+    font-weight:bold;
+    cursor:pointer;
+    color:#444;
+}
+
+.sizechart-close:hover{
+    color:red;
+}
+
+@keyframes popupZoom{
+    from{
+        transform:scale(.8);
+        opacity:0;
+    }
+
+    to{
+        transform:scale(1);
+        opacity:1;
+    }
+}
+
+/* ===================================================== */
+/* ================= RESPONSIVE HP ====================== */
+/* ===================================================== */
+
+@media(max-width:768px){
+    table thead{
+        display:none;
+    }
+
+    table,tbody,tr,td{
+        display:block;
+        width:100%;
+    }
+
+    tr{
+        background:#fff;
+        margin-bottom:10px;
+        border-radius:10px;
+        padding:10px;
+        box-shadow:0 2px 5px rgba(0,0,0,.1);
+    }
+
+    td{
+        display:flex;
+        justify-content:space-between;
+        border:none;
+        border-bottom:1px solid #eee;
+        text-align:left;
+    }
+
+    td::before{
+        content:attr(data-label);
+        font-weight:bold;
+    }
+
+    .button-group{
+        flex-direction:column;
+        align-items:stretch;
+    }
+
+    .btn{
+        width:100%;
+    }
+
+    .floating-btn{
+        font-size:13px;
+        padding:10px 14px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- ===================================================== -->
+<!-- ================= JUDUL ============================= -->
+<!-- ===================================================== -->
+
+<div class="title-box">
+    <h2>PEMESANAN BAJU</h2>
+    <p>Form Pemesanan Online</p>
+</div>
+
+<!-- ===================================================== -->
+<!-- ================= NOTE BOX DARI ADMIN =============== -->
+<!-- ===================================================== -->
+
+<div class="note-box" id="noteBox">
+    Memuat informasi pemesanan...
+</div>
+
+<!-- ===================================================== -->
+<!-- ================= COUNTDOWN ========================= -->
+<!-- ===================================================== -->
+
+<div class="countdown-box">
+    <div class="countdown-row">
+        <div class="countdown-title">⏰ BATAS PEMESANAN</div>
+
+        <div class="countdown-wrapper">
+            <div class="count-item">
+                <div class="count-number" id="hari">0</div>
+                <div class="count-label">Hari</div>
+            </div>
+
+            <div class="count-item">
+                <div class="count-number" id="jam">0</div>
+                <div class="count-label">Jam</div>
+            </div>
+
+            <div class="count-item">
+                <div class="count-number" id="menit">0</div>
+                <div class="count-label">Menit</div>
+            </div>
+
+            <div class="count-item">
+                <div class="count-number" id="detik">0</div>
+                <div class="count-label">Detik</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===================================================== -->
+<!-- ================= STATUS INTERNET =================== -->
+<!-- ===================================================== -->
+
+<div id="networkStatus" class="network-status">
+    ⚠️ Anda sedang offline.<br>
+    Pesanan belum dapat dikirim ke Google Spreadsheet untuk sementara waktu.<br>
+    Silakan periksa koneksi internet Anda lalu coba kembali.<br>
+    💾 Agar data tetap aman, disarankan klik <b>Simpan</b> terlebih dahulu.
+</div>
+
+<!-- ===================================================== -->
+<!-- ================= FORM INPUT ======================== -->
+<!-- ===================================================== -->
+
+<input type="text" id="nama" placeholder="Masukkan Nama">
+
+<label>Size:</label>
+
+<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px;">
+    <button class="size-chart-btn" onclick="showSizeChart()">📏 Lihat Size Chart</button>
+</div>
+
+<div class="radio-group" onchange="toggleSize()">
+    <label><input type="radio" name="size" value="XS"> XS</label>
+    <label><input type="radio" name="size" value="S"> S</label>
+    <label><input type="radio" name="size" value="M"> M</label>
+    <label><input type="radio" name="size" value="L"> L</label>
+    <label><input type="radio" name="size" value="XL"> XL</label>
+    <label><input type="radio" name="size" value="XXL"> XXL</label>
+    <label><input type="radio" name="size" value="XXXL"> XXXL</label>
+    <label><input type="radio" name="size" value="Lainnya"> Lainnya</label>
+</div>
+
+<input type="text" id="sizeLainnya" placeholder="Isi size lainnya..." style="display:none;">
+
+<label>Lengan:</label>
+
+<div class="radio-group">
+    <label><input type="radio" name="lengan" value="Pendek"> Pendek</label>
+    <label><input type="radio" name="lengan" value="Panjang"> Panjang</label>
+</div>
+
+<label>Kategori Umur:</label>
+
+<div class="radio-group" onchange="toggleGender()">
+    <label><input type="radio" name="umur" value="Dewasa"> Dewasa</label>
+    <label><input type="radio" name="umur" value="Anak-Anak"> Anak-Anak</label>
+</div>
+
+<label>Gender:</label>
+
+<div class="radio-group" id="genderGroup">
+    <label><input type="radio" name="gender" value="Cowok"> Cowok</label>
+    <label><input type="radio" name="gender" value="Cewek"> Cewek</label>
+</div>
+
+<input type="tel" inputmode="numeric" id="hp" placeholder="No HP (boleh kosong)">
+
+<div class="button-group">
+    <div class="left-buttons">
+        <button class="btn" onclick="simpan()">Simpan</button>
+    </div>
+
+    <button class="btn btn-send" onclick="kirimKeSheet()">
+        Kirim ke Google Spreadsheet
+    </button>
+</div>
+
+<!-- ===================================================== -->
+<!-- ================= TABEL DATA ======================== -->
+<!-- ===================================================== -->
+
+<div class="table-wrapper">
+<table>
+<thead>
+<tr>
+    <th>Nama</th>
+    <th>Size</th>
+    <th>Lengan</th>
+    <th>Umur</th>
+    <th>Gender</th>
+    <th>No HP</th>
+    <th>Waktu</th>
+    <th>Aksi</th>
+</tr>
+</thead>
+
+<tbody id="tbody"></tbody>
+</table>
+</div>
+
+</div>
+
+<!-- ===================================================== -->
+<!-- ================= FLOATING WHATSAPP ================= -->
+<!-- ===================================================== -->
+
+<div class="floating-wa">
+    <div class="wa-dropdown" id="waDropdown">
+        <button id="waAdmin1Btn" onclick="hubungiWA1()">WA Admin 1</button>
+        <button id="waAdmin2Btn" onclick="hubungiWA2()">WA Admin 2</button>
+    </div>
+
+    <button class="floating-btn" onclick="toggleWA()">
+        📞 Info Pemesanan
+    </button>
+</div>
+
+<!-- ===================================================== -->
+<!-- ================= POPUP CUSTOM ====================== -->
+<!-- ===================================================== -->
+
+<div class="popup-overlay" id="customPopup">
+    <div class="popup-box">
+        <div class="popup-icon" id="popupIcon">✅</div>
+        <div class="popup-message" id="popupMessage"></div>
+
+        <div class="popup-buttons">
+            <button class="popup-cancel" id="popupCancel">Batal</button>
+            <button class="popup-ok" id="popupOk">OK</button>
+        </div>
+    </div>
+</div>
+
+<!-- ===================================================== -->
+<!-- ================= POPUP SIZE CHART ================== -->
+<!-- ===================================================== -->
+
+<div id="sizeChartPopup" class="sizechart-overlay">
+    <div class="sizechart-box">
+        <span class="sizechart-close" onclick="closeSizeChart()">✕</span>
+
+        <!-- GAMBAR SIZE CHART AKAN DIAMBIL DARI ADMIN -->
+        <img src="size-chart.webp" class="sizechart-image" id="sizeChartImage">
+    </div>
+</div>
+
+<script>
+/* ===================================================== */
+/* ================= URL GOOGLE APPS SCRIPT ============= */
+/* ===================================================== */
+/* GANTI DENGAN URL WEB APP GAS KAMU */
+
+const GAS_URL = "ISI_URL_WEB_APP_GAS_DI_SINI";
+
+/* ===================================================== */
+/* ================= DATABASE LOCAL ===================== */
+/* ===================================================== */
+
+let data = JSON.parse(localStorage.getItem("orders")) || [];
+let sentData = JSON.parse(localStorage.getItem("sent")) || [];
+
+/* ===================================================== */
+/* ================= SETTINGS ADMIN ===================== */
+/* ===================================================== */
+
+let appSettings = {};
+let pemesananDitutup = false;
+let popupOfflineSudahTampil = false;
+let popupTutupSudahTampil = false;
+let batasWaktu = null;
+
+/* ===================================================== */
+/* ========== AMBIL SETTINGS DARI GOOGLE APPS SCRIPT ==== */
+/* ===================================================== */
+
+function loadSettings(){
+    if(!GAS_URL || GAS_URL === "ISI_URL_WEB_APP_GAS_DI_SINI"){
+        showAlert(
+            "URL Google Apps Script belum diisi di kode index.html.",
+            "⚠️"
+        );
+        return;
+    }
+
+    let script = document.createElement("script");
+
+    script.src =
+    GAS_URL + "?action=settings&callback=applySettings&t=" + new Date().getTime();
+
+    script.onerror = function(){
+        showAlert(
+            "Pengaturan dari admin belum bisa dimuat.<br><br>Silakan cek URL Google Apps Script atau koneksi internet.",
+            "⚠️"
+        );
+    };
+
+    document.body.appendChild(script);
+}
+
+/* ===================================================== */
+/* ========== TERAPKAN SETTINGS KE WEBSITE =============== */
+/* ===================================================== */
+
+function applySettings(settings){
+    appSettings = settings || {};
+
+    /* ================= NOTE BOX ================= */
+
+    document.getElementById("noteBox").innerHTML =
+    appSettings.noteText ||
+    `Kalau ingin memesan lebih dari satu baju,
+    silakan klik <span class="note-highlight">“Simpan”</span>
+    terlebih dahulu untuk setiap pesanan.
+    Setelah semua data sudah benar, klik
+    <span class="note-highlight">“Kirim ke Google Spreadsheet”</span>.`;
+
+    /* ================= SIZE CHART ================= */
+
+    if(appSettings.sizeChartUrl){
+        document.getElementById("sizeChartImage").src =
+        appSettings.sizeChartUrl;
+    }
+
+    /* ================= WA ADMIN ================= */
+
+    document.getElementById("waAdmin1Btn").innerHTML =
+    appSettings.waAdmin1Nama || "WA Admin 1";
+
+    document.getElementById("waAdmin2Btn").innerHTML =
+    appSettings.waAdmin2Nama || "WA Admin 2";
+
+    /* ================= STATUS PEMESANAN ================= */
+
+    pemesananDitutup = false;
+
+    if(appSettings.statusPemesanan === "tutup"){
+        pemesananDitutup = true;
+
+        document.querySelector(".countdown-title").innerHTML =
+        "⛔ PEMESANAN DITUTUP";
+
+        updateTombolKirim(false);
+        return;
+    }
+
+    /* ================= BATAS WAKTU ================= */
+
+    if(appSettings.batasWaktu){
+        batasWaktu = new Date(appSettings.batasWaktu).getTime();
+    }
+
+    updateTombolKirim(false);
+}
+
+/* ===================================================== */
+/* ================= EFEK ACTIVE RADIO ================== */
+/* ===================================================== */
+
+document.querySelectorAll(".radio-group label").forEach(label=>{
+    label.addEventListener("click",()=>{
+        let group = label.parentElement;
+
+        if(label.classList.contains("disabled")){
+            return;
+        }
+
+        group.querySelectorAll("label").forEach(l=>{
+            l.classList.remove("active");
+        });
+
+        label.classList.add("active");
+    });
+});
+
+/* ===================================================== */
+/* ================= FLOATING WHATSAPP ================= */
+/* ===================================================== */
+
+function toggleWA(){
+    let menu = document.getElementById("waDropdown");
+
+    menu.style.display =
+    menu.style.display === "flex"
+    ? "none"
+    : "flex";
+}
+
+/* ===================================================== */
+/* ================= WHATSAPP ADMIN ===================== */
+/* ===================================================== */
+
+function hubungiWA1(){
+    let nomor =
+    appSettings.waAdmin1Nomor || "628814842970";
+
+    let pesan =
+    "Halo Admin, saya ingin bertanya tentang pemesanan baju.";
+
+    window.open(
+        "https://wa.me/" + nomor + "?text=" + encodeURIComponent(pesan),
+        "_blank"
+    );
+}
+
+function hubungiWA2(){
+    let nomor =
+    appSettings.waAdmin2Nomor || "6282222222222";
+
+    let pesan =
+    "Halo Admin, saya ingin bertanya tentang pemesanan baju.";
+
+    window.open(
+        "https://wa.me/" + nomor + "?text=" + encodeURIComponent(pesan),
+        "_blank"
+    );
+}
+
+/* ===================================================== */
+/* ================= SIZE LAINNYA ======================= */
+/* ===================================================== */
+
+function toggleSize(){
+    let checked = document.querySelector('input[name="size"]:checked');
+    let input = document.getElementById("sizeLainnya");
+    let umur = document.querySelector('input[name="umur"]:checked');
+
+    if(umur && umur.value === "Anak-Anak" && checked && checked.value === "XXXL"){
+        showAlert(
+            "XXXL Anak-anak mendekati XS Dewasa. Silakan pilih kategori Dewasa Cowok dan pilih size XS.",
+            "ℹ️"
+        );
+
+        checked.checked = false;
+        checked.parentElement.classList.remove("active");
+        return;
+    }
+
+    if(checked && checked.value === "Lainnya"){
+        input.style.display = "block";
+    }else{
+        input.style.display = "none";
+        input.value = "";
+    }
+}
+
+/* ===================================================== */
+/* ================= VALIDASI UMUR ====================== */
+/* ===================================================== */
+
+function toggleGender(){
+    let umur = document.querySelector('input[name="umur"]:checked');
+    let genderGroup = document.getElementById("genderGroup");
+    let labels = document.querySelectorAll('input[name="size"]');
+
+    labels.forEach(r=>{
+        r.disabled = false;
+        r.parentElement.classList.remove("disabled");
+        r.onclick = null;
+    });
+
+    if(umur && umur.value === "Anak-Anak"){
+        genderGroup.style.display = "none";
+
+        document.querySelectorAll('input[name="gender"]').forEach(g=>{
+            g.checked = false;
+            g.parentElement.classList.remove("active");
+        });
+
+        let disableSizes = ["XS", "S", "Lainnya"];
+
+        labels.forEach(r=>{
+            let label = r.parentElement;
+
+            if(disableSizes.includes(r.value)){
+                r.checked = false;
+                r.disabled = true;
+                label.classList.remove("active");
+                label.classList.add("disabled");
+            }
+
+            if(r.value === "XXXL" && r.checked){
+                showAlert(
+                    "XXXL Anak-anak mendekati XS Dewasa. Silakan pilih kategori Dewasa Cowok dan pilih size XS.",
+                    "ℹ️"
+                );
+
+                r.checked = false;
+                label.classList.remove("active");
+            }
+        });
+
+        document.getElementById("sizeLainnya").style.display = "none";
+        document.getElementById("sizeLainnya").value = "";
+    }else{
+        genderGroup.style.display = "flex";
+    }
+}
+
+/* ===================================================== */
+/* ================= POPUP SIZE CHART ================== */
+/* ===================================================== */
+
+function showSizeChart(){
+    document.getElementById("sizeChartPopup").style.display = "flex";
+}
+
+function closeSizeChart(){
+    document.getElementById("sizeChartPopup").style.display = "none";
+}
+
+/* ===================================================== */
+/* ================= RENDER TABEL ======================= */
+/* ===================================================== */
+
+function render(){
+    let tbody = document.getElementById("tbody");
+    tbody.innerHTML = "";
+
+    data.forEach((d,i)=>{
+        tbody.innerHTML += `
+        <tr>
+            <td data-label="Nama">${d.nama}</td>
+            <td data-label="Size">${d.size}</td>
+            <td data-label="Lengan">${d.lengan}</td>
+            <td data-label="Umur">${d.umur}</td>
+            <td data-label="Gender">${d.gender || "-"}</td>
+            <td data-label="No HP">${d.hp || "-"}</td>
+            <td data-label="Waktu">${d.waktu}</td>
+            <td data-label="Aksi">
+                <button class="delete-btn" onclick="hapus(${i})">
+                    Hapus
+                </button>
+            </td>
+        </tr>
+        `;
+    });
+}
+
+/* ===================================================== */
+/* ================= RESET FORM ========================= */
+/* ===================================================== */
+
+function resetForm(){
+    document.getElementById("nama").value = "";
+    document.getElementById("hp").value = "";
+    document.getElementById("sizeLainnya").value = "";
+    document.getElementById("sizeLainnya").style.display = "none";
+
+    document.querySelectorAll('input[type="radio"]').forEach(r=>{
+        r.checked = false;
+        r.disabled = false;
+    });
+
+    document.querySelectorAll(".radio-group label").forEach(l=>{
+        l.classList.remove("active");
+        l.classList.remove("disabled");
+    });
+
+    document.getElementById("genderGroup").style.display = "flex";
+}
+
+/* ===================================================== */
+/* ================= AMBIL DATA FORM ==================== */
+/* ===================================================== */
+
+function ambilForm(){
+    let nama = document.getElementById("nama").value.trim();
+    let hp = document.getElementById("hp").value.trim();
+
+    let sizeInput = document.querySelector('input[name="size"]:checked');
+    let lenganInput = document.querySelector('input[name="lengan"]:checked');
+    let umurInput = document.querySelector('input[name="umur"]:checked');
+    let genderInput = document.querySelector('input[name="gender"]:checked');
+
+    if(!nama || !sizeInput || !lenganInput || !umurInput){
+        showAlert("Isi data wajib", "⚠️");
+        return null;
+    }
+
+    let size = sizeInput.value;
+
+    if(size === "Lainnya"){
+        size = document.getElementById("sizeLainnya").value.trim();
+
+        if(!size){
+            showAlert("Isi size lainnya", "⚠️");
+            return null;
+        }
+    }
+
+    let gender = "";
+
+    if(umurInput.value === "Dewasa"){
+        if(!genderInput){
+            showAlert("Pilih gender", "⚠️");
+            return null;
+        }
+
+        gender = genderInput.value;
+    }
+
+    return{
+        nama,
+        size,
+        lengan:lenganInput.value,
+        umur:umurInput.value,
+        gender,
+        hp,
+        waktu:new Date().toLocaleString()
+    };
+}
+
+/* ===================================================== */
+/* ================= CEK DUPLIKAT ======================= */
+/* ===================================================== */
+
+function isDuplicate(newData){
+    return [...data,...sentData].some(d=>
+        d.nama === newData.nama &&
+        d.size === newData.size &&
+        d.lengan === newData.lengan &&
+        d.umur === newData.umur &&
+        d.gender === newData.gender &&
+        d.hp === newData.hp
+    );
+}
+
+/* ===================================================== */
+/* ================= SIMPAN KE BROWSER ================== */
+/* ===================================================== */
+
+async function simpan(){
+    let form = ambilForm();
+
+    if(!form) return;
+
+    if(isDuplicate(form)){
+        await showAlert("Data sudah ada / pernah dikirim!", "❌");
+        return;
+    }
+
+    data.push(form);
+    localStorage.setItem("orders", JSON.stringify(data));
+
+    render();
+    resetForm();
+
+    await showAlert("Data berhasil disimpan di browser", "✅");
+}
+
+/* ===================================================== */
+/* ================= HAPUS DATA ========================= */
+/* ===================================================== */
+
+async function hapus(i){
+
+    let konfirmasi = await showConfirm(
+        "Yakin ingin menghapus data ini?",
+        "🗑️"
+    );
+
+    if(!konfirmasi) return;
+
+    data.splice(i,1);
+    localStorage.setItem("orders", JSON.stringify(data));
+    render();
+
+    await showAlert("Data berhasil dihapus", "✅");
+}
+
+/* ===================================================== */
+/* ================= KIRIM KE SPREADSHEET VIA GAS ======= */
+/* ===================================================== */
+
+async function kirimKeSheet(){
+
+    if(pemesananDitutup){
+        await showAlert(
+            "Maaf, waktu pemesanan sudah ditutup.",
+            "⛔"
+        );
+
+        updateTombolKirim();
+        return;
+    }
+
+    if(!navigator.onLine){
+        await showAlert(
+            "Anda sedang offline.<br>Pesanan belum dapat dikirim ke Google Spreadsheet untuk sementara waktu.<br>Silakan periksa koneksi internet Anda lalu coba kembali.<br>💾 Agar data tetap aman, disarankan klik <b>Simpan</b> terlebih dahulu.",
+            "📡"
+        );
+
+        updateTombolKirim();
+        return;
+    }
+
+    let nama = document.getElementById("nama").value.trim();
+
+    if(nama !== ""){
+        let form = ambilForm();
+
+        if(!form) return;
+
+        if(isDuplicate(form)){
+            await showAlert("Data sudah ada / pernah dikirim!", "❌");
+            return;
+        }
+
+        let konfirmasi = await showConfirm(
+            "Yakin ingin mengirim data?",
+            "📤"
+        );
+
+        if(!konfirmasi) return;
+
+        showLoading();
+        kirim(form);
+
+        setTimeout(async()=>{
+            sentData.push(form);
+            localStorage.setItem("sent", JSON.stringify(sentData));
+
+            resetForm();
+            hideLoading();
+
+            await showSuccess("Data berhasil dikirim!");
+        },1200);
+
+        return;
+    }
+
+    data = JSON.parse(localStorage.getItem("orders")) || [];
+
+    if(data.length === 0){
+        await showAlert("Tidak ada data tersimpan", "⚠️");
+        return;
+    }
+
+    let konfirmasi = await showConfirm(
+        "Kirim semua data ke Spreadsheet?",
+        "📤"
+    );
+
+    if(!konfirmasi) return;
+
+    showLoading();
+
+    data.forEach(d=>{
+        kirim(d);
+        sentData.push(d);
+    });
+
+    localStorage.setItem("sent", JSON.stringify(sentData));
+
+    setTimeout(async()=>{
+        data = [];
+        localStorage.removeItem("orders");
+
+        render();
+        hideLoading();
+
+        await showSuccess("Semua data berhasil dikirim!");
+    },1200);
+}
+
+/* ===================================================== */
+/* ================= KIRIM ORDER KE GAS ================= */
+/* ===================================================== */
+
+function kirim(d){
+    let f = new FormData();
+
+    f.append("action", "saveOrder");
+    f.append("nama", d.nama);
+    f.append("size", d.size);
+    f.append("lengan", d.lengan);
+    f.append("umur", d.umur);
+    f.append("gender", d.gender);
+    f.append("hp", d.hp);
+    f.append("waktu", d.waktu);
+
+    fetch(GAS_URL, {
+        method:"POST",
+        mode:"no-cors",
+        body:f
+    });
+}
+
+/* ===================================================== */
+/* ================= DISABLE BUTTON SAAT LOADING ======== */
+/* ===================================================== */
+
+function setPageButtonsDisabled(status){
+    document.querySelectorAll("button").forEach(btn=>{
+        if(
+            btn.id !== "popupOk" &&
+            btn.id !== "popupCancel"
+        ){
+            btn.disabled = status;
+        }
+    });
+}
+
+/* ===================================================== */
+/* ================= POPUP LOADING ====================== */
+/* ===================================================== */
+
+function showLoading(message="Sedang mengirim data..."){
+    setPageButtonsDisabled(true);
+
+    document.getElementById("popupIcon").innerHTML =
+    `<div class="loading-spinner"></div>`;
+
+    document.getElementById("popupMessage").innerHTML = message;
+    document.getElementById("popupCancel").style.display = "none";
+    document.getElementById("popupOk").style.display = "none";
+    document.getElementById("customPopup").style.display = "flex";
+}
+
+function hideLoading(){
+    setPageButtonsDisabled(false);
+
+    document.getElementById("customPopup").style.display = "none";
+    document.getElementById("popupOk").style.display = "inline-block";
+
+    updateTombolKirim(false);
+}
+
+/* ===================================================== */
+/* ================= POPUP SUCCESS ====================== */
+/* ===================================================== */
+
+function showSuccess(message){
+    return new Promise(resolve=>{
+        document.getElementById("popupIcon").innerHTML =
+        `<div class="success-check">✓</div>`;
+
+        document.getElementById("popupMessage").innerHTML = message;
+        document.getElementById("popupCancel").style.display = "none";
+        document.getElementById("popupOk").style.display = "inline-block";
+        document.getElementById("customPopup").style.display = "flex";
+
+        document.getElementById("popupOk").onclick = function(){
+            document.getElementById("customPopup").style.display = "none";
+            resolve(true);
+        };
+    });
+}
+
+/* ===================================================== */
+/* ================= POPUP ALERT ======================== */
+/* ===================================================== */
+
+function showAlert(message,icon="✅"){
+    return new Promise(resolve=>{
+        document.getElementById("popupIcon").innerHTML = icon;
+        document.getElementById("popupMessage").innerHTML = message;
+        document.getElementById("popupCancel").style.display = "none";
+        document.getElementById("popupOk").style.display = "inline-block";
+        document.getElementById("customPopup").style.display = "flex";
+
+        document.getElementById("popupOk").onclick = function(){
+            document.getElementById("customPopup").style.display = "none";
+            resolve(true);
+        };
+    });
+}
+
+/* ===================================================== */
+/* ================= POPUP CONFIRM ====================== */
+/* ===================================================== */
+
+function showConfirm(message,icon="⚠️"){
+    return new Promise(resolve=>{
+        document.getElementById("popupIcon").innerHTML = icon;
+        document.getElementById("popupMessage").innerHTML = message;
+        document.getElementById("popupCancel").style.display = "inline-block";
+        document.getElementById("popupOk").style.display = "inline-block";
+        document.getElementById("customPopup").style.display = "flex";
+
+        document.getElementById("popupOk").onclick = function(){
+            document.getElementById("customPopup").style.display = "none";
+            resolve(true);
+        };
+
+        document.getElementById("popupCancel").onclick = function(){
+            document.getElementById("customPopup").style.display = "none";
+            resolve(false);
+        };
+    });
+}
+
+/* ===================================================== */
+/* ================= CLOSE POPUP KLIK AREA GELAP ======== */
+/* ===================================================== */
+
+window.onclick = function(e){
+    let sizePopup = document.getElementById("sizeChartPopup");
+
+    if(e.target === sizePopup){
+        sizePopup.style.display = "none";
+    }
+};
+
+/* ===================================================== */
+/* ================= COUNTDOWN WAKTU ==================== */
+/* ===================================================== */
+
+setInterval(function(){
+
+    if(!batasWaktu){
+        return;
+    }
+
+    let sekarang = new Date().getTime();
+    let selisih = batasWaktu - sekarang;
+
+    if(selisih <= 0){
+        pemesananDitutup = true;
+
+        document.getElementById("hari").innerHTML = "0";
+        document.getElementById("jam").innerHTML = "0";
+        document.getElementById("menit").innerHTML = "0";
+        document.getElementById("detik").innerHTML = "0";
+
+        document.querySelector(".countdown-title").innerHTML =
+        "⛔ PEMESANAN DITUTUP";
+
+        updateTombolKirim(true);
+
+        return;
+    }
+
+    let hari = Math.floor(selisih / (1000 * 60 * 60 * 24));
+    let jam = Math.floor((selisih % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    let menit = Math.floor((selisih % (1000 * 60 * 60)) / (1000 * 60));
+    let detik = Math.floor((selisih % (1000 * 60)) / 1000);
+
+    document.getElementById("hari").innerHTML = hari;
+    document.getElementById("jam").innerHTML = jam;
+    document.getElementById("menit").innerHTML = menit;
+    document.getElementById("detik").innerHTML = detik;
+
+},1000);
+
+/* ===================================================== */
+/* ========== UPDATE STATUS TOMBOL KIRIM ================ */
+/* ===================================================== */
+
+function updateTombolKirim(tampilkanPopup = false){
+    let tombolKirim = document.querySelector(".btn-send");
+    let statusBox = document.getElementById("networkStatus");
+
+    if(!tombolKirim) return;
+
+    tombolKirim.classList.remove("offline");
+    tombolKirim.classList.remove("closed");
+
+    if(pemesananDitutup){
+        tombolKirim.disabled = true;
+        tombolKirim.innerHTML = "Pemesanan Ditutup";
+        tombolKirim.classList.add("closed");
+
+        if(statusBox){
+            statusBox.classList.remove("show");
+        }
+
+        if(tampilkanPopup && !popupTutupSudahTampil){
+            popupTutupSudahTampil = true;
+
+            showAlert(
+                "⛔ Waktu pemesanan sudah ditutup.<br><br>Data tidak bisa dikirim lagi ke Google Spreadsheet.",
+                "⛔"
+            );
+        }
+
+        return;
+    }
+
+    if(!navigator.onLine){
+        tombolKirim.disabled = true;
+        tombolKirim.innerHTML = "Offline";
+        tombolKirim.classList.add("offline");
+
+        if(statusBox){
+            statusBox.classList.add("show");
+        }
+
+        if(tampilkanPopup && !popupOfflineSudahTampil){
+            popupOfflineSudahTampil = true;
+
+            showAlert(
+                "Anda sedang offline.<br>Pesanan belum dapat dikirim ke Google Spreadsheet untuk sementara waktu.<br>Silakan periksa koneksi internet Anda lalu coba kembali.<br>💾 Agar data tetap aman, disarankan klik <b>Simpan</b> terlebih dahulu.",
+                "📡"
+            );
+        }
+
+        return;
+    }
+
+    popupOfflineSudahTampil = false;
+
+    tombolKirim.disabled = false;
+    tombolKirim.innerHTML = "Kirim ke Google Spreadsheet";
+
+    if(statusBox){
+        statusBox.classList.remove("show");
+    }
+}
+
+window.addEventListener("online", function(){
+    updateTombolKirim(true);
+});
+
+window.addEventListener("offline", function(){
+    updateTombolKirim(true);
+});
+
+/* ===================================================== */
+/* ================= JALANKAN WEBSITE =================== */
+/* ===================================================== */
+
+loadSettings();
+
+updateTombolKirim(false);
+
+render();
+</script>
+
+</body>
+</html>
