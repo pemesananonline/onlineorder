@@ -4153,6 +4153,146 @@ tr.new-saved-row td{
     }
 }
 
+
+
+/* ===================================================== */
+/* ================= FOOTER COPYRIGHT ================== */
+/* ===================================================== */
+
+.site-footer{
+    margin-top:24px;
+    padding:16px 10px 6px;
+    text-align:center;
+    color:#64748b;
+    font-size:13px;
+    font-weight:700;
+    border-top:1px solid #e5e7eb;
+}
+
+.site-footer span{
+    color:#1976D2;
+    font-weight:900;
+}
+
+@media(max-width:768px){
+    .site-footer{
+        margin-top:18px;
+        padding:13px 8px 4px;
+        font-size:11px;
+    }
+}
+
+
+
+/* ===================================================== */
+/* ===== OFFLINE BOX LEBIH TERLIHAT ===================== */
+/* ===================================================== */
+
+.network-status{
+    display:none;
+    position:sticky!important;
+    top:10px!important;
+    z-index:50!important;
+    background:linear-gradient(135deg,#fff1f2,#ffe4e6 55%,#fecdd3)!important;
+    color:#7f1d1d!important;
+    border:2px solid #ef4444!important;
+    border-left:9px solid #dc2626!important;
+    padding:16px 16px 16px 58px!important;
+    border-radius:18px!important;
+    font-size:14px!important;
+    font-weight:800!important;
+    text-align:left!important;
+    margin:0 0 18px!important;
+    line-height:1.55!important;
+    box-shadow:0 14px 32px rgba(220,38,38,.24), 0 0 0 4px rgba(239,68,68,.08)!important;
+}
+
+.network-status::before{
+    content:"\f1eb"!important;
+    font-family:"Font Awesome 6 Free"!important;
+    font-weight:900!important;
+    position:absolute!important;
+    left:17px!important;
+    top:50%!important;
+    transform:translateY(-50%)!important;
+    width:30px!important;
+    height:30px!important;
+    border-radius:50%!important;
+    background:#dc2626!important;
+    color:white!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    font-size:14px!important;
+    box-shadow:0 0 0 6px rgba(220,38,38,.14)!important;
+}
+
+.network-status.show{
+    display:block!important;
+    animation:offlineBoxStrongShow .25s ease, offlineStrongPulse 1.35s ease-in-out infinite!important;
+}
+
+.offline-title{
+    font-size:16px!important;
+    font-weight:900!important;
+    color:#991b1b!important;
+    margin-bottom:3px!important;
+    text-transform:uppercase!important;
+    letter-spacing:.2px!important;
+}
+
+.offline-message{
+    font-size:13px!important;
+    font-weight:800!important;
+    color:#7f1d1d!important;
+}
+
+@keyframes offlineBoxStrongShow{
+    from{
+        opacity:0;
+        transform:translateY(-8px) scale(.98);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+}
+
+@keyframes offlineStrongPulse{
+    0%,100%{
+        box-shadow:0 14px 32px rgba(220,38,38,.24), 0 0 0 4px rgba(239,68,68,.08);
+    }
+    50%{
+        box-shadow:0 18px 40px rgba(220,38,38,.36), 0 0 0 7px rgba(239,68,68,.14);
+    }
+}
+
+@media(max-width:768px){
+    .network-status{
+        top:8px!important;
+        padding:13px 12px 13px 52px!important;
+        border-radius:14px!important;
+        margin:0 0 12px!important;
+        border-left-width:7px!important;
+    }
+
+    .network-status::before{
+        left:13px!important;
+        width:27px!important;
+        height:27px!important;
+        font-size:12px!important;
+    }
+
+    .offline-title{
+        font-size:13px!important;
+    }
+
+    .offline-message{
+        font-size:11.3px!important;
+        line-height:1.45!important;
+    }
+}
+
 </style>
 </head>
 
@@ -4236,8 +4376,10 @@ tr.new-saved-row td{
 <!-- ===================================================== -->
 
 <div id="networkStatus" class="network-status">
-    <b>Anda sedang offline.</b><br>
-    Pesanan belum bisa dikirim ke Google Spreadsheet. Simpan data terlebih dahulu, lalu kirim kembali saat internet aktif.
+    <div class="offline-title">📡 Anda sedang offline</div>
+    <div class="offline-message">
+        Pesanan belum bisa dikirim ke Google Spreadsheet. Simpan data terlebih dahulu, lalu kirim kembali saat internet aktif.
+    </div>
 </div>
 
 <!-- ===================================================== -->
@@ -4358,6 +4500,11 @@ tr.new-saved-row td{
 <tbody id="tbody"></tbody>
 </table>
 </div>
+
+<footer class="site-footer">
+    Copyright © <span id="tahunCopyright"></span> by <span>ikomangadiwirawan</span>
+</footer>
+
 
 </div>
 
@@ -5704,6 +5851,13 @@ window.addEventListener("offline", function(){
 updateTombolKirim(false);
 
 render();
+
+let tahunCopyright = document.getElementById("tahunCopyright");
+
+if(tahunCopyright){
+    tahunCopyright.textContent = new Date().getFullYear();
+}
+
 </script>
 
 </body>
