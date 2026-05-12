@@ -1,0 +1,5710 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+<title>Pemesanan Baju</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+
+/* ===================================================== */
+/* ========== TAMPILAN MODERN PEMESANAN BAJU ============ */
+/* ===================================================== */
+
+:root{
+    --blue:#1976D2;
+    --blue-light:#42A5F5;
+    --green:#43A047;
+    --orange:#FF9800;
+    --pink:#E91E63;
+    --yellow:#FFC107;
+    --dark:#14213d;
+    --text:#0f172a;
+    --muted:#64748b;
+    --border:#d7dee8;
+    --soft:#F5F7FA;
+    --white:#ffffff;
+    --shadow:0 14px 35px rgba(15,23,42,.12);
+    --shadow-soft:0 8px 22px rgba(15,23,42,.10);
+}
+
+*{
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    margin:0;
+    padding:22px 10px;
+    color:var(--text);
+    background:
+        radial-gradient(circle at top left, rgba(66,165,245,.15), transparent 35%),
+        linear-gradient(180deg,#f8fbff,#f4f6f9);
+}
+
+.container{
+    width:100%;
+    max-width:700px;
+    margin:auto;
+    background:var(--white);
+    padding:0 18px 105px;
+    border-radius:22px;
+    box-shadow:var(--shadow);
+    overflow:hidden;
+}
+
+/* ===================================================== */
+/* ================= HEADER ============================= */
+/* ===================================================== */
+
+.title-box{
+    position:relative;
+    margin:0 -18px 18px;
+    padding:24px 24px 26px;
+    color:white;
+    text-align:left;
+    background:linear-gradient(135deg,#0D6EFD,#1976D2 55%,#0066d6);
+    overflow:hidden;
+}
+
+.title-box::after{
+    content:"";
+    position:absolute;
+    width:260px;
+    height:160px;
+    right:-80px;
+    bottom:-90px;
+    border-radius:50%;
+    background:rgba(255,255,255,.13);
+}
+
+.title-inner{
+    position:relative;
+    z-index:1;
+    display:flex;
+    align-items:center;
+    gap:18px;
+}
+
+.title-icon{
+    width:72px;
+    height:72px;
+    min-width:72px;
+    border-radius:20px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:rgba(255,255,255,.14);
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.18);
+}
+
+.title-icon i{
+    font-size:42px;
+    color:white;
+}
+
+.title-box h2{
+    margin:0;
+    color:white;
+    font-size:34px;
+    line-height:1.05;
+    font-weight:900;
+    letter-spacing:.5px;
+}
+
+.title-box p{
+    margin:8px 0 0;
+    color:rgba(255,255,255,.92);
+    font-size:17px;
+    font-weight:700;
+}
+
+/* ===================================================== */
+/* ================= NOTE BOX =========================== */
+/* ===================================================== */
+
+.note-box{
+    position:relative;
+    background:linear-gradient(135deg,#fff7d6,#fff1ba);
+    border:2px solid var(--yellow);
+    color:#6b4600;
+    padding:18px 18px;
+    border-radius:16px;
+    font-size:15px;
+    font-weight:800;
+    text-align:center;
+    margin:18px 0;
+    line-height:1.65;
+    box-shadow:0 12px 25px rgba(255,193,7,.18);
+}
+
+.note-box::before{
+    content:"⚠️ PENTING ⚠️";
+    display:block;
+    color:#f57c00;
+    font-size:24px;
+    font-weight:900;
+    margin-bottom:6px;
+    letter-spacing:.3px;
+}
+
+.note-highlight{
+    color:#d32f2f;
+    font-weight:900;
+}
+
+/* ===================================================== */
+/* ================= COUNTDOWN ========================== */
+/* ===================================================== */
+
+.countdown-box{
+    background:linear-gradient(135deg,#0D6EFD,#1976D2);
+    border-radius:16px;
+    padding:16px 14px;
+    margin:18px 0 24px;
+    color:white;
+    box-shadow:0 18px 32px rgba(25,118,210,.28);
+    width:100%;
+}
+
+.countdown-row{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:13px;
+}
+
+.countdown-title{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    font-size:17px;
+    font-weight:900;
+    text-transform:uppercase;
+    text-align:center;
+    white-space:nowrap;
+}
+
+.countdown-title::before{
+    content:"017";
+    font-family:"Font Awesome 6 Free";
+    font-weight:900;
+    font-size:18px;
+}
+
+.countdown-wrapper{
+    width:100%;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+}
+
+.count-item{
+    min-width:0;
+    padding:11px 8px;
+    border-radius:14px;
+    background:rgba(255,255,255,.16);
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+}
+
+.count-number{
+    font-size:30px;
+    font-weight:900;
+    line-height:1;
+    width:100%;
+    text-align:center;
+}
+
+.count-label{
+    font-size:12px;
+    margin-top:7px;
+    text-transform:uppercase;
+    width:100%;
+    text-align:center;
+    font-weight:800;
+}
+
+/* ===================================================== */
+/* ================= INPUT FORM ========================= */
+/* ===================================================== */
+
+.field-wrap{
+    position:relative;
+    margin:8px 0 18px;
+}
+
+.field-wrap i{
+    position:absolute;
+    left:18px;
+    top:50%;
+    transform:translateY(-50%);
+    font-size:20px;
+    color:#14365f;
+    opacity:.95;
+}
+
+input[type="text"],
+input[type="tel"]{
+    width:100%;
+    padding:17px 18px;
+    margin:8px 0;
+    border-radius:14px;
+    border:1.5px solid var(--border);
+    background:white;
+    color:var(--text);
+    font-size:16px;
+    outline:none;
+    transition:.2s;
+}
+
+.field-wrap input{
+    padding-left:52px;
+    margin:0;
+}
+
+input[type="text"]:focus,
+input[type="tel"]:focus{
+    border-color:var(--blue);
+    box-shadow:0 0 0 4px rgba(25,118,210,.10);
+}
+
+input::placeholder{
+    color:#8a94a6;
+}
+
+.section-label,
+label{
+    font-weight:900;
+}
+
+.section-label{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin:20px 0 10px;
+    font-size:18px;
+}
+
+.section-label i{
+    color:var(--blue);
+    font-size:22px;
+    width:24px;
+    text-align:center;
+}
+
+.gender-icon{
+    display:inline-flex;
+    align-items:center;
+    gap:2px;
+}
+
+.gender-icon .fa-mars{
+    color:#0D6EFD;
+}
+
+.gender-icon .fa-venus{
+    color:var(--pink);
+}
+
+/* ===================================================== */
+/* ================= PILIHAN RADIO ====================== */
+/* ===================================================== */
+
+.radio-group{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+    margin:8px 0 6px;
+}
+
+.radio-group label{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    min-width:74px;
+    min-height:50px;
+    border:2px solid #d3d8df;
+    background:#fff;
+    border-radius:13px;
+    padding:10px 16px;
+    cursor:pointer;
+    transition:.2s;
+    user-select:none;
+    font-size:16px;
+    margin:0;
+    box-shadow:0 2px 7px rgba(15,23,42,.04);
+}
+
+.radio-group input{
+    display:none;
+}
+
+.radio-group label:hover{
+    border-color:var(--blue-light);
+    transform:translateY(-1px);
+}
+
+.radio-group label.active{
+    background:linear-gradient(135deg,#1976D2,#0D6EFD);
+    color:#fff;
+    border-color:#1976D2;
+    box-shadow:0 10px 20px rgba(25,118,210,.24);
+}
+
+.radio-group label.active i{
+    color:#fff;
+}
+
+.radio-group label.disabled{
+    opacity:.38;
+    pointer-events:none;
+    background:#eef2f6;
+}
+
+/* ===================================================== */
+/* ================= SIZE CHART BUTTON ================== */
+/* ===================================================== */
+
+.size-row{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
+    margin:0 0 12px;
+}
+
+.size-chart-btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    background:linear-gradient(135deg,#FF9800,#fb8500);
+    color:white;
+    border:none;
+    border-radius:12px;
+    padding:12px 16px;
+    cursor:pointer;
+    font-weight:900;
+    font-size:15px;
+    transition:.2s;
+    box-shadow:0 10px 18px rgba(255,152,0,.25);
+}
+
+.size-chart-btn:hover{
+    transform:translateY(-1px);
+}
+
+#sizeLainnya{
+    margin-top:12px;
+}
+
+/* ===================================================== */
+/* ================= BUTTON ============================= */
+/* ===================================================== */
+
+.button-group{
+    display:grid;
+    grid-template-columns:1fr 1.35fr;
+    gap:14px;
+    margin-top:20px;
+}
+
+.left-buttons{
+    display:block;
+}
+
+.btn{
+    width:100%;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    background:linear-gradient(135deg,#1976D2,#0D6EFD);
+    color:white;
+    border:none;
+    padding:16px 18px;
+    border-radius:14px;
+    cursor:pointer;
+    font-size:16px;
+    font-weight:900;
+    box-shadow:0 12px 22px rgba(25,118,210,.24);
+    transition:.2s;
+}
+
+.btn:hover,
+.floating-btn:hover{
+    transform:translateY(-1px);
+}
+
+.btn-send{
+    background:linear-gradient(135deg,#43A047,#2fac49);
+    box-shadow:0 12px 22px rgba(67,160,71,.22);
+}
+
+button:disabled{
+    opacity:.65;
+    cursor:not-allowed;
+    transform:none!important;
+}
+
+/* ===================================================== */
+/* ================= TABEL DATA ========================= */
+/* ===================================================== */
+
+.table-wrapper{
+    width:100%;
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    margin-top:18px;
+    border-collapse:separate;
+    border-spacing:0;
+    font-size:13px;
+    overflow:hidden;
+    border-radius:14px;
+}
+
+th,td{
+    padding:10px;
+    border:1px solid #e3e8ef;
+    text-align:center;
+}
+
+th{
+    background:#f2f7ff;
+    color:#14365f;
+    font-weight:900;
+}
+
+.delete-btn{
+    background:#f44336;
+    color:white;
+    border:none;
+    padding:8px 12px;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:900;
+}
+
+
+/* ===================================================== */
+/* ============= ANIMASI ERROR SHAKE ==================== */
+/* ===================================================== */
+
+function shakePopupError(){
+    let popupBox = document.querySelector("#customPopup .popup-box");
+
+    if(!popupBox) return;
+
+    popupBox.classList.remove("popup-error-shake");
+    void popupBox.offsetWidth;
+    popupBox.classList.add("popup-error-shake");
+
+    setTimeout(function(){
+        popupBox.classList.remove("popup-error-shake");
+    }, 420);
+}
+
+function shakeInput(id){
+    let input = document.getElementById(id);
+
+    if(!input) return;
+
+    input.classList.remove("input-error-shake");
+    void input.offsetWidth;
+    input.classList.add("input-error-shake");
+
+    setTimeout(function(){
+        input.classList.remove("input-error-shake");
+    }, 550);
+}
+
+
+/* ===================================================== */
+/* ================= FLOATING WHATSAPP ================= */
+/* ===================================================== */
+
+.floating-wa{
+    position:fixed;
+    right:16px;
+    bottom:calc(env(safe-area-inset-bottom, 20px) + 18px);
+    z-index:999;
+}
+
+.floating-btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:9px;
+    background:linear-gradient(135deg,#16c96f,#18b95f);
+    color:white;
+    border:none;
+    border-radius:50px;
+    padding:15px 22px;
+    font-size:16px;
+    font-weight:900;
+    cursor:pointer;
+    box-shadow:0 14px 28px rgba(22,201,111,.28);
+}
+
+.wa-dropdown{
+    display:none;
+    flex-direction:column;
+    margin-bottom:10px;
+    gap:8px;
+}
+
+.wa-dropdown button{
+    background:#25D366;
+    color:white;
+    border:none;
+    border-radius:12px;
+    padding:11px 14px;
+    cursor:pointer;
+    font-weight:800;
+}
+
+/* ===================================================== */
+/* ================= POPUP CUSTOM ======================= */
+/* ===================================================== */
+
+.popup-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(15,23,42,.55);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+    padding:18px;
+}
+
+.popup-box{
+    background:white;
+    padding:24px;
+    width:100%;
+    max-width:340px;
+    border-radius:20px;
+    text-align:center;
+    box-shadow:var(--shadow);
+    animation:popupShow .2s ease;
+}
+
+.popup-icon{
+    font-size:48px;
+    margin-bottom:10px;
+}
+
+.popup-message{
+    font-size:15px;
+    margin-bottom:18px;
+    line-height:1.5;
+    color:#172033;
+}
+
+.popup-buttons{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+}
+
+.popup-buttons button{
+    border:none;
+    border-radius:12px;
+    padding:11px 18px;
+    cursor:pointer;
+    font-weight:900;
+}
+
+.popup-ok{
+    background:#1976D2;
+    color:white;
+}
+
+.popup-cancel{
+    background:#e5e7eb;
+    color:#111827;
+}
+
+.loading-spinner{
+    width:42px;
+    height:42px;
+    border:5px solid #e5e7eb;
+    border-top:5px solid #1976D2;
+    border-radius:50%;
+    margin:0 auto 12px;
+    animation:spin .8s linear infinite;
+}
+
+.success-check{
+    width:52px;
+    height:52px;
+    border-radius:50%;
+    background:#4CAF50;
+    color:white;
+    font-size:32px;
+    margin:0 auto 12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+@keyframes spin{
+    to{ transform:rotate(360deg); }
+}
+
+@keyframes popupShow{
+    from{ transform:scale(.92); opacity:0; }
+    to{ transform:scale(1); opacity:1; }
+}
+
+/* ===================================================== */
+/* ================= POPUP SIZE CHART =================== */
+/* ===================================================== */
+
+.sizechart-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.65);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:99999;
+    padding:15px;
+}
+
+.sizechart-box{
+    position:relative;
+    width:100%;
+    max-width:900px;
+    max-height:90vh;
+    background:white;
+    padding:15px;
+    border-radius:18px;
+    animation:popupZoom .2s ease;
+    overflow:auto;
+    -webkit-overflow-scrolling:touch;
+    touch-action:auto;
+}
+
+.sizechart-image{
+    width:100%;
+    border-radius:12px;
+    touch-action:auto;
+    user-select:auto;
+    -webkit-user-drag:auto;
+    cursor:default;
+}
+
+.sizechart-image.dragging{
+    cursor:grabbing;
+}
+
+
+
+.sizechart-close{
+    position:absolute;
+    top:8px;
+    right:12px;
+    font-size:30px;
+    font-weight:bold;
+    cursor:pointer;
+    color:#444;
+}
+
+.sizechart-close:hover{
+    color:red;
+}
+
+@keyframes popupZoom{
+    from{ transform:scale(.88); opacity:0; }
+    to{ transform:scale(1); opacity:1; }
+}
+
+/* ===================================================== */
+/* ================= STATUS ============================= */
+/* ===================================================== */
+
+.btn-send.closed{
+    background:#9e9e9e !important;
+    color:white;
+    cursor:not-allowed;
+    box-shadow:none;
+}
+
+.network-status{
+    display:none;
+    position:relative;
+    background:linear-gradient(135deg,#fff5f5,#ffe8e8);
+    color:#8a1f1f;
+    border:1.8px solid #ffb4b4;
+    border-left:6px solid #ef4444;
+    padding:14px 15px 14px 52px;
+    border-radius:16px;
+    font-size:14px;
+    font-weight:800;
+    text-align:left;
+    margin:0 0 16px;
+    line-height:1.55;
+    box-shadow:0 10px 22px rgba(239,68,68,.12);
+}
+
+.network-status::before{
+    content:"\f1eb";
+    font-family:"Font Awesome 6 Free";
+    font-weight:900;
+    position:absolute;
+    left:16px;
+    top:17px;
+    width:25px;
+    height:25px;
+    border-radius:50%;
+    background:#ef4444;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:12px;
+}
+
+.network-status.show{
+    display:block;
+    animation:offlineBoxShow .25s ease, offlinePulse 2s ease-in-out infinite;
+}
+
+@keyframes offlineBoxShow{
+    from{
+        opacity:0;
+        transform:translateY(-6px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+@keyframes offlinePulse{
+    0%{
+        box-shadow:0 10px 22px rgba(239,68,68,.12);
+    }
+
+    50%{
+        box-shadow:0 14px 28px rgba(239,68,68,.22);
+    }
+
+    100%{
+        box-shadow:0 10px 22px rgba(239,68,68,.12);
+    }
+}
+
+.btn-send.closed,
+.btn-send.offline{
+    background:#9e9e9e !important;
+    color:white !important;
+    cursor:not-allowed;
+    box-shadow:none;
+}
+
+/* ===================================================== */
+/* ================= RESPONSIVE HP ====================== */
+/* ===================================================== */
+
+@media(max-width:768px){
+    body{
+        padding:0;
+        background:#f3f6fb;
+    }
+
+    .container{
+        max-width:none;
+        min-height:100vh;
+        border-radius:0;
+        box-shadow:none;
+        padding:0 20px 115px;
+    }
+
+    .title-box{
+        margin:0 -20px 18px;
+        padding:28px 22px 28px;
+        text-align:left;
+    }
+
+    .title-icon{
+        width:64px;
+        height:64px;
+        min-width:64px;
+        border-radius:18px;
+    }
+
+    .title-icon i{
+        font-size:38px;
+    }
+
+    .title-box h2{
+        font-size:34px;
+    }
+
+    .title-box p{
+        font-size:16px;
+    }
+
+    .note-box{
+        font-size:17px;
+        padding:22px 18px;
+        border-radius:18px;
+    }
+
+    .note-box::before{
+        font-size:26px;
+    }
+
+    .countdown-box{
+        padding:16px 12px;
+        border-radius:18px;
+    }
+
+    .countdown-wrapper{
+        gap:10px;
+    }
+
+    .count-number{
+        font-size:28px;
+    }
+
+    .count-label{
+        font-size:12px;
+    }
+
+    input[type="text"],
+    input[type="tel"]{
+        font-size:20px;
+        padding:20px 18px;
+        border-radius:17px;
+    }
+
+    .field-wrap input{
+        padding-left:58px;
+    }
+
+    .field-wrap i{
+        font-size:22px;
+        left:20px;
+    }
+
+    .section-label{
+        font-size:26px;
+        margin-top:24px;
+        margin-bottom:12px;
+    }
+
+    .section-label i{
+        font-size:26px;
+        width:28px;
+    }
+
+    .size-chart-btn{
+        font-size:20px;
+        padding:15px 20px;
+        border-radius:14px;
+    }
+
+    .radio-group{
+        gap:14px;
+    }
+
+    .radio-group label{
+        min-width:84px;
+        min-height:64px;
+        font-size:24px;
+        border-radius:16px;
+        padding:12px 20px;
+    }
+
+    .button-group{
+        grid-template-columns:1fr;
+        gap:16px;
+    }
+
+    .btn{
+        font-size:24px;
+        padding:20px 18px;
+        border-radius:16px;
+    }
+
+    .floating-btn{
+        font-size:23px;
+        padding:18px 26px;
+    }
+
+    table thead{
+        display:none;
+    }
+
+    table,tbody,tr,td{
+        display:block;
+        width:100%;
+    }
+
+    tr{
+        background:#fff;
+        margin-bottom:12px;
+        border-radius:14px;
+        padding:12px;
+        box-shadow:0 4px 14px rgba(15,23,42,.09);
+    }
+
+    td{
+        display:flex;
+        justify-content:space-between;
+        border:none;
+        border-bottom:1px solid #eee;
+        text-align:left;
+        font-size:15px;
+    }
+
+    td::before{
+        content:attr(data-label);
+        font-weight:900;
+        margin-right:12px;
+    }
+}
+
+@media(max-width:390px){
+    .title-box h2{
+        font-size:29px;
+    }
+
+    .title-inner{
+        gap:12px;
+    }
+
+    .title-icon{
+        width:56px;
+        height:56px;
+        min-width:56px;
+    }
+
+    .title-icon i{
+        font-size:32px;
+    }
+
+    .note-box{
+        font-size:15px;
+    }
+
+    .radio-group label{
+        min-width:74px;
+        min-height:58px;
+        font-size:21px;
+        padding:10px 16px;
+    }
+
+    .floating-btn{
+        font-size:18px;
+        padding:15px 20px;
+    }
+}
+
+
+.sheet-icon{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:4px;
+    margin-right:2px;
+}
+
+.sheet-icon i{
+    margin:0!important;
+}
+
+.sheet-icon .fa-google{
+    font-size:.9em;
+}
+
+.sheet-icon .fa-table-cells{
+    font-size:.9em;
+}
+
+
+/* ===================================================== */
+/* ============ ANIMASI HALUS NOTE & COUNTDOWN ========== */
+/* ===================================================== */
+
+.note-box{
+    animation:pulseNote 2s ease-in-out infinite;
+}
+
+.countdown-box{
+    animation:glowCountdown 2s ease-in-out infinite;
+}
+
+@keyframes pulseNote{
+    0%{
+        box-shadow:0 12px 25px rgba(255,193,7,.18);
+    }
+
+    50%{
+        box-shadow:0 16px 32px rgba(255,193,7,.30);
+    }
+
+    100%{
+        box-shadow:0 12px 25px rgba(255,193,7,.18);
+    }
+}
+
+@keyframes glowCountdown{
+    0%{
+        box-shadow:0 18px 32px rgba(25,118,210,.28);
+    }
+
+    50%{
+        box-shadow:0 22px 40px rgba(25,118,210,.42);
+    }
+
+    100%{
+        box-shadow:0 18px 32px rgba(25,118,210,.28);
+    }
+}
+
+
+/* ===================================================== */
+/* =========== RINGKASAN KONFIRMASI KIRIM =============== */
+/* ===================================================== */
+
+.summary-confirm{
+    text-align:left;
+    background:#f8fbff;
+    border:1.5px solid #dbeafe;
+    border-radius:16px;
+    padding:14px;
+    margin:8px 0 4px;
+}
+
+.summary-title{
+    color:#14365f;
+    font-size:17px;
+    font-weight:900;
+    text-align:center;
+    margin-bottom:10px;
+}
+
+.summary-row{
+    display:flex;
+    justify-content:space-between;
+    gap:12px;
+    padding:8px 0;
+    border-bottom:1px solid #e5edf8;
+    font-size:14px;
+}
+
+.summary-row:last-of-type{
+    border-bottom:none;
+}
+
+.summary-row span{
+    color:#64748b;
+    font-weight:800;
+}
+
+.summary-row b{
+    color:#0f172a;
+    text-align:right;
+}
+
+.summary-total{
+    text-align:center;
+    color:#0f172a;
+    font-size:15px;
+    margin-bottom:10px;
+}
+
+.summary-list{
+    max-height:220px;
+    overflow:auto;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+}
+
+.summary-card{
+    background:white;
+    border:1px solid #e5edf8;
+    border-radius:12px;
+    padding:10px;
+    color:#334155;
+    font-size:13px;
+    line-height:1.45;
+}
+
+.summary-card-title{
+    color:#1976D2;
+    font-weight:900;
+    margin-bottom:4px;
+}
+
+.summary-note{
+    margin-top:12px;
+    color:#d97706;
+    background:#fff7d6;
+    border:1px solid #ffe08a;
+    border-radius:10px;
+    padding:9px 10px;
+    font-size:13px;
+    font-weight:900;
+    text-align:center;
+}
+
+@media(max-width:768px){
+    .summary-confirm{
+        padding:14px;
+    }
+
+    .summary-title{
+        font-size:20px;
+    }
+
+    .summary-row{
+        font-size:16px;
+    }
+
+    .summary-card{
+        font-size:15px;
+    }
+
+    .summary-note{
+        font-size:15px;
+    }
+}
+
+
+.popup-icon i{
+    color:#1976D2;
+    font-size:44px;
+}
+
+
+input#hp{
+    letter-spacing:.3px;
+}
+
+
+.sizechart-close{
+    display:none!important;
+}
+
+
+/* ===================================================== */
+/* ============ MODE HP LEBIH COMPACT / KECIL =========== */
+/* ===================================================== */
+
+@media(max-width:768px){
+    body{
+        padding:0;
+    }
+
+    .container{
+        padding:0 14px 95px;
+    }
+
+    .title-box{
+        margin:0 -14px 14px;
+        padding:20px 18px 22px;
+    }
+
+    .title-inner{
+        gap:12px;
+    }
+
+    .title-icon{
+        width:52px;
+        height:52px;
+        min-width:52px;
+        border-radius:15px;
+    }
+
+    .title-icon i{
+        font-size:30px;
+    }
+
+    .title-box h2{
+        font-size:28px;
+        letter-spacing:.2px;
+    }
+
+    .title-box p{
+        font-size:14px;
+        margin-top:5px;
+    }
+
+    .note-box{
+        font-size:13px;
+        padding:15px 13px;
+        border-radius:15px;
+        margin:14px 0;
+        line-height:1.55;
+    }
+
+    .note-box::before{
+        font-size:21px;
+        margin-bottom:4px;
+    }
+
+    .countdown-box{
+        padding:13px 10px;
+        border-radius:15px;
+        margin:14px 0 20px;
+    }
+
+    .countdown-row{
+        gap:10px;
+    }
+
+    .countdown-title{
+        font-size:15px;
+    }
+
+    .countdown-wrapper{
+        gap:8px;
+    }
+
+    .count-item{
+        padding:9px 5px;
+        border-radius:12px;
+    }
+
+    .count-number{
+        font-size:23px;
+    }
+
+    .count-label{
+        font-size:10px;
+        margin-top:5px;
+    }
+
+    .field-wrap{
+        margin:6px 0 14px;
+    }
+
+    input[type="text"],
+    input[type="tel"]{
+        font-size:16px;
+        padding:15px 14px;
+        border-radius:14px;
+    }
+
+    .field-wrap input{
+        padding-left:46px;
+    }
+
+    .field-wrap i{
+        font-size:18px;
+        left:16px;
+    }
+
+    .section-label{
+        font-size:20px;
+        margin-top:18px;
+        margin-bottom:10px;
+        gap:8px;
+    }
+
+    .section-label i{
+        font-size:21px;
+        width:23px;
+    }
+
+    .size-chart-btn{
+        font-size:15px;
+        padding:12px 15px;
+        border-radius:12px;
+    }
+
+    .radio-group{
+        gap:10px;
+    }
+
+    .radio-group label{
+        min-width:64px;
+        min-height:48px;
+        font-size:17px;
+        border-radius:13px;
+        padding:9px 14px;
+    }
+
+    .button-group{
+        gap:12px;
+        margin-top:18px;
+    }
+
+    .btn{
+        font-size:18px;
+        padding:16px 15px;
+        border-radius:14px;
+    }
+
+    .floating-wa{
+        right:12px;
+        bottom:calc(env(safe-area-inset-bottom, 20px) + 14px);
+    }
+
+    .floating-btn{
+        font-size:17px;
+        padding:13px 18px;
+    }
+
+    .network-status{
+        font-size:13px;
+        padding:12px 12px 12px 48px;
+        border-radius:14px;
+    }
+
+    .network-status::before{
+        left:14px;
+        top:15px;
+    }
+}
+
+@media(max-width:390px){
+    .container{
+        padding:0 12px 90px;
+    }
+
+    .title-box{
+        margin:0 -12px 12px;
+        padding:18px 15px 20px;
+    }
+
+    .title-box h2{
+        font-size:25px;
+    }
+
+    .title-box p{
+        font-size:13px;
+    }
+
+    .title-icon{
+        width:48px;
+        height:48px;
+        min-width:48px;
+    }
+
+    .title-icon i{
+        font-size:28px;
+    }
+
+    .note-box{
+        font-size:12.5px;
+        padding:13px 11px;
+    }
+
+    .note-box::before{
+        font-size:19px;
+    }
+
+    .count-number{
+        font-size:21px;
+    }
+
+    .count-label{
+        font-size:9px;
+    }
+
+    .section-label{
+        font-size:18px;
+    }
+
+    .radio-group label{
+        min-width:58px;
+        min-height:45px;
+        font-size:16px;
+        padding:8px 12px;
+    }
+
+    .btn{
+        font-size:17px;
+        padding:15px 14px;
+    }
+
+    .floating-btn{
+        font-size:15px;
+        padding:12px 16px;
+    }
+}
+
+
+.note-box,
+.countdown-box{
+    will-change:box-shadow;
+    transform:none!important;
+    backface-visibility:hidden;
+}
+
+
+/* ===================================================== */
+/* ===== SIZE CHART MENGGUNAKAN ZOOM BAWAAN BROWSER ===== */
+/* ===================================================== */
+
+.sizechart-overlay,
+.sizechart-box,
+.sizechart-image{
+    touch-action:auto!important;
+}
+
+.sizechart-image{
+    transform:none!important;
+}
+
+
+/* ===================================================== */
+/* ===== INFO PEMESANAN TIDAK IKUT SAAT SCROLL ========== */
+/* ===================================================== */
+
+.floating-wa{
+    position:static!important;
+    right:auto!important;
+    bottom:auto!important;
+    z-index:auto!important;
+    width:100%;
+    max-width:700px;
+    margin:16px auto 24px;
+    padding:0 18px;
+    display:flex;
+    flex-direction:column;
+    align-items:flex-end;
+}
+
+.floating-btn{
+    width:auto;
+}
+
+.wa-dropdown{
+    width:auto;
+    align-items:stretch;
+}
+
+@media(max-width:768px){
+    .floating-wa{
+        max-width:none;
+        margin:14px auto 22px;
+        padding:0 14px;
+        align-items:stretch;
+    }
+
+    .floating-btn{
+        width:100%;
+    }
+}
+
+@media(max-width:390px){
+    .floating-wa{
+        padding:0 12px;
+    }
+}
+
+
+/* ===================================================== */
+/* ===== LOGO WA DI POJOK KANAN ATAS HEADER ============= */
+/* ===================================================== */
+
+.wa-header-btn{
+    position:absolute;
+    top:18px;
+    right:18px;
+    z-index:5;
+    width:46px;
+    height:46px;
+    border:none;
+    border-radius:50%;
+    background:#25D366;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:27px;
+    cursor:pointer;
+    box-shadow:0 10px 22px rgba(37,211,102,.30);
+    transition:.2s;
+}
+
+.wa-header-btn:hover{
+    transform:translateY(-1px) scale(1.03);
+}
+
+.wa-header-dropdown{
+    position:absolute;
+    top:70px;
+    right:18px;
+    z-index:6;
+    display:none;
+    flex-direction:column;
+    gap:8px;
+    min-width:155px;
+}
+
+.wa-header-dropdown button{
+    border:none;
+    border-radius:13px;
+    padding:11px 13px;
+    background:white;
+    color:#166534;
+    font-size:14px;
+    font-weight:900;
+    cursor:pointer;
+    box-shadow:0 10px 22px rgba(15,23,42,.18);
+    display:flex;
+    align-items:center;
+    justify-content:flex-start;
+    gap:8px;
+}
+
+.wa-header-dropdown button i{
+    color:#25D366;
+    font-size:18px;
+}
+
+@media(max-width:768px){
+    .wa-header-btn{
+        top:14px;
+        right:14px;
+        width:42px;
+        height:42px;
+        font-size:25px;
+    }
+
+    .wa-header-dropdown{
+        top:62px;
+        right:14px;
+    }
+}
+
+@media(max-width:390px){
+    .wa-header-btn{
+        width:39px;
+        height:39px;
+        font-size:23px;
+    }
+
+    .wa-header-dropdown{
+        top:58px;
+    }
+}
+
+
+
+
+/* ===================================================== */
+/* ========== FIX POPUP INFO ADMIN TAMPIL DI TENGAH ===== */
+/* ===================================================== */
+
+.admin-popup-overlay{
+    position:fixed!important;
+    inset:0!important;
+    z-index:100000!important;
+    background:rgba(15,23,42,.58)!important;
+    display:none;
+    align-items:center!important;
+    justify-content:center!important;
+    padding:18px!important;
+}
+
+.admin-popup-overlay.show{
+    display:flex!important;
+}
+
+.admin-popup-box{
+    position:relative!important;
+    width:100%!important;
+    max-width:360px!important;
+    background:#ffffff!important;
+    border-radius:22px!important;
+    padding:26px 20px 20px!important;
+    text-align:center!important;
+    box-shadow:0 20px 45px rgba(15,23,42,.25)!important;
+    animation:popupShow .2s ease!important;
+}
+
+.admin-popup-close{
+    position:absolute!important;
+    top:12px!important;
+    right:12px!important;
+    width:34px!important;
+    height:34px!important;
+    border:none!important;
+    border-radius:50%!important;
+    background:#f1f5f9!important;
+    color:#334155!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    cursor:pointer!important;
+    font-size:16px!important;
+}
+
+.admin-popup-icon{
+    width:70px!important;
+    height:70px!important;
+    border-radius:50%!important;
+    background:#25D366!important;
+    color:white!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    margin:0 auto 12px!important;
+    font-size:40px!important;
+    box-shadow:0 12px 24px rgba(37,211,102,.28)!important;
+}
+
+.admin-popup-box h3{
+    margin:0 0 8px!important;
+    color:#14365f!important;
+    font-size:22px!important;
+    font-weight:900!important;
+}
+
+.admin-popup-box p{
+    margin:0!important;
+    color:#475569!important;
+    font-size:15px!important;
+    line-height:1.55!important;
+    font-weight:700!important;
+}
+
+.admin-popup-buttons{
+    display:grid!important;
+    grid-template-columns:1fr 1fr!important;
+    gap:10px!important;
+    margin-top:18px!important;
+}
+
+.admin-popup-buttons button{
+    border:none!important;
+    border-radius:14px!important;
+    padding:13px 12px!important;
+    background:#25D366!important;
+    color:white!important;
+    font-size:15px!important;
+    font-weight:900!important;
+    cursor:pointer!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    gap:8px!important;
+    box-shadow:0 10px 20px rgba(37,211,102,.20)!important;
+}
+
+.admin-popup-buttons button:hover{
+    transform:translateY(-1px)!important;
+}
+
+@media(max-width:390px){
+    .admin-popup-box{
+        max-width:320px!important;
+        padding:24px 16px 18px!important;
+    }
+
+    .admin-popup-box h3{
+        font-size:20px!important;
+    }
+
+    .admin-popup-box p{
+        font-size:14px!important;
+    }
+
+    .admin-popup-buttons button{
+        font-size:14px!important;
+        padding:12px 10px!important;
+    }
+}
+
+
+/* ===================================================== */
+/* ============== EFEK GLOW LEBIH HALUS ================= */
+/* ===================================================== */
+
+.container{
+    box-shadow:0 10px 24px rgba(15,23,42,.08)!important;
+}
+
+.title-box{
+    box-shadow:none!important;
+}
+
+.note-box{
+    box-shadow:0 8px 16px rgba(255,193,7,.12)!important;
+}
+
+.countdown-box{
+    box-shadow:0 10px 20px rgba(25,118,210,.16)!important;
+}
+
+.count-item{
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)!important;
+}
+
+.size-chart-btn{
+    box-shadow:0 6px 12px rgba(255,152,0,.16)!important;
+}
+
+.btn{
+    box-shadow:0 7px 14px rgba(25,118,210,.14)!important;
+}
+
+.btn-send{
+    box-shadow:0 7px 14px rgba(67,160,71,.14)!important;
+}
+
+.radio-group label.active{
+    box-shadow:0 6px 12px rgba(25,118,210,.16)!important;
+}
+
+.network-status{
+    box-shadow:0 6px 14px rgba(239,68,68,.10)!important;
+}
+
+.wa-header-btn{
+    box-shadow:0 6px 14px rgba(37,211,102,.18)!important;
+}
+
+.admin-popup-box,
+.popup-box{
+    box-shadow:0 14px 30px rgba(15,23,42,.18)!important;
+}
+
+.admin-popup-icon{
+    box-shadow:0 7px 16px rgba(37,211,102,.18)!important;
+}
+
+.admin-popup-buttons button{
+    box-shadow:0 6px 13px rgba(37,211,102,.14)!important;
+}
+
+@keyframes pulseNote{
+    0%{
+        box-shadow:0 8px 16px rgba(255,193,7,.12);
+    }
+
+    50%{
+        box-shadow:0 10px 20px rgba(255,193,7,.18);
+    }
+
+    100%{
+        box-shadow:0 8px 16px rgba(255,193,7,.12);
+    }
+}
+
+@keyframes glowCountdown{
+    0%{
+        box-shadow:0 10px 20px rgba(25,118,210,.16);
+    }
+
+    50%{
+        box-shadow:0 12px 24px rgba(25,118,210,.22);
+    }
+
+    100%{
+        box-shadow:0 10px 20px rgba(25,118,210,.16);
+    }
+}
+
+@keyframes offlinePulse{
+    0%{
+        box-shadow:0 6px 14px rgba(239,68,68,.10);
+    }
+
+    50%{
+        box-shadow:0 8px 18px rgba(239,68,68,.15);
+    }
+
+    100%{
+        box-shadow:0 6px 14px rgba(239,68,68,.10);
+    }
+}
+
+
+/* ===================================================== */
+/* ===== ANIMASI LOGO WA SAAT SCROLL KE ATAS ============ */
+/* ===================================================== */
+
+.wa-header-btn.wa-notice{
+    animation:waNoticeMove 1.15s ease-in-out 1;
+}
+
+@keyframes waNoticeMove{
+    0%{
+        transform:translateY(0) rotate(0deg) scale(1);
+    }
+
+    20%{
+        transform:translateY(-3px) rotate(-8deg) scale(1.06);
+    }
+
+    40%{
+        transform:translateY(2px) rotate(8deg) scale(1.06);
+    }
+
+    60%{
+        transform:translateY(-2px) rotate(-6deg) scale(1.04);
+    }
+
+    80%{
+        transform:translateY(1px) rotate(4deg) scale(1.03);
+    }
+
+    100%{
+        transform:translateY(0) rotate(0deg) scale(1);
+    }
+}
+
+.wa-header-btn::after{
+    content:"";
+    position:absolute;
+    inset:-5px;
+    border-radius:50%;
+    border:2px solid rgba(37,211,102,.35);
+    opacity:0;
+    pointer-events:none;
+}
+
+.wa-header-btn.wa-notice::after{
+    animation:waRingNotice 1.15s ease-out 1;
+}
+
+@keyframes waRingNotice{
+    0%{
+        opacity:0;
+        transform:scale(.85);
+    }
+
+    35%{
+        opacity:1;
+    }
+
+    100%{
+        opacity:0;
+        transform:scale(1.35);
+    }
+}
+
+
+/* ===================================================== */
+/* ===== ANIMASI HALUS TOMBOL PENTING =================== */
+/* ===================================================== */
+
+.btn-send{
+    animation:sendButtonNotice 4s ease-in-out infinite;
+}
+
+@keyframes sendButtonNotice{
+    0%, 72%, 100%{
+        transform:translateY(0);
+        box-shadow:0 7px 14px rgba(67,160,71,.14);
+    }
+
+    78%{
+        transform:translateY(-2px);
+        box-shadow:0 10px 18px rgba(67,160,71,.20);
+    }
+
+    84%{
+        transform:translateY(0);
+        box-shadow:0 7px 14px rgba(67,160,71,.14);
+    }
+
+    90%{
+        transform:translateY(-1px);
+        box-shadow:0 9px 16px rgba(67,160,71,.18);
+    }
+}
+
+.size-chart-btn i{
+    animation:sizeChartIconNotice 5s ease-in-out infinite;
+}
+
+@keyframes sizeChartIconNotice{
+    0%, 76%, 100%{
+        transform:rotate(0deg) scale(1);
+    }
+
+    82%{
+        transform:rotate(-8deg) scale(1.08);
+    }
+
+    88%{
+        transform:rotate(8deg) scale(1.08);
+    }
+
+    94%{
+        transform:rotate(0deg) scale(1);
+    }
+}
+
+/* Saat user hover/klik, animasi tidak melawan interaksi */
+.btn-send:hover{
+    animation-play-state:paused;
+}
+
+.size-chart-btn:hover i{
+    animation-play-state:paused;
+}
+
+/* Hormati pengguna yang memilih mengurangi animasi */
+@media(prefers-reduced-motion:reduce){
+    .btn-send,
+    .size-chart-btn i,
+    .wa-header-btn.wa-notice,
+    .wa-header-btn.wa-notice::after{
+        animation:none!important;
+    }
+}
+
+
+/* ===================================================== */
+/* ===== ANIMASI DATA BARU SAAT BERHASIL DISIMPAN ======= */
+/* ===================================================== */
+
+tr.new-saved-row{
+    animation:newSavedRowNotice 3s ease-in-out 1;
+}
+
+tr.new-saved-row td{
+    animation:newSavedCellNotice 3s ease-in-out 1;
+}
+
+@keyframes newSavedRowNotice{
+    0%{
+        transform:translateY(-4px);
+    }
+
+    25%{
+        transform:translateY(0);
+    }
+
+    100%{
+        transform:translateY(0);
+    }
+}
+
+@keyframes newSavedCellNotice{
+    0%{
+        background:#e8f5ff;
+        box-shadow:inset 0 0 0 999px rgba(25,118,210,.10);
+    }
+
+    45%{
+        background:#f0fdf4;
+        box-shadow:inset 0 0 0 999px rgba(67,160,71,.10);
+    }
+
+    100%{
+        background:transparent;
+        box-shadow:none;
+    }
+}
+
+@media(max-width:768px){
+    tr.new-saved-row{
+        animation:newSavedMobileCard 3s ease-in-out 1;
+    }
+
+    tr.new-saved-row td{
+        animation:none;
+    }
+}
+
+@keyframes newSavedMobileCard{
+    0%{
+        transform:translateY(-5px);
+        background:#e8f5ff;
+        box-shadow:0 6px 18px rgba(25,118,210,.18);
+    }
+
+    45%{
+        transform:translateY(0);
+        background:#f0fdf4;
+        box-shadow:0 6px 18px rgba(67,160,71,.14);
+    }
+
+    100%{
+        transform:translateY(0);
+        background:#ffffff;
+        box-shadow:0 4px 14px rgba(15,23,42,.09);
+    }
+}
+
+@media(prefers-reduced-motion:reduce){
+    tr.new-saved-row,
+    tr.new-saved-row td{
+        animation:none!important;
+    }
+}
+
+
+/* ===================================================== */
+/* ===== TAMBAHAN ANIMASI AGAR FORM LEBIH HIDUP ========= */
+/* ===================================================== */
+
+/* Radio yang dipilih terasa lebih responsif */
+.radio-group label.radio-pop{
+    animation:radioPop .32s ease-out 1;
+}
+
+@keyframes radioPop{
+    0%{
+        transform:scale(1);
+    }
+
+    45%{
+        transform:scale(1.07);
+    }
+
+    100%{
+        transform:scale(1);
+    }
+}
+
+/* Popup muncul lebih smooth */
+.popup-box,
+.admin-popup-box{
+    animation:popupSmoothIn .18s ease-out 1!important;
+}
+
+@keyframes popupSmoothIn{
+    0%{
+        opacity:0;
+        transform:translateY(8px);
+    }
+
+    100%{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* Efek shake kecil untuk error hanya dipakai pada input agar popup tidak terasa muncul 2x */
+.popup-box.popup-error-shake,
+.admin-popup-box.popup-error-shake{
+    animation:none!important;
+}
+
+.input-error-shake{
+    animation:errorShake .36s ease-in-out 1!important;
+    border-color:#ef4444!important;
+    box-shadow:0 0 0 4px rgba(239,68,68,.12)!important;
+}
+
+@keyframes errorShake{
+    0%,100%{
+        transform:translateX(0);
+    }
+
+    20%{
+        transform:translateX(-6px);
+    }
+
+    40%{
+        transform:translateX(6px);
+    }
+
+    60%{
+        transform:translateX(-4px);
+    }
+
+    80%{
+        transform:translateX(4px);
+    }
+}
+
+@media(prefers-reduced-motion:reduce){
+    .radio-group label.radio-pop,
+    .popup-box,
+    .admin-popup-box,
+    .popup-box.popup-error-shake,
+    .admin-popup-box.popup-error-shake,
+    .input-error-shake{
+        animation:none!important;
+    }
+}
+
+
+/* ===================================================== */
+/* ===== FIX SHAKE ERROR POPUP JELAS TANPA DOUBLE ======= */
+/* ===================================================== */
+
+.popup-box.popup-error-mode{
+    animation:popupErrorIn .42s ease-in-out 1!important;
+}
+
+@keyframes popupErrorIn{
+    0%{
+        opacity:0;
+        transform:translateY(8px);
+    }
+
+    22%{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+    38%{
+        transform:translateX(-7px);
+    }
+
+    54%{
+        transform:translateX(7px);
+    }
+
+    70%{
+        transform:translateX(-4px);
+    }
+
+    86%{
+        transform:translateX(4px);
+    }
+
+    100%{
+        opacity:1;
+        transform:translateX(0);
+    }
+}
+
+@media(prefers-reduced-motion:reduce){
+    .popup-box.popup-error-mode{
+        animation:none!important;
+    }
+}
+
+
+/* ===================================================== */
+/* ===== FIX ANIMASI HP AGAR LEBIH TERLIHAT ============= */
+/*
+    Beberapa HP/browser membuat animasi kecil terlihat terlalu halus.
+    Bagian ini memperkuat animasi khusus di HP agar lebih mudah terlihat:
+    - Logo WA
+    - Warning popup
+    - Icon penggaris Size Chart
+    - Tombol radio saat dipilih
+    - Tombol Kirim ke Google Spreadsheet
+*/
+/* ===================================================== */
+
+.wa-header-btn,
+.size-chart-btn i,
+.btn-send,
+.radio-group label{
+    will-change:transform, box-shadow;
+}
+
+.size-chart-btn i{
+    display:inline-block!important;
+    transform-origin:center!important;
+}
+
+.btn-send:not(:disabled){
+    animation:sendButtonNoticeStrong 3.4s ease-in-out infinite!important;
+}
+
+@keyframes sendButtonNoticeStrong{
+    0%, 68%, 100%{
+        transform:translateY(0) scale(1);
+        box-shadow:0 7px 14px rgba(67,160,71,.14);
+    }
+
+    76%{
+        transform:translateY(-4px) scale(1.018);
+        box-shadow:0 13px 24px rgba(67,160,71,.28);
+    }
+
+    84%{
+        transform:translateY(0) scale(1);
+        box-shadow:0 7px 14px rgba(67,160,71,.14);
+    }
+
+    92%{
+        transform:translateY(-2px) scale(1.01);
+        box-shadow:0 11px 20px rgba(67,160,71,.22);
+    }
+}
+
+.size-chart-btn i{
+    animation:sizeChartIconNoticeStrong 3.8s ease-in-out infinite!important;
+}
+
+@keyframes sizeChartIconNoticeStrong{
+    0%, 70%, 100%{
+        transform:rotate(0deg) translateX(0) scale(1);
+    }
+
+    78%{
+        transform:rotate(-14deg) translateX(-2px) scale(1.16);
+    }
+
+    86%{
+        transform:rotate(14deg) translateX(2px) scale(1.16);
+    }
+
+    94%{
+        transform:rotate(0deg) translateX(0) scale(1);
+    }
+}
+
+.radio-group label.radio-pop{
+    animation:radioPopStrong .48s cubic-bezier(.2,.9,.2,1.35) 1!important;
+}
+
+@keyframes radioPopStrong{
+    0%{
+        transform:scale(1);
+    }
+
+    45%{
+        transform:scale(1.12);
+    }
+
+    70%{
+        transform:scale(.98);
+    }
+
+    100%{
+        transform:scale(1);
+    }
+}
+
+.popup-box.popup-error-mode{
+    animation:popupErrorStrong .62s ease-in-out 1!important;
+}
+
+@keyframes popupErrorStrong{
+    0%{
+        opacity:0;
+        transform:translateY(10px) scale(.98);
+    }
+
+    18%{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+
+    32%{
+        transform:translateX(-12px);
+    }
+
+    46%{
+        transform:translateX(12px);
+    }
+
+    60%{
+        transform:translateX(-8px);
+    }
+
+    74%{
+        transform:translateX(8px);
+    }
+
+    88%{
+        transform:translateX(-4px);
+    }
+
+    100%{
+        opacity:1;
+        transform:translateX(0);
+    }
+}
+
+.input-error-shake{
+    animation:inputErrorStrong .55s ease-in-out 1!important;
+}
+
+@keyframes inputErrorStrong{
+    0%,100%{
+        transform:translateX(0);
+    }
+
+    20%{
+        transform:translateX(-9px);
+    }
+
+    40%{
+        transform:translateX(9px);
+    }
+
+    60%{
+        transform:translateX(-6px);
+    }
+
+    80%{
+        transform:translateX(6px);
+    }
+}
+
+.wa-header-btn:not(.wa-notice){
+    animation:waIdlePulse 4.2s ease-in-out infinite!important;
+}
+
+@keyframes waIdlePulse{
+    0%, 72%, 100%{
+        transform:scale(1) rotate(0deg);
+        box-shadow:0 6px 14px rgba(37,211,102,.18);
+    }
+
+    80%{
+        transform:scale(1.10) rotate(-7deg);
+        box-shadow:0 10px 22px rgba(37,211,102,.32);
+    }
+
+    88%{
+        transform:scale(1.06) rotate(7deg);
+        box-shadow:0 8px 18px rgba(37,211,102,.26);
+    }
+}
+
+.wa-header-btn.wa-notice{
+    animation:waNoticeMoveStrong 1.2s ease-in-out 1!important;
+}
+
+@keyframes waNoticeMoveStrong{
+    0%{
+        transform:translateY(0) rotate(0deg) scale(1);
+    }
+
+    20%{
+        transform:translateY(-5px) rotate(-12deg) scale(1.13);
+    }
+
+    40%{
+        transform:translateY(3px) rotate(12deg) scale(1.12);
+    }
+
+    60%{
+        transform:translateY(-3px) rotate(-8deg) scale(1.08);
+    }
+
+    80%{
+        transform:translateY(2px) rotate(6deg) scale(1.05);
+    }
+
+    100%{
+        transform:translateY(0) rotate(0deg) scale(1);
+    }
+}
+
+@media(max-width:768px){
+    .btn-send:not(:disabled){
+        animation-duration:3s!important;
+    }
+
+    .size-chart-btn i{
+        animation-duration:3.2s!important;
+    }
+
+    .wa-header-btn:not(.wa-notice){
+        animation-duration:3.5s!important;
+    }
+}
+
+
+/* ===================================================== */
+/* ===== FIX ANIMASI TABEL DATA BARU AGAR TERLIHAT DI HP */
+/*
+    Di tampilan HP, tabel berubah menjadi card.
+    Bagian ini memperkuat animasi card data baru agar lebih terlihat
+    setelah klik OK pada popup simpan.
+*/
+/* ===================================================== */
+
+@media(max-width:768px){
+    tr.new-saved-row{
+        position:relative!important;
+        overflow:hidden!important;
+        animation:newSavedMobileCardStrong 3.4s ease-in-out 1!important;
+        border:2px solid rgba(25,118,210,.35)!important;
+    }
+
+    tr.new-saved-row::before{
+        content:"Baru";
+        position:absolute;
+        top:8px;
+        left:10px;
+        right:auto;
+        z-index:2;
+        background:#1976D2;
+        color:#fff;
+        font-size:10px;
+        font-weight:900;
+        padding:4px 7px;
+        border-radius:999px;
+        line-height:1;
+        animation:newSavedBadgeStrong 3.4s ease-in-out 1!important;
+    }
+
+    tr.new-saved-row td{
+        background:transparent!important;
+    }
+
+    @keyframes newSavedMobileCardStrong{
+        0%{
+            transform:translateY(-10px) scale(.98);
+            background:#e8f5ff;
+            box-shadow:0 0 0 0 rgba(25,118,210,.0);
+        }
+
+        12%{
+            transform:translateY(0) scale(1.015);
+            background:#e8f5ff;
+            box-shadow:0 0 0 5px rgba(25,118,210,.16),
+                       0 10px 24px rgba(25,118,210,.20);
+        }
+
+        38%{
+            transform:translateY(0) scale(1);
+            background:#f0fdf4;
+            box-shadow:0 0 0 4px rgba(67,160,71,.14),
+                       0 10px 24px rgba(67,160,71,.17);
+        }
+
+        72%{
+            background:#fffbea;
+            box-shadow:0 0 0 3px rgba(255,193,7,.16),
+                       0 8px 18px rgba(255,193,7,.12);
+        }
+
+        100%{
+            transform:translateY(0) scale(1);
+            background:#ffffff;
+            box-shadow:0 4px 14px rgba(15,23,42,.09);
+        }
+    }
+
+    @keyframes newSavedBadgeStrong{
+        0%{
+            opacity:0;
+            transform:translateY(-6px) scale(.9);
+        }
+
+        15%{
+            opacity:1;
+            transform:translateY(0) scale(1);
+        }
+
+        78%{
+            opacity:1;
+            transform:translateY(0) scale(1);
+        }
+
+        100%{
+            opacity:0;
+            transform:translateY(-4px) scale(.95);
+        }
+    }
+}
+
+@media(max-width:390px){
+    tr.new-saved-row::before{
+        font-size:10px;
+        padding:4px 7px;
+    }
+}
+
+
+/* ===================================================== */
+/* ===== REVISI BADGE DATA BARU DI HP =================== */
+/*
+    Badge "Baru" dipindah ke kiri atas dan diperkecil
+    agar tidak menutupi nama pesanan.
+*/
+/* ===================================================== */
+
+@media(max-width:768px){
+    tr.new-saved-row{
+        padding-top:28px!important;
+    }
+}
+
+@media(max-width:390px){
+    tr.new-saved-row::before{
+        font-size:9px!important;
+        padding:3px 6px!important;
+        top:7px!important;
+        left:9px!important;
+    }
+}
+
+
+/* ===================================================== */
+/* ===== TOMBOL DAN POPUP DESAIN BAJU =================== */
+/*
+    Tombol desain baju diletakkan sejajar dengan Size Chart.
+    Popup memakai zoom bawaan browser, sama seperti Size Chart.
+*/
+/* ===================================================== */
+
+.design-btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    background:linear-gradient(135deg,#1976D2,#0D6EFD);
+    color:white;
+    border:none;
+    border-radius:12px;
+    padding:12px 16px;
+    cursor:pointer;
+    font-weight:900;
+    font-size:15px;
+    transition:.2s;
+    box-shadow:0 6px 12px rgba(25,118,210,.16);
+}
+
+.design-btn:hover{
+    transform:translateY(-1px);
+}
+
+.design-btn i{
+    display:inline-block;
+    transform-origin:center;
+    animation:designIconNotice 4.2s ease-in-out infinite;
+}
+
+@keyframes designIconNotice{
+    0%, 72%, 100%{
+        transform:translateY(0) scale(1) rotate(0deg);
+    }
+
+    80%{
+        transform:translateY(-2px) scale(1.12) rotate(-6deg);
+    }
+
+    88%{
+        transform:translateY(1px) scale(1.08) rotate(6deg);
+    }
+}
+
+.design-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.65);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:99999;
+    padding:15px;
+    touch-action:auto!important;
+}
+
+.design-box{
+    position:relative;
+    width:100%;
+    max-width:900px;
+    max-height:90vh;
+    background:white;
+    padding:15px;
+    border-radius:18px;
+    animation:popupZoom .2s ease;
+    overflow:auto;
+    -webkit-overflow-scrolling:touch;
+    touch-action:auto!important;
+}
+
+.design-image{
+    width:100%;
+    border-radius:12px;
+    touch-action:auto!important;
+    user-select:auto;
+    -webkit-user-drag:auto;
+    cursor:default;
+    transform:none!important;
+}
+
+@media(max-width:768px){
+    .size-row{
+        gap:9px;
+    }
+
+    .design-btn{
+        font-size:15px;
+        padding:12px 14px;
+        border-radius:12px;
+    }
+
+    .design-btn i{
+        animation-duration:3.4s!important;
+    }
+}
+
+@media(max-width:390px){
+    .size-row{
+        gap:8px;
+    }
+
+    .design-btn,
+    .size-chart-btn{
+        font-size:13px!important;
+        padding:11px 12px!important;
+    }
+}
+
+@media(prefers-reduced-motion:reduce){
+    .design-btn i{
+        animation:none!important;
+    }
+}
+
+
+/* ===================================================== */
+/* ===== FIX ANIMASI LIHAT DESAIN BAJU AGAR TERLIHAT HP = */
+/*
+    Animasi sebelumnya hanya di icon dan terlalu halus di HP.
+    Bagian ini membuat tombol "Lihat Desain Baju" sedikit bergerak,
+    glow halus, dan icon baju ikut pop agar lebih terlihat.
+*/
+/* ===================================================== */
+
+.design-btn{
+    position:relative;
+    overflow:hidden;
+    will-change:transform, box-shadow;
+}
+
+.design-btn::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(
+        120deg,
+        transparent 0%,
+        rgba(255,255,255,.0) 35%,
+        rgba(255,255,255,.30) 50%,
+        rgba(255,255,255,.0) 65%,
+        transparent 100%
+    );
+    transform:translateX(-130%);
+    pointer-events:none;
+}
+
+.design-btn{
+    animation:designButtonNoticeStrong 3.6s ease-in-out infinite!important;
+}
+
+.design-btn::after{
+    animation:designButtonShine 3.6s ease-in-out infinite!important;
+}
+
+.design-btn i{
+    animation:designIconNoticeStrong 3.6s ease-in-out infinite!important;
+}
+
+@keyframes designButtonNoticeStrong{
+    0%, 68%, 100%{
+        transform:translateY(0) scale(1);
+        box-shadow:0 6px 12px rgba(25,118,210,.16);
+    }
+
+    76%{
+        transform:translateY(-3px) scale(1.025);
+        box-shadow:0 12px 22px rgba(25,118,210,.28);
+    }
+
+    84%{
+        transform:translateY(0) scale(1);
+        box-shadow:0 6px 12px rgba(25,118,210,.16);
+    }
+
+    92%{
+        transform:translateY(-2px) scale(1.012);
+        box-shadow:0 10px 18px rgba(25,118,210,.22);
+    }
+}
+
+@keyframes designButtonShine{
+    0%, 65%, 100%{
+        transform:translateX(-130%);
+    }
+
+    78%{
+        transform:translateX(130%);
+    }
+}
+
+@keyframes designIconNoticeStrong{
+    0%, 68%, 100%{
+        transform:translateY(0) scale(1) rotate(0deg);
+    }
+
+    76%{
+        transform:translateY(-2px) scale(1.22) rotate(-10deg);
+    }
+
+    84%{
+        transform:translateY(1px) scale(1.14) rotate(10deg);
+    }
+
+    92%{
+        transform:translateY(0) scale(1.06) rotate(0deg);
+    }
+}
+
+@media(max-width:768px){
+    .design-btn{
+        animation-duration:3s!important;
+    }
+
+    .design-btn::after{
+        animation-duration:3s!important;
+    }
+
+    .design-btn i{
+        animation-duration:3s!important;
+    }
+}
+
+@media(prefers-reduced-motion:reduce){
+    .design-btn,
+    .design-btn::after,
+    .design-btn i{
+        animation:none!important;
+    }
+}
+
+
+/* ===================================================== */
+/* ===== FIX FINAL ANIMASI DESAIN BAJU SUPER TERLIHAT HP */
+/*
+    Animasi dibuat lebih jelas agar terlihat di HP:
+    - tombol pulse
+    - ring/outline biru
+    - badge kecil "Lihat"
+    - icon baju bergerak lebih kuat
+*/
+/* ===================================================== */
+
+.design-btn{
+    position:relative!important;
+    overflow:visible!important;
+    animation:designBtnPulseFinal 2.4s ease-in-out infinite!important;
+    transform-origin:center!important;
+    box-shadow:0 7px 14px rgba(25,118,210,.18)!important;
+}
+
+.design-btn i{
+    display:inline-block!important;
+    animation:designIconBounceFinal 2.4s ease-in-out infinite!important;
+    transform-origin:center!important;
+}
+
+.design-btn::before{
+    content:"Lihat";
+    position:absolute;
+    top:-9px;
+    right:-7px;
+    z-index:3;
+    background:#ff9800;
+    color:white;
+    font-size:10px;
+    font-weight:900;
+    line-height:1;
+    padding:4px 6px;
+    border-radius:999px;
+    box-shadow:0 4px 10px rgba(255,152,0,.28);
+    animation:designBadgePulseFinal 2.4s ease-in-out infinite!important;
+}
+
+.design-btn::after{
+    content:"";
+    position:absolute;
+    inset:-5px;
+    border:2px solid rgba(25,118,210,.32);
+    border-radius:16px;
+    opacity:0;
+    pointer-events:none;
+    animation:designRingFinal 2.4s ease-in-out infinite!important;
+    background:none!important;
+    transform:none;
+}
+
+@keyframes designBtnPulseFinal{
+    0%, 64%, 100%{
+        transform:translateY(0) scale(1);
+        box-shadow:0 7px 14px rgba(25,118,210,.18);
+    }
+
+    72%{
+        transform:translateY(-5px) scale(1.045);
+        box-shadow:0 16px 28px rgba(25,118,210,.34);
+    }
+
+    82%{
+        transform:translateY(0) scale(1);
+        box-shadow:0 7px 14px rgba(25,118,210,.18);
+    }
+
+    92%{
+        transform:translateY(-3px) scale(1.025);
+        box-shadow:0 13px 22px rgba(25,118,210,.28);
+    }
+}
+
+@keyframes designIconBounceFinal{
+    0%, 64%, 100%{
+        transform:rotate(0deg) scale(1);
+    }
+
+    72%{
+        transform:rotate(-14deg) scale(1.30);
+    }
+
+    82%{
+        transform:rotate(12deg) scale(1.20);
+    }
+
+    92%{
+        transform:rotate(0deg) scale(1.10);
+    }
+}
+
+@keyframes designBadgePulseFinal{
+    0%, 64%, 100%{
+        transform:scale(1);
+        opacity:.92;
+    }
+
+    72%{
+        transform:scale(1.18);
+        opacity:1;
+    }
+
+    82%{
+        transform:scale(1);
+        opacity:.95;
+    }
+
+    92%{
+        transform:scale(1.10);
+        opacity:1;
+    }
+}
+
+@keyframes designRingFinal{
+    0%, 60%, 100%{
+        opacity:0;
+        transform:scale(.96);
+    }
+
+    72%{
+        opacity:1;
+        transform:scale(1.05);
+    }
+
+    92%{
+        opacity:.35;
+        transform:scale(1.12);
+    }
+}
+
+@media(max-width:768px){
+    .design-btn{
+        animation-duration:3.2s!important;
+    }
+
+    .design-btn i,
+    .design-btn::before,
+    .design-btn::after{
+        animation-duration:3.2s!important;
+    }
+}
+
+@media(max-width:390px){
+    .design-btn::before{
+        font-size:9px;
+        top:-8px;
+        right:-6px;
+        padding:3px 5px;
+    }
+}
+
+
+/* ===================================================== */
+/* ===== REVISI ANIMASI DESAIN BAJU SEPERTI SIZE CHART == */
+/*
+    Animasi tombol desain dibuat sama seperti tombol Size Chart:
+    - hanya icon yang bergerak
+    - tidak ada badge "Lihat"
+    - tidak ada ring/outline
+    - tombol tidak ikut pulse agar tidak mengganggu
+*/
+/* ===================================================== */
+
+.design-btn{
+    overflow:hidden!important;
+    animation:none!important;
+    transform:none!important;
+}
+
+.design-btn::before,
+.design-btn::after{
+    display:none!important;
+    content:none!important;
+    animation:none!important;
+}
+
+.design-btn i{
+    display:inline-block!important;
+    transform-origin:center!important;
+    animation:designIconSimpleNotice 3.2s ease-in-out infinite!important;
+}
+
+@keyframes designIconSimpleNotice{
+    0%, 70%, 100%{
+        transform:rotate(0deg) translateY(0) scale(1);
+    }
+
+    78%{
+        transform:rotate(-10deg) translateY(-1px) scale(1.12);
+    }
+
+    86%{
+        transform:rotate(10deg) translateY(1px) scale(1.12);
+    }
+
+    94%{
+        transform:rotate(0deg) translateY(0) scale(1);
+    }
+}
+
+@media(prefers-reduced-motion:reduce){
+    .design-btn i{
+        animation:none!important;
+    }
+}
+
+
+/* ===================================================== */
+/* ===== ANIMASI DESAIN BAJU DISAMAKAN DENGAN SIZE CHART */
+/*
+    Icon tombol Lihat Desain Baju memakai animasi yang sama
+    dengan icon tombol Lihat Size Chart.
+*/
+/* ===================================================== */
+
+.design-btn{
+    overflow:hidden!important;
+    animation:none!important;
+    transform:none!important;
+}
+
+.design-btn::before,
+.design-btn::after{
+    display:none!important;
+    content:none!important;
+    animation:none!important;
+}
+
+.design-btn i{
+    display:inline-block!important;
+    transform-origin:center!important;
+    animation:sizeChartIconNoticeStrong 3.2s ease-in-out infinite!important;
+}
+
+@media(prefers-reduced-motion:reduce){
+    .design-btn i{
+        animation:none!important;
+    }
+}
+
+
+/* ===================================================== */
+/* ===== EFEK KLIK DESAIN BAJU SAMA DENGAN SIZE CHART === */
+/*
+    Saat tombol diklik/hover, Lihat Desain Baju ikut naik sedikit
+    seperti tombol Lihat Size Chart.
+*/
+/* ===================================================== */
+
+.design-btn:hover,
+.design-btn:active{
+    transform:translateY(-1px)!important;
+}
+
+.design-btn{
+    transition:.2s!important;
+}
+
+
+/* ===================================================== */
+/* ===== FIX ANIMASI ICON DESAIN BAJU TERLIHAT DI HP ==== */
+/*
+    Animasi hanya pada icon baju.
+    Dibuat sedikit lebih jelas agar terlihat di HP,
+    tetapi tombolnya tidak ikut bergerak agar tidak mengganggu.
+*/
+/* ===================================================== */
+
+.design-btn{
+    position:relative!important;
+    overflow:hidden!important;
+    animation:none!important;
+    transition:.2s!important;
+}
+
+.design-btn:hover,
+.design-btn:active{
+    transform:translateY(-1px)!important;
+}
+
+.design-btn::before,
+.design-btn::after{
+    display:none!important;
+    content:none!important;
+    animation:none!important;
+}
+
+.design-btn i{
+    display:inline-block!important;
+    transform-origin:center center!important;
+    animation:designIconNoticeHP 2.8s ease-in-out infinite!important;
+    will-change:transform!important;
+}
+
+@keyframes designIconNoticeHP{
+    0%, 58%, 100%{
+        transform:rotate(0deg) translateY(0) scale(1);
+    }
+
+    68%{
+        transform:rotate(-14deg) translateY(-2px) scale(1.22);
+    }
+
+    78%{
+        transform:rotate(14deg) translateY(1px) scale(1.22);
+    }
+
+    88%{
+        transform:rotate(0deg) translateY(0) scale(1.08);
+    }
+}
+
+@media(max-width:768px){
+    .design-btn i{
+        animation:designIconNoticeHP 2.2s ease-in-out infinite!important;
+    }
+}
+
+@media(prefers-reduced-motion:reduce){
+    .design-btn i{
+        animation:none!important;
+    }
+}
+
+
+/* ===================================================== */
+/* ===== FIX FINAL: ICON DESAIN BAJU LEBIH NOTICE DI HP = */
+/*
+    Animasi tetap hanya pada icon, tetapi dibuat jelas:
+    - icon bergoyang kiri-kanan
+    - icon membesar
+    - warna icon berubah kuning sebentar
+    - tidak ada badge/ring/tombol pulse
+*/
+/* ===================================================== */
+
+.design-btn{
+    animation:none!important;
+    overflow:hidden!important;
+}
+
+.design-btn::before,
+.design-btn::after{
+    display:none!important;
+    content:none!important;
+    animation:none!important;
+}
+
+.design-btn i.fa-shirt{
+    display:inline-block!important;
+    transform-origin:center center!important;
+    animation:desainBajuIconFinal 1.8s ease-in-out infinite!important;
+    color:#ffffff!important;
+    will-change:transform,color,text-shadow!important;
+}
+
+@keyframes desainBajuIconFinal{
+    0%, 52%, 100%{
+        transform:translateX(0) translateY(0) rotate(0deg) scale(1);
+        color:#ffffff;
+        text-shadow:none;
+    }
+
+    62%{
+        transform:translateX(-4px) translateY(-2px) rotate(-16deg) scale(1.38);
+        color:#FFE082;
+        text-shadow:0 0 8px rgba(255,224,130,.75);
+    }
+
+    72%{
+        transform:translateX(4px) translateY(1px) rotate(16deg) scale(1.38);
+        color:#FFE082;
+        text-shadow:0 0 8px rgba(255,224,130,.75);
+    }
+
+    82%{
+        transform:translateX(-2px) translateY(0) rotate(-8deg) scale(1.18);
+        color:#ffffff;
+        text-shadow:none;
+    }
+}
+
+@media(max-width:768px){
+    .design-btn i.fa-shirt{
+        animation-duration:1.5s!important;
+    }
+}
+
+@media(prefers-reduced-motion:reduce){
+    .design-btn i.fa-shirt{
+        animation:none!important;
+    }
+}
+
+
+/* ===================================================== */
+/* ===== FIX FINAL ANIMASI ICON DESAIN BAJU ============= */
+/*
+    Penyebab animasi sebelumnya kurang terlihat di HP:
+    ada banyak aturan CSS lama yang sama-sama menargetkan .design-btn i.
+    Sekarang icon dibungkus dengan .design-icon-wrap dan animasi dipasang
+    pada wrapper tersebut, sehingga tidak bentrok dengan aturan icon lain.
+*/
+/* ===================================================== */
+
+.design-btn{
+    overflow:hidden!important;
+    animation:none!important;
+}
+
+.design-btn::before,
+.design-btn::after{
+    display:none!important;
+    content:none!important;
+    animation:none!important;
+}
+
+.design-btn i{
+    animation:none!important;
+    transform:none!important;
+    text-shadow:none!important;
+}
+
+.design-icon-wrap{
+    display:inline-flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    width:20px!important;
+    height:20px!important;
+    min-width:20px!important;
+    transform-origin:center center!important;
+    animation:designIconWrapNotice 1.6s ease-in-out infinite!important;
+    will-change:transform, filter!important;
+}
+
+.design-icon-wrap i{
+    color:#ffffff!important;
+    font-size:16px!important;
+}
+
+@keyframes designIconWrapNotice{
+    0%, 48%, 100%{
+        transform:translateX(0) translateY(0) rotate(0deg) scale(1);
+        filter:none;
+    }
+
+    60%{
+        transform:translateX(-4px) translateY(-2px) rotate(-16deg) scale(1.38);
+        filter:drop-shadow(0 0 6px rgba(255,255,255,.65));
+    }
+
+    72%{
+        transform:translateX(4px) translateY(1px) rotate(16deg) scale(1.38);
+        filter:drop-shadow(0 0 6px rgba(255,255,255,.65));
+    }
+
+    84%{
+        transform:translateX(-2px) translateY(0) rotate(-8deg) scale(1.16);
+        filter:none;
+    }
+}
+
+@media(max-width:768px){
+    .design-icon-wrap{
+        width:22px!important;
+        height:22px!important;
+        min-width:22px!important;
+        animation-duration:1.35s!important;
+    }
+
+    .design-icon-wrap i{
+        font-size:17px!important;
+    }
+}
+
+@media(prefers-reduced-motion:reduce){
+    .design-icon-wrap{
+        animation:none!important;
+    }
+}
+
+
+/* ===================================================== */
+/* ===== FIX PASTI TERLIHAT: ICON DESAIN BAJU PAKAI SVG = */
+/*
+    Animasi icon desain baju sekarang memakai SVG inline, bukan Font Awesome.
+    Ini menghindari bentrok dengan aturan .design-btn i sebelumnya.
+    Yang bergerak tetap hanya icon, bukan tombol.
+*/
+/* ===================================================== */
+
+.design-btn{
+    animation:none!important;
+    overflow:visible!important;
+}
+
+.design-btn::before,
+.design-btn::after{
+    display:none!important;
+    content:none!important;
+    animation:none!important;
+}
+
+.design-btn i{
+    animation:none!important;
+}
+
+.design-icon-wrap{
+    display:inline-flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    width:22px!important;
+    height:22px!important;
+    min-width:22px!important;
+    animation:designSvgIconMove 1.45s ease-in-out infinite!important;
+    transform-origin:center center!important;
+    will-change:transform!important;
+}
+
+.design-shirt-svg{
+    width:22px!important;
+    height:22px!important;
+    fill:#ffffff!important;
+    display:block!important;
+    animation:designSvgIconGlow 1.45s ease-in-out infinite!important;
+    will-change:filter, fill!important;
+}
+
+@keyframes designSvgIconMove{
+    0%, 46%, 100%{
+        transform:translateX(0) translateY(0) rotate(0deg) scale(1);
+    }
+
+    58%{
+        transform:translateX(-5px) translateY(-2px) rotate(-18deg) scale(1.42);
+    }
+
+    70%{
+        transform:translateX(5px) translateY(1px) rotate(18deg) scale(1.42);
+    }
+
+    82%{
+        transform:translateX(-2px) translateY(0) rotate(-8deg) scale(1.18);
+    }
+}
+
+@keyframes designSvgIconGlow{
+    0%, 46%, 100%{
+        fill:#ffffff;
+        filter:none;
+    }
+
+    58%, 70%{
+        fill:#FFE082;
+        filter:drop-shadow(0 0 8px rgba(255,224,130,.90));
+    }
+
+    82%{
+        fill:#ffffff;
+        filter:none;
+    }
+}
+
+@media(max-width:768px){
+    .design-icon-wrap{
+        width:24px!important;
+        height:24px!important;
+        min-width:24px!important;
+        animation-duration:1.2s!important;
+    }
+
+    .design-shirt-svg{
+        width:24px!important;
+        height:24px!important;
+        animation-duration:1.2s!important;
+    }
+}
+
+@media(prefers-reduced-motion:reduce){
+    .design-icon-wrap,
+    .design-shirt-svg{
+        animation:designSvgIconMove 1.2s ease-in-out infinite!important;
+    }
+}
+
+
+/* ===================================================== */
+/* ===== REVISI ANIMASI DESAIN BAJU LEBIH HALUS ========= */
+/*
+    Animasi icon desain baju dibuat lebih kalem:
+    - gerakan lebih kecil
+    - scale lebih kecil
+    - glow lebih lembut
+    - durasi sedikit lebih pelan
+*/
+/* ===================================================== */
+
+.design-icon-wrap{
+    animation:designSvgIconMoveSoft 3.2s ease-in-out infinite!important;
+}
+
+.design-shirt-svg{
+    animation:designSvgIconGlowSoft 3.2s ease-in-out infinite!important;
+}
+
+@keyframes designSvgIconMoveSoft{
+    0%, 62%, 100%{
+        transform:translateX(0) translateY(0) rotate(0deg) scale(1);
+    }
+
+    72%{
+        transform:translateX(-2px) translateY(-1px) rotate(-8deg) scale(1.14);
+    }
+
+    82%{
+        transform:translateX(2px) translateY(0) rotate(8deg) scale(1.14);
+    }
+
+    92%{
+        transform:translateX(0) translateY(0) rotate(0deg) scale(1.04);
+    }
+}
+
+@keyframes designSvgIconGlowSoft{
+    0%, 62%, 100%{
+        fill:#ffffff;
+        filter:none;
+    }
+
+    72%, 82%{
+        fill:#fff2b8;
+        filter:drop-shadow(0 0 4px rgba(255,224,130,.45));
+    }
+
+    92%{
+        fill:#ffffff;
+        filter:none;
+    }
+}
+
+@media(max-width:768px){
+    .design-icon-wrap{
+        animation-duration:3.2s!important;
+    }
+
+    .design-shirt-svg{
+        animation-duration:3.2s!important;
+    }
+}
+
+
+/* ===================================================== */
+/* ===== SAMAKAN UKURAN TOMBOL DESAIN DENGAN SIZE CHART = */
+/*
+    Khusus HP, tombol Lihat Desain Baju disamakan tinggi dan padding-nya
+    dengan tombol Lihat Size Chart.
+*/
+/* ===================================================== */
+
+@media(max-width:768px){
+    .size-chart-btn,
+    .design-btn{
+        min-height:44px!important;
+        height:44px!important;
+        padding:11px 12px!important;
+        font-size:13px!important;
+        line-height:1!important;
+        border-radius:12px!important;
+        gap:7px!important;
+        align-items:center!important;
+    }
+
+    .design-icon-wrap{
+        width:16px!important;
+        height:16px!important;
+        min-width:16px!important;
+        max-width:16px!important;
+        max-height:16px!important;
+    }
+
+    .design-shirt-svg{
+        width:16px!important;
+        height:16px!important;
+        max-width:16px!important;
+        max-height:16px!important;
+    }
+
+    .size-chart-btn i{
+        font-size:16px!important;
+        width:16px!important;
+        height:16px!important;
+        line-height:16px!important;
+    }
+}
+
+@media(max-width:390px){
+    .size-chart-btn,
+    .design-btn{
+        min-height:42px!important;
+        height:42px!important;
+        padding:10px 10px!important;
+        font-size:12.5px!important;
+        gap:6px!important;
+    }
+
+    .design-icon-wrap,
+    .design-shirt-svg{
+        width:15px!important;
+        height:15px!important;
+        min-width:15px!important;
+        max-width:15px!important;
+        max-height:15px!important;
+    }
+
+    .size-chart-btn i{
+        font-size:15px!important;
+        width:15px!important;
+        height:15px!important;
+        line-height:15px!important;
+    }
+}
+
+
+/* ===================================================== */
+/* ===== MODE HP SUPER COMPACT - FORM LEBIH KECIL ======= */
+/*
+    Revisi ini mengecilkan tampilan khusus HP agar tidak terlalu besar:
+    - Header lebih pendek
+    - Note dan countdown lebih ramping
+    - Input lebih kecil
+    - Tombol Size Chart / Desain Baju lebih kecil
+    - Tombol radio lebih kecil
+    - Tombol Simpan / Kirim lebih compact
+*/
+/* ===================================================== */
+
+@media(max-width:768px){
+    .container{
+        padding:0 10px 80px!important;
+    }
+
+    .title-box{
+        margin:0 -10px 10px!important;
+        padding:12px 14px 13px!important;
+    }
+
+    .title-inner{
+        gap:8px!important;
+    }
+
+    .title-icon{
+        width:38px!important;
+        height:38px!important;
+        min-width:38px!important;
+        border-radius:10px!important;
+    }
+
+    .title-icon i{
+        font-size:22px!important;
+    }
+
+    .title-box h2{
+        font-size:20px!important;
+        line-height:1.05!important;
+        letter-spacing:.1px!important;
+    }
+
+    .title-box p{
+        font-size:10.5px!important;
+        margin-top:3px!important;
+    }
+
+    .wa-header-btn{
+        width:30px!important;
+        height:30px!important;
+        top:10px!important;
+        right:10px!important;
+        font-size:18px!important;
+    }
+
+    .note-box{
+        margin:10px 0!important;
+        padding:10px 9px!important;
+        border-radius:11px!important;
+        font-size:9.7px!important;
+        line-height:1.42!important;
+        border-width:1.5px!important;
+    }
+
+    .note-box::before{
+        font-size:13px!important;
+        margin-bottom:3px!important;
+    }
+
+    .countdown-box{
+        margin:10px 0 13px!important;
+        padding:9px 8px!important;
+        border-radius:11px!important;
+    }
+
+    .countdown-row{
+        gap:7px!important;
+    }
+
+    .countdown-title{
+        font-size:10.5px!important;
+        gap:5px!important;
+    }
+
+    .countdown-wrapper{
+        gap:6px!important;
+    }
+
+    .count-item{
+        padding:7px 3px!important;
+        border-radius:9px!important;
+    }
+
+    .count-number{
+        font-size:17px!important;
+    }
+
+    .count-label{
+        font-size:7.5px!important;
+        margin-top:3px!important;
+    }
+
+    .field-wrap{
+        margin:4px 0 10px!important;
+    }
+
+    input[type="text"],
+    input[type="tel"]{
+        font-size:12px!important;
+        padding:10px 10px!important;
+        border-radius:9px!important;
+    }
+
+    .field-wrap input{
+        padding-left:32px!important;
+    }
+
+    .field-wrap i{
+        font-size:12px!important;
+        left:12px!important;
+    }
+
+    .section-label{
+        font-size:13px!important;
+        margin-top:11px!important;
+        margin-bottom:7px!important;
+        gap:5px!important;
+    }
+
+    .section-label i,
+    .gender-icon i{
+        font-size:14px!important;
+        width:auto!important;
+    }
+
+    .size-row{
+        gap:6px!important;
+        margin-bottom:8px!important;
+    }
+
+    .size-chart-btn,
+    .design-btn{
+        min-height:31px!important;
+        height:31px!important;
+        padding:7px 8px!important;
+        font-size:10px!important;
+        border-radius:8px!important;
+        gap:4px!important;
+        line-height:1!important;
+    }
+
+    .size-chart-btn i{
+        font-size:11px!important;
+        width:11px!important;
+        height:11px!important;
+        line-height:11px!important;
+    }
+
+    .design-icon-wrap,
+    .design-shirt-svg{
+        width:12px!important;
+        height:12px!important;
+        min-width:12px!important;
+        max-width:12px!important;
+        max-height:12px!important;
+    }
+
+    .radio-group{
+        gap:6px!important;
+        margin:6px 0 4px!important;
+    }
+
+    .radio-group label{
+        min-width:45px!important;
+        min-height:32px!important;
+        font-size:12px!important;
+        border-radius:8px!important;
+        padding:6px 9px!important;
+        gap:5px!important;
+        border-width:1.5px!important;
+    }
+
+    #sizeLainnya{
+        margin-top:7px!important;
+    }
+
+    .button-group{
+        gap:9px!important;
+        margin-top:12px!important;
+    }
+
+    .btn{
+        font-size:13px!important;
+        padding:11px 11px!important;
+        border-radius:10px!important;
+        gap:6px!important;
+    }
+
+    table{
+        margin-top:12px!important;
+    }
+
+    tr{
+        padding:9px!important;
+        border-radius:11px!important;
+        margin-bottom:10px!important;
+    }
+
+    td{
+        font-size:12px!important;
+        padding:7px 8px!important;
+    }
+
+    .delete-btn{
+        padding:7px 10px!important;
+        border-radius:8px!important;
+        font-size:12px!important;
+    }
+
+    .popup-box{
+        max-width:300px!important;
+        padding:18px!important;
+        border-radius:16px!important;
+    }
+
+    .popup-icon{
+        font-size:36px!important;
+    }
+
+    .popup-message{
+        font-size:13px!important;
+    }
+
+    .popup-buttons button{
+        padding:9px 14px!important;
+        border-radius:10px!important;
+        font-size:13px!important;
+    }
+}
+
+@media(max-width:390px){
+    .container{
+        padding:0 9px 76px!important;
+    }
+
+    .title-box{
+        margin:0 -9px 9px!important;
+        padding:11px 12px 12px!important;
+    }
+
+    .title-icon{
+        width:35px!important;
+        height:35px!important;
+        min-width:35px!important;
+    }
+
+    .title-icon i{
+        font-size:20px!important;
+    }
+
+    .title-box h2{
+        font-size:18px!important;
+    }
+
+    .title-box p{
+        font-size:10px!important;
+    }
+
+    .wa-header-btn{
+        width:28px!important;
+        height:28px!important;
+        font-size:17px!important;
+    }
+
+    .note-box{
+        font-size:9.2px!important;
+        padding:9px 8px!important;
+    }
+
+    .note-box::before{
+        font-size:12px!important;
+    }
+
+    .count-number{
+        font-size:15px!important;
+    }
+
+    .count-label{
+        font-size:7px!important;
+    }
+
+    .section-label{
+        font-size:12.5px!important;
+    }
+
+    .size-chart-btn,
+    .design-btn{
+        min-height:29px!important;
+        height:29px!important;
+        padding:6px 7px!important;
+        font-size:9.2px!important;
+    }
+
+    .radio-group label{
+        min-width:42px!important;
+        min-height:30px!important;
+        font-size:11.2px!important;
+        padding:5px 8px!important;
+    }
+
+    .btn{
+        font-size:12.5px!important;
+        padding:10px 10px!important;
+    }
+}
+
+
+/* ===================================================== */
+/* ===== REVISI CARD TABEL HP LEBIH RAMPING ============= */
+/*
+    Card tabel di HP dibuat lebih kecil dan tidak terlalu lebar:
+    - Ada margin kiri-kanan
+    - Padding card dikurangi
+    - Font tabel sedikit diperkecil
+    - Jarak antar baris lebih rapat
+    - Tombol hapus lebih compact
+*/
+/* ===================================================== */
+
+@media(max-width:768px){
+    .table-wrapper{
+        padding:0 4px!important;
+        overflow:visible!important;
+    }
+
+    table{
+        margin-top:10px!important;
+    }
+
+    tbody{
+        display:block!important;
+        width:100%!important;
+    }
+
+    tr{
+        width:calc(100% - 12px)!important;
+        margin:0 auto 9px!important;
+        padding:7px 9px!important;
+        border-radius:10px!important;
+        box-shadow:0 3px 10px rgba(15,23,42,.08)!important;
+    }
+
+    td{
+        font-size:11.5px!important;
+        padding:6px 5px!important;
+        min-height:28px!important;
+        align-items:center!important;
+    }
+
+    td::before{
+        font-size:11.5px!important;
+        margin-right:10px!important;
+    }
+
+    .delete-btn{
+        padding:6px 9px!important;
+        border-radius:8px!important;
+        font-size:11.5px!important;
+    }
+
+    tr.new-saved-row{
+        width:calc(100% - 12px)!important;
+        padding-top:24px!important;
+    }
+
+    tr.new-saved-row::before{
+        top:6px!important;
+        left:8px!important;
+        font-size:8.5px!important;
+        padding:3px 6px!important;
+    }
+}
+
+@media(max-width:390px){
+    .table-wrapper{
+        padding:0 6px!important;
+    }
+
+    tr{
+        width:calc(100% - 16px)!important;
+        padding:6px 8px!important;
+        border-radius:9px!important;
+    }
+
+    td{
+        font-size:11px!important;
+        padding:5px 4px!important;
+        min-height:26px!important;
+    }
+
+    td::before{
+        font-size:11px!important;
+    }
+
+    .delete-btn{
+        font-size:11px!important;
+        padding:5px 8px!important;
+    }
+
+    tr.new-saved-row{
+        width:calc(100% - 16px)!important;
+        padding-top:23px!important;
+    }
+}
+
+
+/* ===================================================== */
+/* ===== LEBAR CARD TABEL HP DIKEMBALIKAN SEPERTI SEMULA */
+/*
+    Tinggi card tetap ramping seperti revisi terakhir.
+    Lebar card dikembalikan hampir full seperti sebelumnya.
+*/
+/* ===================================================== */
+
+@media(max-width:768px){
+    .table-wrapper{
+        padding:0!important;
+        overflow:visible!important;
+    }
+
+    tr{
+        width:100%!important;
+        margin:0 0 9px!important;
+    }
+
+    tr.new-saved-row{
+        width:100%!important;
+    }
+}
+
+@media(max-width:390px){
+    .table-wrapper{
+        padding:0!important;
+    }
+
+    tr{
+        width:100%!important;
+        margin:0 0 9px!important;
+    }
+
+    tr.new-saved-row{
+        width:100%!important;
+    }
+}
+
+
+/* ===================================================== */
+/* ===== REVISI TOMBOL HP SEDIKIT LEBIH BESAR =========== */
+/*
+    Ukuran form/container tetap sama.
+    Yang diperbesar hanya tombol-tombol agar lebih nyaman disentuh di HP.
+*/
+/* ===================================================== */
+
+@media(max-width:768px){
+    .size-chart-btn,
+    .design-btn{
+        min-height:34px!important;
+        height:34px!important;
+        padding:8px 10px!important;
+        font-size:10.8px!important;
+        border-radius:9px!important;
+        gap:5px!important;
+    }
+
+    .size-chart-btn i{
+        font-size:12px!important;
+        width:12px!important;
+        height:12px!important;
+        line-height:12px!important;
+    }
+
+    .design-icon-wrap,
+    .design-shirt-svg{
+        width:13px!important;
+        height:13px!important;
+        min-width:13px!important;
+        max-width:13px!important;
+        max-height:13px!important;
+    }
+
+    .radio-group label{
+        min-width:49px!important;
+        min-height:35px!important;
+        font-size:12.8px!important;
+        padding:7px 10px!important;
+        border-radius:9px!important;
+    }
+
+    .btn{
+        font-size:14px!important;
+        padding:12px 12px!important;
+        border-radius:11px!important;
+    }
+
+    .delete-btn{
+        font-size:12.2px!important;
+        padding:7px 10px!important;
+        border-radius:8px!important;
+    }
+
+    .popup-buttons button,
+    .admin-popup-buttons button{
+        font-size:13.5px!important;
+        padding:10px 15px!important;
+        border-radius:11px!important;
+    }
+}
+
+@media(max-width:390px){
+    .size-chart-btn,
+    .design-btn{
+        min-height:32px!important;
+        height:32px!important;
+        padding:7px 9px!important;
+        font-size:10.2px!important;
+    }
+
+    .radio-group label{
+        min-width:46px!important;
+        min-height:33px!important;
+        font-size:12px!important;
+        padding:6px 9px!important;
+    }
+
+    .btn{
+        font-size:13.2px!important;
+        padding:11px 11px!important;
+    }
+}
+
+
+/* ===================================================== */
+/* ===== REVISI INPUT HP SEDIKIT LEBIH BESAR ============ */
+/*
+    Input Nama dan No HP dibuat sedikit lebih besar agar lebih nyaman disentuh
+    tanpa mengubah ukuran form/container.
+*/
+/* ===================================================== */
+
+@media(max-width:768px){
+    input[type="text"],
+    input[type="tel"]{
+        font-size:13px!important;
+        padding:11px 11px!important;
+        border-radius:10px!important;
+    }
+
+    .field-wrap input{
+        padding-left:35px!important;
+    }
+
+    .field-wrap i{
+        font-size:13px!important;
+        left:13px!important;
+    }
+}
+
+@media(max-width:390px){
+    input[type="text"],
+    input[type="tel"]{
+        font-size:12.5px!important;
+        padding:10.5px 10px!important;
+        border-radius:10px!important;
+    }
+
+    .field-wrap input{
+        padding-left:34px!important;
+    }
+
+    .field-wrap i{
+        font-size:12.5px!important;
+        left:12.5px!important;
+    }
+}
+
+
+/* ===================================================== */
+/* ===== REVISI TINGGI BOX BATAS PEMESANAN ============== */
+/*
+    Box countdown / batas pemesanan dibuat sedikit lebih pendek di HP
+    tanpa mengubah lebar form.
+*/
+/* ===================================================== */
+
+@media(max-width:768px){
+    .countdown-box{
+        padding:7px 8px!important;
+        margin:9px 0 12px!important;
+        border-radius:10px!important;
+    }
+
+    .countdown-row{
+        gap:5px!important;
+    }
+
+    .countdown-title{
+        font-size:10px!important;
+    }
+
+    .count-item{
+        padding:5px 3px!important;
+        border-radius:8px!important;
+    }
+
+    .count-number{
+        font-size:16px!important;
+    }
+
+    .count-label{
+        font-size:7px!important;
+        margin-top:2px!important;
+    }
+}
+
+@media(max-width:390px){
+    .countdown-box{
+        padding:6px 7px!important;
+        margin:8px 0 11px!important;
+    }
+
+    .count-item{
+        padding:4px 3px!important;
+    }
+
+    .count-number{
+        font-size:15px!important;
+    }
+
+    .count-label{
+        font-size:6.8px!important;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- ===================================================== -->
+<!-- ================= JUDUL ============================= -->
+<!-- ===================================================== -->
+
+<div class="title-box">
+    <button class="wa-header-btn" onclick="toggleWA()" title="Info Pemesanan">
+        <i class="fa-brands fa-whatsapp"></i>
+    </button>
+
+    <div class="title-inner">
+        <div class="title-icon">
+            <i class="fa-solid fa-shirt"></i>
+        </div>
+
+        <div>
+            <h2>PEMESANAN BAJU</h2>
+            <p>Form Pemesanan Online</p>
+        </div>
+    </div>
+</div>
+
+<!-- ===================================================== -->
+<!-- ================= NOTE BOX ========================== -->
+<!-- ===================================================== -->
+
+<div class="note-box">
+    Kalau ingin memesan lebih dari satu baju,
+    silakan klik
+    <span class="note-highlight">“Simpan”</span>
+    terlebih dahulu untuk setiap pesanan.
+    Setelah semua data sudah diisi dan dipastikan benar,
+    klik
+    <span class="note-highlight">“Kirim ke Google Spreadsheets”</span>.
+    Jika hanya memesan satu baju,
+    Anda bisa langsung klik
+    <span class="note-highlight">“Kirim ke Google Spreadsheets”</span>
+    tanpa perlu menyimpan terlebih dahulu.
+</div>
+
+<!-- ===================================================== -->
+<!-- ================= COUNTDOWN ========================= -->
+<!-- ===================================================== -->
+
+<div class="countdown-box">
+    <div class="countdown-row">
+        <div class="countdown-title">⏰ BATAS PEMESANAN</div>
+
+        <div class="countdown-wrapper">
+            <div class="count-item">
+                <div class="count-number" id="hari">0</div>
+                <div class="count-label">Hari</div>
+            </div>
+
+            <div class="count-item">
+                <div class="count-number" id="jam">0</div>
+                <div class="count-label">Jam</div>
+            </div>
+
+            <div class="count-item">
+                <div class="count-number" id="menit">0</div>
+                <div class="count-label">Menit</div>
+            </div>
+
+            <div class="count-item">
+                <div class="count-number" id="detik">0</div>
+                <div class="count-label">Detik</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===================================================== -->
+<!-- ================= STATUS INTERNET =================== -->
+<!-- ===================================================== -->
+
+<div id="networkStatus" class="network-status">
+    <b>Anda sedang offline.</b><br>
+    Pesanan belum bisa dikirim ke Google Spreadsheet. Simpan data terlebih dahulu, lalu kirim kembali saat internet aktif.
+</div>
+
+<!-- ===================================================== -->
+<!-- ================= FORM INPUT ======================== -->
+<!-- ===================================================== -->
+
+<div class="field-wrap" id="inputNamaArea">
+    <i class="fa-regular fa-user"></i>
+    <input type="text" id="nama" placeholder="Masukkan Nama">
+</div>
+
+<label class="section-label">
+    <i class="fa-solid fa-tags"></i>
+    Size
+</label>
+
+<div class="size-row">
+    <button class="size-chart-btn" onclick="showSizeChart()">
+        <i class="fa-solid fa-ruler-combined"></i>
+        Lihat Size Chart
+    </button>
+
+    <button class="design-btn" onclick="showDesainBaju()">
+        <span class="design-icon-wrap" aria-hidden="true">
+            <svg class="design-shirt-svg" viewBox="0 0 24 24" role="img">
+                <path d="M8.5 3.5 5.2 5.1 2.7 9.7l3.1 1.8 1.4-2.2V20.5h9.6V9.3l1.4 2.2 3.1-1.8-2.5-4.6-3.3-1.6c-.8 1.2-2 1.8-3.5 1.8s-2.7-.6-3.5-1.8Z"></path>
+            </svg>
+        </span>
+        Lihat Desain Baju
+    </button>
+</div>
+
+<div class="radio-group" onchange="toggleSize()">
+    <label><input type="radio" name="size" value="XS"> XS</label>
+    <label><input type="radio" name="size" value="S"> S</label>
+    <label><input type="radio" name="size" value="M"> M</label>
+    <label><input type="radio" name="size" value="L"> L</label>
+    <label><input type="radio" name="size" value="XL"> XL</label>
+    <label><input type="radio" name="size" value="XXL"> XXL</label>
+    <label><input type="radio" name="size" value="XXXL"> XXXL</label>
+    <label><input type="radio" name="size" value="Lainnya"> Lainnya</label>
+</div>
+
+<input type="text" id="sizeLainnya" placeholder="Isi size lainnya..." style="display:none;" oninput="this.value = this.value.toUpperCase()">
+
+<label class="section-label">
+    <i class="fa-solid fa-shirt"></i>
+    Lengan
+</label>
+
+<div class="radio-group">
+    <label><input type="radio" name="lengan" value="Pendek"> <i class="fa-solid fa-shirt"></i> Pendek</label>
+    <label><input type="radio" name="lengan" value="Panjang"> <i class="fa-solid fa-arrows-left-right"></i> Panjang</label>
+</div>
+
+<label class="section-label">
+    <i class="fa-solid fa-users"></i>
+    Kategori Umur
+</label>
+
+<div class="radio-group" onchange="toggleGender()">
+    <label><input type="radio" name="umur" value="Dewasa"> <i class="fa-solid fa-user-group"></i> Dewasa</label>
+    <label><input type="radio" name="umur" value="Anak-Anak"> <i class="fa-solid fa-children"></i> Anak-Anak</label>
+</div>
+
+<label class="section-label">
+    <span class="gender-icon">
+        <i class="fa-solid fa-mars"></i>
+        <i class="fa-solid fa-venus"></i>
+    </span>
+    Gender
+</label>
+
+<div class="radio-group" id="genderGroup">
+    <label><input type="radio" name="gender" value="Cowok"> <i class="fa-solid fa-mars"></i> Cowok</label>
+    <label><input type="radio" name="gender" value="Cewek"> <i class="fa-solid fa-venus"></i> Cewek</label>
+</div>
+
+<div class="field-wrap">
+    <i class="fa-solid fa-phone"></i>
+    <input type="tel" inputmode="numeric" id="hp" maxlength="15" placeholder="No HP (boleh kosong)">
+</div>
+
+<div class="button-group">
+    <div class="left-buttons">
+        <button class="btn" onclick="simpan()">
+            <i class="fa-solid fa-floppy-disk"></i>
+            Simpan
+        </button>
+    </div>
+
+    <button class="btn btn-send" onclick="kirimKeSheet()">
+        <span class="sheet-icon"><i class="fa-brands fa-google"></i><i class="fa-solid fa-table-cells"></i></span>
+        Kirim ke Google Spreadsheet
+    </button>
+</div>
+
+<!-- ===================================================== -->
+<!-- ================= TABEL DATA ======================== -->
+<!-- ===================================================== -->
+
+<div class="table-wrapper">
+<table>
+<thead>
+<tr>
+    <th>No</th>
+    <th>Nama</th>
+    <th>Size</th>
+    <th>Lengan</th>
+    <th>Umur</th>
+    <th>Gender</th>
+    <th>No HP</th>
+    <th>Waktu</th>
+    <th>Aksi</th>
+</tr>
+</thead>
+
+<tbody id="tbody"></tbody>
+</table>
+</div>
+
+</div>
+
+
+
+
+<!-- ===================================================== -->
+<!-- ================= POPUP INFO ADMIN ================== -->
+<!-- ===================================================== -->
+
+<div class="admin-popup-overlay" id="adminPopup">
+    <div class="admin-popup-box">
+        <button class="admin-popup-close" onclick="closeAdminPopup()" aria-label="Tutup">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+
+        <div class="admin-popup-icon">
+            <i class="fa-brands fa-whatsapp"></i>
+        </div>
+
+        <h3>Butuh Bantuan?</h3>
+
+        <p>
+            Kalau masih bingung soal ukuran, cara mengisi form, pembayaran,
+            atau ada kendala pemesanan, silakan hubungi salah satu admin di bawah ini.
+        </p>
+
+        <div class="admin-popup-buttons">
+            <button onclick="hubungiWA1()">
+                <i class="fa-brands fa-whatsapp"></i>
+                Admin 1
+            </button>
+
+            <button onclick="hubungiWA2()">
+                <i class="fa-brands fa-whatsapp"></i>
+                Admin 2
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- ===================================================== -->
+<!-- ================= POPUP CUSTOM ====================== -->
+<!-- ===================================================== -->
+
+<div class="popup-overlay" id="customPopup">
+    <div class="popup-box">
+        <div class="popup-icon" id="popupIcon">✅</div>
+        <div class="popup-message" id="popupMessage"></div>
+
+        <div class="popup-buttons">
+            <button class="popup-cancel" id="popupCancel">Batal</button>
+            <button class="popup-ok" id="popupOk">OK</button>
+        </div>
+    </div>
+</div>
+
+<!-- ===================================================== -->
+<!-- ================= POPUP SIZE CHART ================== -->
+<!-- ===================================================== -->
+
+<div id="sizeChartPopup" class="sizechart-overlay">
+    <div class="sizechart-box">
+        <!-- 
+            GANTI GAMBAR SIZE CHART DI SINI
+
+            Pastikan file gambar size chart berada 1 folder dengan file index.html.
+            Contoh:
+            - index.html
+            - size-chart.webp
+
+            Jika nama file gambarnya berbeda, ganti bagian src di bawah ini.
+            Contoh:
+            src="size-chart.webp"
+            src="size-chart.jpg"
+            src="ukuran-baju.png"
+
+            Disarankan pakai format .webp agar ukuran file lebih kecil dan website lebih ringan.
+        -->
+        <img src="size-chart.webp" class="sizechart-image" id="sizeChartImage" alt="Size Chart">
+    </div>
+</div>
+
+<!-- ===================================================== -->
+<!-- ================= POPUP DESAIN BAJU ================= -->
+<!-- ===================================================== -->
+
+<div id="desainBajuPopup" class="design-overlay">
+    <div class="design-box">
+        <!-- 
+            GAMBAR DESAIN BAJU
+
+            Pastikan file desainbaju.webp berada 1 folder dengan file index.html.
+            Karena file akan ditaruh di GitHub, susunannya bisa seperti ini:
+            - index.html
+            - desainbaju.webp
+
+            Jika nama file berbeda, ganti bagian src di bawah ini.
+        -->
+        <img src="desainbaju.webp" class="design-image" id="desainBajuImage" alt="Desain Baju">
+    </div>
+</div>
+
+<script>
+/* ===================================================== */
+/* ================= DATABASE LOCAL ===================== */
+/*
+    Data sementara disimpan di browser pengguna menggunakan localStorage.
+
+    orders = data yang sudah disimpan di tabel, tetapi belum dikirim.
+    sent   = data yang sudah pernah dikirim, dipakai untuk mencegah duplikat.
+
+    Catatan:
+    - Data tersimpan hanya di browser/perangkat yang dipakai.
+    - Jika cache/browser dibersihkan, data lokal bisa hilang.
+    - Karena itu, setelah data sudah benar sebaiknya segera klik Kirim ke Google Spreadsheet.
+*/
+/* ===================================================== */
+
+let data = JSON.parse(localStorage.getItem("orders")) || [];
+let sentData = JSON.parse(localStorage.getItem("sent")) || [];
+let lastSavedIndex = -1;
+
+/* ===================================================== */
+/* ===== STATUS PEMESANAN & INTERNET ==================== */
+/*
+    pemesananDitutup:
+    - false = pemesanan masih dibuka.
+    - true  = pemesanan ditutup dan tombol kirim dinonaktifkan.
+
+    popupOfflineSudahTampil dan popupTutupSudahTampil:
+    - Dipakai agar popup tidak muncul berulang-ulang terus-menerus.
+*/
+/* ===================================================== */
+
+let pemesananDitutup = false;
+let popupOfflineSudahTampil = false;
+let popupTutupSudahTampil = false;
+
+
+
+/* ===================================================== */
+/* ===== SCROLL OTOMATIS DATA BARU KHUSUS HP ============ */
+/*
+    Setelah klik OK pada popup simpan:
+    1. Setelah klik OK, tunggu 0.1 detik.
+    2. Halaman otomatis scroll ke data baru dan menempatkannya di tengah layar.
+    3. Setelah 2.5 detik, halaman otomatis kembali ke area input nama.
+    4. Fitur ini hanya aktif di layar HP / tablet kecil.
+*/
+/* ===================================================== */
+
+function isMobileView(){
+    return window.matchMedia("(max-width:768px)").matches;
+}
+
+function scrollToElementWithOffset(element, offset = 10){
+    if(!element) return;
+
+    let posisi =
+        element.getBoundingClientRect().top +
+        window.pageYOffset -
+        offset;
+
+    window.scrollTo({
+        top:posisi,
+        behavior:"smooth"
+    });
+}
+
+function scrollDataBaruKeTengah(element){
+    if(!element) return;
+
+    let tinggiLayar = window.innerHeight || document.documentElement.clientHeight;
+    let rect = element.getBoundingClientRect();
+
+    let posisi =
+        rect.top +
+        window.pageYOffset -
+        (tinggiLayar / 2) +
+        (rect.height / 2);
+
+    window.scrollTo({
+        top:Math.max(0, posisi),
+        behavior:"smooth"
+    });
+}
+
+function scrollKeDataBaruLaluKembali(){
+    if(!isMobileView()) return;
+
+    setTimeout(function(){
+        let dataBaru = document.querySelector("tr.new-saved-row");
+
+        if(dataBaru){
+            scrollDataBaruKeTengah(dataBaru);
+        }
+
+        setTimeout(function(){
+            let inputNamaArea = document.getElementById("inputNamaArea") || document.getElementById("nama");
+
+            if(inputNamaArea){
+                scrollToElementWithOffset(inputNamaArea, 10);
+            }
+        }, 2500);
+    }, 100);
+}
+
+
+/* ===================================================== */
+/* ========== FORMAT NAMA OTOMATIS KAPITAL ============== */
+/* ===================================================== */
+
+function formatNamaKapital(teks){
+    return teks
+        .toLowerCase()
+        .replace(/\s+/g, " ")
+        .replace(/\b\w/g, huruf => huruf.toUpperCase());
+}
+
+let inputNama = document.getElementById("nama");
+
+if(inputNama){
+    inputNama.addEventListener("input", function(){
+        let posisiKursor = this.selectionStart;
+        this.value = formatNamaKapital(this.value);
+        this.setSelectionRange(posisiKursor, posisiKursor);
+    });
+
+    inputNama.addEventListener("blur", function(){
+        this.value = formatNamaKapital(this.value.trim());
+    });
+}
+
+/* ===================================================== */
+/* ================= EFEK ACTIVE RADIO ================== */
+/*
+    Bagian ini memberi efek aktif pada tombol pilihan radio.
+    Saat salah satu pilihan diklik, tombol tersebut berubah biru penuh.
+    Pilihan yang sebelumnya aktif akan otomatis kembali normal.
+*/
+/* ===================================================== */
+
+document.querySelectorAll(".radio-group label").forEach(label=>{
+    label.addEventListener("click",()=>{
+        let group = label.parentElement;
+
+        if(label.classList.contains("disabled")){
+            return;
+        }
+
+        group.querySelectorAll("label").forEach(l=>{
+            l.classList.remove("active");
+        });
+
+        label.classList.add("active");
+
+        label.classList.remove("radio-pop");
+        void label.offsetWidth;
+        label.classList.add("radio-pop");
+
+        setTimeout(function(){
+            label.classList.remove("radio-pop");
+        }, 350);
+    });
+});
+
+
+/* ===================================================== */
+/* ============= ANIMASI ERROR SHAKE ==================== */
+/* ===================================================== */
+
+function shakePopupError(){
+    let popupBox = document.querySelector("#customPopup .popup-box");
+
+    if(!popupBox) return;
+
+    popupBox.classList.remove("popup-error-shake");
+    void popupBox.offsetWidth;
+    popupBox.classList.add("popup-error-shake");
+
+    setTimeout(function(){
+        popupBox.classList.remove("popup-error-shake");
+    }, 420);
+}
+
+function shakeInput(id){
+    let input = document.getElementById(id);
+
+    if(!input) return;
+
+    input.classList.remove("input-error-shake");
+    void input.offsetWidth;
+    input.classList.add("input-error-shake");
+
+    setTimeout(function(){
+        input.classList.remove("input-error-shake");
+    }, 550);
+}
+
+
+/* ===================================================== */
+/* ================= FLOATING WHATSAPP ================= */
+/* ===================================================== */
+
+function toggleWA(){
+    let popup = document.getElementById("adminPopup");
+
+    if(popup){
+        popup.classList.add("show");
+    }
+}
+
+function closeAdminPopup(){
+    let popup = document.getElementById("adminPopup");
+
+    if(popup){
+        popup.classList.remove("show");
+    }
+}
+
+
+/* ===================================================== */
+/* ===== ANIMASI WA SAAT SCROLL KE ATAS DAN TERLIHAT ==== */
+/* ===================================================== */
+
+let lastScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+let waNoticeCooldown = false;
+
+function isElementVisible(el){
+    if(!el) return false;
+
+    let rect = el.getBoundingClientRect();
+
+    return (
+        rect.top >= 0 &&
+        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight)
+    );
+}
+
+function triggerWANotice(){
+    let waButton = document.querySelector(".wa-header-btn");
+
+    if(!waButton || waNoticeCooldown) return;
+
+    waNoticeCooldown = true;
+    waButton.classList.remove("wa-notice");
+
+    void waButton.offsetWidth;
+
+    waButton.classList.add("wa-notice");
+
+    setTimeout(function(){
+        waButton.classList.remove("wa-notice");
+    }, 1200);
+
+    setTimeout(function(){
+        waNoticeCooldown = false;
+    }, 1800);
+}
+
+window.addEventListener("scroll", function(){
+    let currentScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+    let scrollingUp = currentScrollPosition < lastScrollPosition;
+    let waButton = document.querySelector(".wa-header-btn");
+
+    if(scrollingUp && isElementVisible(waButton)){
+        triggerWANotice();
+    }
+
+    lastScrollPosition = currentScrollPosition <= 0 ? 0 : currentScrollPosition;
+}, {passive:true});
+
+window.addEventListener("load", function(){
+    setTimeout(triggerWANotice, 650);
+});
+
+
+/* ===================================================== */
+/* ===== PENGUAT TRIGGER ANIMASI KHUSUS HP ============== */
+/* ===================================================== */
+
+function triggerWAWhenHeaderVisible(){
+    let header = document.querySelector(".title-box");
+    let waButton = document.querySelector(".wa-header-btn");
+
+    if(!header || !waButton) return;
+
+    let rect = header.getBoundingClientRect();
+
+    if(rect.bottom > 0 && rect.top < window.innerHeight){
+        triggerWANotice();
+    }
+}
+
+window.addEventListener("scroll", function(){
+    let currentScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+    let scrollingUp = currentScrollPosition < lastScrollPosition;
+
+    if(scrollingUp){
+        triggerWAWhenHeaderVisible();
+    }
+}, {passive:true});
+
+document.addEventListener("click", function(e){
+    let radioLabel = e.target.closest(".radio-group label");
+
+    if(!radioLabel || radioLabel.classList.contains("disabled")) return;
+
+    radioLabel.classList.remove("radio-pop");
+    void radioLabel.offsetWidth;
+    radioLabel.classList.add("radio-pop");
+
+    setTimeout(function(){
+        radioLabel.classList.remove("radio-pop");
+    }, 520);
+});
+
+/* ===================================================== */
+/* ================= GANTI NOMOR WA DI SINI ============= */
+/*
+    FORMAT NOMOR WHATSAPP:
+    Gunakan kode negara 62.
+    Jangan pakai tanda +.
+    Jangan pakai angka 0 di depan.
+
+    Contoh:
+    Nomor asli       : 081234567890
+    Format untuk WA  : 6281234567890
+
+    Ganti angka pada link wa.me di bawah ini:
+    https://wa.me/6281234567890
+
+    Admin 1 dan Admin 2 boleh memakai nomor yang sama
+    atau nomor berbeda sesuai kebutuhan.
+*/
+/* ===================================================== */
+
+function hubungiWA1(){
+    window.open(
+        "https://wa.me/628814842970",
+        "_blank"
+    );
+}
+
+function hubungiWA2(){
+    window.open(
+        "https://wa.me/6282222222222",
+        "_blank"
+    );
+}
+
+/* ===================================================== */
+/* ================= SIZE LAINNYA ======================= */
+/* ===================================================== */
+
+function toggleSize(){
+    let checked = document.querySelector('input[name="size"]:checked');
+    let input = document.getElementById("sizeLainnya");
+    let umur = document.querySelector('input[name="umur"]:checked');
+
+    if(umur && umur.value === "Anak-Anak" && checked && checked.value === "XXXL"){
+        showAlert(
+            "XXXL Anak-anak mendekati XS Dewasa. Silakan pilih kategori Dewasa Cowok dan pilih size XS.",
+            "ℹ️"
+        );
+
+        checked.checked = false;
+        checked.parentElement.classList.remove("active");
+        return;
+    }
+
+    if(checked && checked.value === "Lainnya"){
+        input.style.display = "block";
+    }else{
+        input.style.display = "none";
+        input.value = "";
+    }
+}
+
+/* ===================================================== */
+/* ================= VALIDASI UMUR ====================== */
+/*
+    Aturan kategori umur:
+
+    Jika memilih Anak-Anak:
+    - Gender disembunyikan.
+    - Size XS, S, dan Lainnya dinonaktifkan.
+    - Jika memilih XXXL Anak-Anak, akan muncul peringatan karena mendekati XS Dewasa.
+
+    Jika memilih Dewasa:
+    - Gender wajib dipilih.
+    - Semua pilihan size kembali aktif.
+*/
+/* ===================================================== */
+
+function toggleGender(){
+    let umur = document.querySelector('input[name="umur"]:checked');
+    let genderGroup = document.getElementById("genderGroup");
+    let labels = document.querySelectorAll('input[name="size"]');
+
+    labels.forEach(r=>{
+        r.disabled = false;
+        r.parentElement.classList.remove("disabled");
+        r.onclick = null;
+    });
+
+    if(umur && umur.value === "Anak-Anak"){
+        genderGroup.style.display = "none";
+
+        document.querySelectorAll('input[name="gender"]').forEach(g=>{
+            g.checked = false;
+            g.parentElement.classList.remove("active");
+        });
+
+        let disableSizes = ["XS", "S", "Lainnya"];
+
+        labels.forEach(r=>{
+            let label = r.parentElement;
+
+            if(disableSizes.includes(r.value)){
+                r.checked = false;
+                r.disabled = true;
+                label.classList.remove("active");
+                label.classList.add("disabled");
+            }
+
+            if(r.value === "XXXL" && r.checked){
+                showAlert(
+                    "XXXL Anak-anak mendekati XS Dewasa. Silakan pilih kategori Dewasa Cowok dan pilih size XS.",
+                    "ℹ️"
+                );
+
+                r.checked = false;
+                label.classList.remove("active");
+            }
+        });
+
+        document.getElementById("sizeLainnya").style.display = "none";
+        document.getElementById("sizeLainnya").value = "";
+    }else{
+        genderGroup.style.display = "flex";
+    }
+}
+
+/* ===================================================== */
+/* ================= POPUP SIZE CHART ================== */
+/* ===================================================== */
+
+function showSizeChart(){
+    document.getElementById("sizeChartPopup").style.display = "flex";
+}
+
+function closeSizeChart(){
+    document.getElementById("sizeChartPopup").style.display = "none";
+}
+
+function showDesainBaju(){
+    document.getElementById("desainBajuPopup").style.display = "flex";
+}
+
+function closeDesainBaju(){
+    document.getElementById("desainBajuPopup").style.display = "none";
+}
+
+/* ===================================================== */
+/* ================= RENDER TABEL ======================= */
+/*
+    Nomor urut dibuat berdasarkan urutan data masuk.
+
+    Karena data terbaru selalu tampil di paling atas,
+    maka nomor urut dihitung dengan rumus:
+
+    data.length - i
+
+    Artinya:
+    - Data pertama yang pernah disimpan tetap No 1.
+    - Data kedua menjadi No 2.
+    - Data terbaru muncul di atas, tetapi nomornya tetap mengikuti urutan masuk.
+*/
+/* ===================================================== */
+
+function render(){
+    let tbody = document.getElementById("tbody");
+    tbody.innerHTML = "";
+
+    data.forEach((d,i)=>{
+        tbody.innerHTML += `
+        <tr class="${i === lastSavedIndex ? 'new-saved-row' : ''}">
+            <td data-label="No">${data.length - i}</td>
+            <td data-label="Nama">${d.nama}</td>
+            <td data-label="Size">${d.size}</td>
+            <td data-label="Lengan">${d.lengan}</td>
+            <td data-label="Umur">${d.umur}</td>
+            <td data-label="Gender">${d.gender || "-"}</td>
+            <td data-label="No HP">${d.hp || "-"}</td>
+            <td data-label="Waktu">${d.waktu}</td>
+            <td data-label="Aksi">
+                <button class="delete-btn" onclick="hapus(${i})">
+                    Hapus
+                </button>
+            </td>
+        </tr>
+        `;
+    });
+}
+
+/* ===================================================== */
+/* ================= RESET FORM ========================= */
+/* ===================================================== */
+
+function resetForm(){
+    document.getElementById("nama").value = "";
+    document.getElementById("hp").value = "";
+    document.getElementById("sizeLainnya").value = "";
+    document.getElementById("sizeLainnya").style.display = "none";
+
+    document.querySelectorAll('input[type="radio"]').forEach(r=>{
+        r.checked = false;
+        r.disabled = false;
+    });
+
+    document.querySelectorAll(".radio-group label").forEach(l=>{
+        l.classList.remove("active");
+        l.classList.remove("disabled");
+    });
+
+    document.getElementById("genderGroup").style.display = "flex";
+}
+
+/* ===================================================== */
+/* ================= AMBIL DATA FORM ==================== */
+/*
+    Fungsi ini mengambil dan memvalidasi data dari form.
+
+    Validasi yang dilakukan:
+    - Nama wajib diisi.
+    - Size wajib dipilih.
+    - Lengan wajib dipilih.
+    - Kategori umur wajib dipilih.
+    - Gender wajib dipilih jika kategori umur adalah Dewasa.
+    - Size Lainnya wajib diisi jika memilih pilihan Lainnya.
+    - No HP boleh kosong, tetapi jika diisi harus angka 10 sampai 15 digit.
+*/
+/* ===================================================== */
+
+function ambilForm(){
+    let nama = formatNamaKapital(document.getElementById("nama").value.trim());
+    let hp = document.getElementById("hp").value.trim().replace(/\D/g, "");
+
+    let sizeInput = document.querySelector('input[name="size"]:checked');
+    let lenganInput = document.querySelector('input[name="lengan"]:checked');
+    let umurInput = document.querySelector('input[name="umur"]:checked');
+    let genderInput = document.querySelector('input[name="gender"]:checked');
+
+    let dataKosong = [];
+
+    if(!nama){
+        shakeInput("nama");
+        dataKosong.push("Nama");
+    }
+
+    if(!sizeInput){
+        dataKosong.push("Size");
+    }
+
+    if(!lenganInput){
+        dataKosong.push("Lengan");
+    }
+
+    if(!umurInput){
+        dataKosong.push("Kategori Umur");
+    }
+
+    if(umurInput && umurInput.value === "Dewasa" && !genderInput){
+        dataKosong.push("Gender");
+    }
+
+    if(dataKosong.length > 0){
+        let pesan = "";
+
+        if(dataKosong.length === 1){
+            pesan = dataKosong[0] + " belum diisi.";
+        }else{
+            pesan =
+            "Data berikut belum diisi:<br><br>" +
+            dataKosong.map(item => "• " + item).join("<br>");
+        }
+
+        showAlert(pesan, "⚠️");
+        return null;
+    }
+
+    if(hp && (hp.length < 10 || hp.length > 15)){
+        shakeInput("hp");
+        showAlert(
+            "No HP harus berisi angka 10 sampai 15 digit.<br>Contoh: 081234567890",
+            '<i class="fa-solid fa-phone-slash"></i>'
+        );
+        return null;
+    }
+
+    let size = sizeInput.value;
+
+    if(size === "Lainnya"){
+        size = document.getElementById("sizeLainnya").value.trim().toUpperCase();
+
+        if(!size){
+            shakeInput("sizeLainnya");
+            showAlert("Isi size lainnya terlebih dahulu.", "⚠️");
+            return null;
+        }
+    }
+
+    let gender = "";
+
+    if(umurInput.value === "Dewasa"){
+        gender = genderInput.value;
+    }
+
+    return{
+        nama,
+        size,
+        lengan:lenganInput.value,
+        umur:umurInput.value,
+        gender,
+        hp,
+        waktu:new Date().toLocaleString()
+    };
+}
+
+
+
+/* ===================================================== */
+/* ============ VALIDASI INPUT NO HP ==================== */
+/* ===================================================== */
+
+let inputHp = document.getElementById("hp");
+
+if(inputHp){
+    inputHp.addEventListener("input", function(){
+        this.value = this.value.replace(/\D/g, "").slice(0, 15);
+    });
+}
+
+/* ===================================================== */
+/* ========== RINGKASAN KONFIRMASI SEBELUM KIRIM ======== */
+/* ===================================================== */
+
+function ringkasanPesanan(d){
+    return `
+        <div class="summary-confirm">
+            <div class="summary-title">Ringkasan Pesanan</div>
+
+            <div class="summary-row">
+                <span>Nama</span>
+                <b>${d.nama}</b>
+            </div>
+
+            <div class="summary-row">
+                <span>Size</span>
+                <b>${d.size}</b>
+            </div>
+
+            <div class="summary-row">
+                <span>Lengan</span>
+                <b>${d.lengan}</b>
+            </div>
+
+            <div class="summary-row">
+                <span>Umur</span>
+                <b>${d.umur}</b>
+            </div>
+
+            <div class="summary-row">
+                <span>Gender</span>
+                <b>${d.gender || "-"}</b>
+            </div>
+
+            <div class="summary-row">
+                <span>No HP</span>
+                <b>${d.hp || "-"}</b>
+            </div>
+
+            <div class="summary-note">
+                Pastikan data sudah benar sebelum dikirim.
+            </div>
+        </div>
+    `;
+}
+
+function ringkasanSemuaPesanan(list){
+    let detail = list.map((d,i)=>`
+        <div class="summary-card">
+            <div class="summary-card-title">Pesanan ${i + 1}</div>
+            <div><b>${d.nama}</b></div>
+            <div>Size ${d.size} • ${d.lengan}</div>
+            <div>${d.umur}${d.gender ? " • " + d.gender : ""}</div>
+            <div>No HP: ${d.hp || "-"}</div>
+        </div>
+    `).join("");
+
+    return `
+        <div class="summary-confirm">
+            <div class="summary-title">Ringkasan Semua Pesanan</div>
+            <div class="summary-total">Total: <b>${list.length}</b> pesanan</div>
+            <div class="summary-list">${detail}</div>
+            <div class="summary-note">
+                Pastikan semua data sudah benar sebelum dikirim.
+            </div>
+        </div>
+    `;
+}
+
+/* ===================================================== */
+/* ================= CEK DUPLIKAT ======================= */
+/* ===================================================== */
+
+function isDuplicate(newData){
+    return [...data,...sentData].some(d=>
+        d.nama === newData.nama &&
+        d.size === newData.size &&
+        d.lengan === newData.lengan &&
+        d.umur === newData.umur &&
+        d.gender === newData.gender &&
+        d.hp === newData.hp
+    );
+}
+
+/* ===================================================== */
+/* ================= SIMPAN KE BROWSER ================== */
+/* ===================================================== */
+
+async function simpan(){
+    let form = ambilForm();
+
+    if(!form) return;
+
+    if(isDuplicate(form)){
+        await showAlert("Data sudah ada / pernah dikirim!", "❌");
+        return;
+    }
+
+    data.unshift(form);
+    localStorage.setItem("orders", JSON.stringify(data));
+
+    resetForm();
+
+    await showAlert(
+        "Pesanan berhasil disimpan.<br>Silakan isi data berikutnya jika ingin menambahkan pesanan lain.",
+        "✅"
+    );
+
+    lastSavedIndex = 0;
+    render();
+    scrollKeDataBaruLaluKembali();
+
+    setTimeout(function(){
+        lastSavedIndex = -1;
+        render();
+    }, 5000);
+}
+
+/* ===================================================== */
+/* ================= HAPUS DATA ========================= */
+/* ===================================================== */
+
+async function hapus(i){
+
+    let konfirmasi = await showConfirm(
+        "Yakin ingin menghapus data ini?",
+        "🗑️"
+    );
+
+    if(!konfirmasi) return;
+
+    data.splice(i,1);
+    localStorage.setItem("orders", JSON.stringify(data));
+    render();
+
+    await showAlert("Data berhasil dihapus", "✅");
+}
+
+/* ===================================================== */
+/* ================= KIRIM KE GOOGLE SHEET ============== */
+/*
+    Cara kerja tombol Kirim:
+
+    Jika form nama masih terisi:
+    - Data form yang sedang diisi akan langsung dikirim.
+
+    Jika form nama kosong:
+    - Sistem akan mengambil semua data yang sudah disimpan di tabel.
+    - Semua data tersimpan akan dikirim sekaligus.
+
+    Tombol kirim tidak bisa digunakan jika:
+    - Waktu pemesanan sudah ditutup.
+    - Perangkat sedang offline.
+*/
+/* ===================================================== */
+
+async function kirimKeSheet(){
+
+    if(pemesananDitutup){
+        await showAlert(
+            "Maaf, waktu pemesanan sudah ditutup.",
+            "⛔"
+        );
+
+        updateTombolKirim();
+        return;
+    }
+
+    if(!navigator.onLine){
+        await showAlert(
+            "<b>Anda sedang offline.</b><br><br>Pesanan belum bisa dikirim ke Google Spreadsheet.<br>Simpan data terlebih dahulu, lalu kirim kembali saat internet aktif.",
+            "📡"
+        );
+
+        updateTombolKirim();
+        return;
+    }
+
+    let nama = formatNamaKapital(document.getElementById("nama").value.trim());
+
+    if(nama !== ""){
+        let form = ambilForm();
+
+        if(!form) return;
+
+        if(isDuplicate(form)){
+            await showAlert("Data sudah ada / pernah dikirim!", "❌");
+            return;
+        }
+
+        let konfirmasi = await showConfirm(
+            ringkasanPesanan(form),
+            '<i class="fa-solid fa-clipboard-check"></i>'
+        );
+
+        if(!konfirmasi) return;
+
+        showLoading();
+        kirim(form);
+
+        setTimeout(async()=>{
+            sentData.push(form);
+            localStorage.setItem("sent", JSON.stringify(sentData));
+
+            resetForm();
+            hideLoading();
+
+            await showSuccess("Data berhasil dikirim!");
+        },1200);
+
+        return;
+    }
+
+    data = JSON.parse(localStorage.getItem("orders")) || [];
+
+    if(data.length === 0){
+        await showAlert("Tidak ada data tersimpan", "⚠️");
+        return;
+    }
+
+    let konfirmasi = await showConfirm(
+        ringkasanSemuaPesanan(data),
+        '<i class="fa-solid fa-clipboard-check"></i>'
+    );
+
+    if(!konfirmasi) return;
+
+    showLoading();
+
+    data.forEach(d=>{
+        kirim(d);
+        sentData.push(d);
+    });
+
+    localStorage.setItem("sent", JSON.stringify(sentData));
+
+    setTimeout(async()=>{
+        data = [];
+        localStorage.removeItem("orders");
+
+        render();
+        hideLoading();
+
+        await showSuccess("Semua data berhasil dikirim!");
+    },1200);
+}
+
+/* ===================================================== */
+/* ================= ENTRY GOOGLE FORM ================== */
+/*
+    BAGIAN INI UNTUK MENGIRIM DATA KE GOOGLE FORM / SPREADSHEET.
+
+    Jangan mengganti entry.xxxxxxxxx jika Google Form masih sama.
+    Entry ini harus sesuai dengan pertanyaan di Google Form.
+
+    Kalau nanti membuat Google Form baru, maka:
+    1. Ambil link formResponse dari Google Form baru.
+    2. Ganti URL fetch di bawah.
+    3. Ganti semua entry.xxxxxxxxx sesuai field Google Form baru.
+
+    Urutan data yang dikirim:
+    - Nama
+    - Size
+    - Lengan
+    - Kategori Umur
+    - Gender
+    - No HP
+    - Waktu
+*/
+/* ===================================================== */
+
+const GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxOgwT4Zn7QK8DQy4dGDjJGa-lXCYj1NhPcPmRqxtEAFSJ5FeT5Wbm3lwPAoJ0hw6v6/exec";
+
+function kirim(d){
+    /*
+        MODE FRONTEND GITHUB + BACKEND GOOGLE APPS SCRIPT
+
+        Cara pakai:
+        1. Deploy backend Apps Script sebagai Web App.
+        2. Copy URL Web App yang berakhiran /exec.
+        3. Ganti nilai GAS_WEB_APP_URL di atas.
+
+        Data dikirim sebagai form biasa agar aman dipakai dari GitHub Pages
+        tanpa masalah CORS/preflight. Backend GAS cukup membaca e.parameter.
+    */
+
+    if(!GAS_WEB_APP_URL || GAS_WEB_APP_URL.includes("PASTE_URL")){
+        showAlert(
+            "URL Web App Apps Script belum diisi di file index.html.<br><br>Ganti GAS_WEB_APP_URL dengan URL deploy Web App yang berakhiran /exec.",
+            "⚠️"
+        );
+        return;
+    }
+
+    let f = new FormData();
+
+    f.append("nama", d.nama || "");
+    f.append("size", d.size || "");
+    f.append("lengan", d.lengan || "");
+    f.append("umur", d.umur || "");
+    f.append("gender", d.gender || "");
+    f.append("hp", d.hp || "");
+    f.append("waktu", d.waktu || "");
+
+    fetch(GAS_WEB_APP_URL, {
+        method:"POST",
+        mode:"no-cors",
+        body:f
+    });
+}
+
+/* ===================================================== */
+/* ================= DISABLE BUTTON SAAT LOADING ======== */
+/* ===================================================== */
+
+function setPageButtonsDisabled(status){
+    document.querySelectorAll("button").forEach(btn=>{
+        if(
+            btn.id !== "popupOk" &&
+            btn.id !== "popupCancel"
+        ){
+            btn.disabled = status;
+        }
+    });
+}
+
+/* ===================================================== */
+/* ================= POPUP LOADING ====================== */
+/* ===================================================== */
+
+function showLoading(message="Sedang mengirim data..."){
+    setPageButtonsDisabled(true);
+
+    document.getElementById("popupIcon").innerHTML =
+    `<div class="loading-spinner"></div>`;
+
+    document.getElementById("popupMessage").innerHTML = message;
+    document.getElementById("popupCancel").style.display = "none";
+    document.getElementById("popupOk").style.display = "none";
+    document.getElementById("customPopup").style.display = "flex";
+}
+
+function hideLoading(){
+    setPageButtonsDisabled(false);
+
+    document.getElementById("customPopup").style.display = "none";
+    document.getElementById("popupOk").style.display = "inline-block";
+
+    updateTombolKirim(false);
+}
+
+
+/* ===================================================== */
+/* ================= POPUP SUCCESS ====================== */
+/* ===================================================== */
+
+function showSuccess(message){
+    return new Promise(resolve=>{
+        document.getElementById("popupIcon").innerHTML =
+        `<div class="success-check">✓</div>`;
+
+        document.getElementById("popupMessage").innerHTML = message;
+        document.getElementById("popupCancel").style.display = "none";
+        document.getElementById("popupOk").style.display = "inline-block";
+        document.getElementById("customPopup").style.display = "flex";
+
+        document.getElementById("popupOk").onclick = function(){
+            document.getElementById("customPopup").style.display = "none";
+            resolve(true);
+        };
+    });
+}
+
+/* ===================================================== */
+/* ================= POPUP ALERT ======================== */
+/* ===================================================== */
+
+function showAlert(message,icon="✅"){
+    return new Promise(resolve=>{
+        let popupBox = document.querySelector("#customPopup .popup-box");
+        let isErrorAlert =
+            icon === "⚠️" ||
+            icon === "❌" ||
+            String(icon).includes("phone-slash");
+
+        if(popupBox){
+            popupBox.classList.remove("popup-error-mode");
+        }
+
+        document.getElementById("popupIcon").innerHTML = icon;
+        document.getElementById("popupMessage").innerHTML = message;
+        document.getElementById("popupCancel").style.display = "none";
+        document.getElementById("popupOk").style.display = "inline-block";
+
+        if(isErrorAlert && popupBox){
+            void popupBox.offsetWidth;
+            popupBox.classList.add("popup-error-mode");
+        }
+
+        document.getElementById("customPopup").style.display = "flex";
+
+        document.getElementById("popupOk").onclick = function(){
+            document.getElementById("customPopup").style.display = "none";
+
+            if(popupBox){
+                popupBox.classList.remove("popup-error-mode");
+            }
+
+            resolve(true);
+        };
+    });
+}
+
+/* ===================================================== */
+/* ================= POPUP CONFIRM ====================== */
+/* ===================================================== */
+
+function showConfirm(message,icon="⚠️"){
+    return new Promise(resolve=>{
+        document.getElementById("popupIcon").innerHTML = icon;
+        document.getElementById("popupMessage").innerHTML = message;
+        document.getElementById("popupCancel").style.display = "inline-block";
+        document.getElementById("popupOk").style.display = "inline-block";
+        document.getElementById("customPopup").style.display = "flex";
+
+        document.getElementById("popupOk").onclick = function(){
+            document.getElementById("customPopup").style.display = "none";
+            resolve(true);
+        };
+
+        document.getElementById("popupCancel").onclick = function(){
+            document.getElementById("customPopup").style.display = "none";
+            resolve(false);
+        };
+    });
+}
+
+/* ===================================================== */
+/* ================= CLOSE POPUP KLIK AREA GELAP ======== */
+/* ===================================================== */
+
+window.onclick = function(e){
+    let sizePopup = document.getElementById("sizeChartPopup");
+    let desainPopup = document.getElementById("desainBajuPopup");
+    let adminPopup = document.getElementById("adminPopup");
+
+    if(e.target === sizePopup){
+        sizePopup.style.display = "none";
+    }
+
+    if(e.target === desainPopup){
+        desainPopup.style.display = "none";
+    }
+
+    if(e.target === adminPopup){
+        adminPopup.classList.remove("show");
+    }
+};
+
+
+/* ===================================================== */
+/* ================= COUNTDOWN WAKTU ==================== */
+/* ===================================================== */
+
+
+/* GANTI TANGGAL DI BAWAH SESUAI BATAS PEMESANAN */
+/* Format: new Date(tahun, bulan, tanggal, jam, menit, detik) */
+/*
+    CATATAN PENTING:
+    Angka bulan di JavaScript dimulai dari 0 sampai 11, bukan 1 sampai 12.
+
+    0  = Januari
+    1  = Februari
+    2  = Maret
+    3  = April
+    4  = Mei
+    5  = Juni
+    6  = Juli
+    7  = Agustus
+    8  = September
+    9  = Oktober
+    10 = November
+    11 = Desember
+
+    Contoh:
+    new Date(2026, 11, 31, 23, 59, 59)
+    artinya 31 Desember 2026 jam 23:59:59.
+
+    Jangan pakai angka 12 untuk Desember,
+    karena 12 akan terbaca sebagai Januari tahun berikutnya.
+*/
+
+let batasWaktu = new Date(2027, 1, 28, 23, 59, 59).getTime();
+
+setInterval(function(){
+    let sekarang = new Date().getTime();
+    let selisih = batasWaktu - sekarang;
+
+    if(selisih <= 0){
+    pemesananDitutup = true;
+
+    document.getElementById("hari").innerHTML = "0";
+    document.getElementById("jam").innerHTML = "0";
+    document.getElementById("menit").innerHTML = "0";
+    document.getElementById("detik").innerHTML = "0";
+
+    document.querySelector(".countdown-title").innerHTML =
+    "⛔ PEMESANAN DITUTUP";
+
+    updateTombolKirim(true);
+
+    return;
+	}
+
+    let hari = Math.floor(selisih / (1000 * 60 * 60 * 24));
+    let jam = Math.floor((selisih % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    let menit = Math.floor((selisih % (1000 * 60 * 60)) / (1000 * 60));
+    let detik = Math.floor((selisih % (1000 * 60)) / 1000);
+
+    document.getElementById("hari").innerHTML = hari;
+    document.getElementById("jam").innerHTML = jam;
+    document.getElementById("menit").innerHTML = menit;
+    document.getElementById("detik").innerHTML = detik;
+},1000);
+
+/* ===================================================== */
+/* ========== UPDATE STATUS TOMBOL KIRIM ================ */
+/* ===================================================== */
+
+function updateTombolKirim(tampilkanPopup = false){
+    let tombolKirim = document.querySelector(".btn-send");
+    let statusBox = document.getElementById("networkStatus");
+
+    if(!tombolKirim) return;
+
+    tombolKirim.classList.remove("offline");
+    tombolKirim.classList.remove("closed");
+
+    if(pemesananDitutup){
+        tombolKirim.disabled = true;
+        tombolKirim.innerHTML = '<i class="fa-solid fa-ban"></i> Pemesanan Ditutup';
+        tombolKirim.classList.add("closed");
+
+        if(statusBox){
+            statusBox.classList.remove("show");
+        }
+
+        if(tampilkanPopup && !popupTutupSudahTampil){
+            popupTutupSudahTampil = true;
+
+            showAlert(
+                "⛔ Waktu pemesanan sudah ditutup.<br><br>Data tidak bisa dikirim lagi ke Google Spreadsheet.",
+                "⛔"
+            );
+        }
+
+        return;
+    }
+
+    if(!navigator.onLine){
+        tombolKirim.disabled = true;
+        tombolKirim.innerHTML = '<i class="fa-solid fa-wifi"></i> Offline';
+        tombolKirim.classList.add("offline");
+
+        if(statusBox){
+            statusBox.classList.add("show");
+        }
+
+        if(tampilkanPopup && !popupOfflineSudahTampil){
+            popupOfflineSudahTampil = true;
+
+            showAlert(
+                "<b>Anda sedang offline.</b><br><br>Pesanan belum bisa dikirim ke Google Spreadsheet.<br>Simpan data terlebih dahulu, lalu kirim kembali saat internet aktif.",
+                "📡"
+            );
+        }
+
+        return;
+    }
+
+    popupOfflineSudahTampil = false;
+
+    tombolKirim.disabled = false;
+    tombolKirim.innerHTML = '<span class="sheet-icon"><i class="fa-brands fa-google"></i><i class="fa-solid fa-table-cells"></i></span> Kirim ke Google Spreadsheet';
+
+    if(statusBox){
+        statusBox.classList.remove("show");
+    }
+}
+
+window.addEventListener("online", function(){
+    updateTombolKirim(true);
+});
+
+window.addEventListener("offline", function(){
+    updateTombolKirim(true);
+});
+
+updateTombolKirim(false);
+
+render();
+</script>
+
+</body>
+</html>
