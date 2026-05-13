@@ -4,14 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
 <title>Pemesanan Baju</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-<script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=j4QKFLqxWfnDVbkwA4qeXjJHvDvxJHJi5_PkTocho5CseR50Dp21RnnnJhP5w26qxMMeiZASMPHl8XTdczBsUQPsHc3XUrnwCm6rfcYwE44ixvoklID38BHcmPqKT7uFTNPzl-h86MAZpgJ06HIf1QTr8xYeeJxlBORfkXVmDD18Q1Hg2wtUaFtAKbdyzxbHsvQPpLZaLcibUM-IOU2G9O6hKhrfvp94iPThoxk6N3tv_e5qXVfhevajzMrmUV2fuatJJuTL3kpaSGc6pb0egA" charset="UTF-8"></script><style>
-
-/* ===================================================== */
-/* ========== TAMPILAN MODERN PEMESANAN BAJU ============ */
-/* ===================================================== */
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"><style id="main-style-merged">
 :root{
     --blue:#1976D2;
     --blue-light:#42A5F5;
@@ -57,10 +50,6 @@ body{
     box-shadow:var(--shadow);
     overflow:hidden;
 }
-
-/* ===================================================== */
-/* ================= HEADER ============================= */
-/* ===================================================== */
 
 .title-box{
     position:relative;
@@ -124,10 +113,6 @@ body{
     font-weight:700;
 }
 
-/* ===================================================== */
-/* ================= NOTE BOX =========================== */
-/* ===================================================== */
-
 .note-box{
     position:relative;
     background:linear-gradient(135deg,#fff7d6,#fff1ba);
@@ -157,10 +142,6 @@ body{
     color:#d32f2f;
     font-weight:900;
 }
-
-/* ===================================================== */
-/* ================= COUNTDOWN ========================== */
-/* ===================================================== */
 
 .countdown-box{
     background:linear-gradient(135deg,#0D6EFD,#1976D2);
@@ -192,7 +173,8 @@ body{
 }
 
 .countdown-title::before{
-    content:"017";
+    content:"
+017";
     font-family:"Font Awesome 6 Free";
     font-weight:900;
     font-size:18px;
@@ -233,10 +215,6 @@ body{
     text-align:center;
     font-weight:800;
 }
-
-/* ===================================================== */
-/* ================= INPUT FORM ========================= */
-/* ===================================================== */
 
 .field-wrap{
     position:relative;
@@ -316,10 +294,6 @@ label{
     color:var(--pink);
 }
 
-/* ===================================================== */
-/* ================= PILIHAN RADIO ====================== */
-/* ===================================================== */
-
 .radio-group{
     display:flex;
     flex-wrap:wrap;
@@ -372,10 +346,6 @@ label{
     background:#eef2f6;
 }
 
-/* ===================================================== */
-/* ================= SIZE CHART BUTTON ================== */
-/* ===================================================== */
-
 .size-row{
     display:flex;
     align-items:center;
@@ -408,10 +378,6 @@ label{
 #sizeLainnya{
     margin-top:12px;
 }
-
-/* ===================================================== */
-/* ================= BUTTON ============================= */
-/* ===================================================== */
 
 .button-group{
     display:grid;
@@ -458,10 +424,6 @@ button:disabled{
     transform:none!important;
 }
 
-/* ===================================================== */
-/* ================= TABEL DATA ========================= */
-/* ===================================================== */
-
 .table-wrapper{
     width:100%;
     overflow-x:auto;
@@ -498,44 +460,6 @@ th{
     cursor:pointer;
     font-weight:900;
 }
-
-
-/* ===================================================== */
-/* ============= ANIMASI ERROR SHAKE ==================== */
-/* ===================================================== */
-
-function shakePopupError(){
-    let popupBox = document.querySelector("#customPopup .popup-box");
-
-    if(!popupBox) return;
-
-    popupBox.classList.remove("popup-error-shake");
-    void popupBox.offsetWidth;
-    popupBox.classList.add("popup-error-shake");
-
-    setTimeout(function(){
-        popupBox.classList.remove("popup-error-shake");
-    }, 420);
-}
-
-function shakeInput(id){
-    let input = document.getElementById(id);
-
-    if(!input) return;
-
-    input.classList.remove("input-error-shake");
-    void input.offsetWidth;
-    input.classList.add("input-error-shake");
-
-    setTimeout(function(){
-        input.classList.remove("input-error-shake");
-    }, 550);
-}
-
-
-/* ===================================================== */
-/* ================= FLOATING WHATSAPP ================= */
-/* ===================================================== */
 
 .floating-wa{
     position:fixed;
@@ -576,10 +500,6 @@ function shakeInput(id){
     cursor:pointer;
     font-weight:800;
 }
-
-/* ===================================================== */
-/* ================= POPUP CUSTOM ======================= */
-/* ===================================================== */
 
 .popup-overlay{
     position:fixed;
@@ -671,10 +591,6 @@ function shakeInput(id){
     to{ transform:scale(1); opacity:1; }
 }
 
-/* ===================================================== */
-/* ================= POPUP SIZE CHART =================== */
-/* ===================================================== */
-
 .sizechart-overlay{
     position:fixed;
     inset:0;
@@ -713,8 +629,6 @@ function shakeInput(id){
     cursor:grabbing;
 }
 
-
-
 .sizechart-close{
     position:absolute;
     top:8px;
@@ -733,10 +647,6 @@ function shakeInput(id){
     from{ transform:scale(.88); opacity:0; }
     to{ transform:scale(1); opacity:1; }
 }
-
-/* ===================================================== */
-/* ================= STATUS ============================= */
-/* ===================================================== */
 
 .btn-send.closed{
     background:#9e9e9e !important;
@@ -818,10 +728,6 @@ function shakeInput(id){
     cursor:not-allowed;
     box-shadow:none;
 }
-
-/* ===================================================== */
-/* ================= RESPONSIVE HP ====================== */
-/* ===================================================== */
 
 @media(max-width:768px){
     body{
@@ -1019,7 +925,6 @@ function shakeInput(id){
     }
 }
 
-
 .sheet-icon{
     display:inline-flex;
     align-items:center;
@@ -1039,11 +944,6 @@ function shakeInput(id){
 .sheet-icon .fa-table-cells{
     font-size:.9em;
 }
-
-
-/* ===================================================== */
-/* ============ ANIMASI HALUS NOTE & COUNTDOWN ========== */
-/* ===================================================== */
 
 .note-box{
     animation:pulseNote 2s ease-in-out infinite;
@@ -1080,11 +980,6 @@ function shakeInput(id){
         box-shadow:0 18px 32px rgba(25,118,210,.28);
     }
 }
-
-
-/* ===================================================== */
-/* =========== RINGKASAN KONFIRMASI KIRIM =============== */
-/* ===================================================== */
 
 .summary-confirm{
     text-align:left;
@@ -1168,10 +1063,6 @@ function shakeInput(id){
     font-weight:900;
     text-align:center;
 }
-
-/* ===================================================== */
-/* ===== PILIHAN METODE PEMBAYARAN - COMPACT ============ */
-/* ===================================================== */
 
 .payment-box{
     margin-top:10px;
@@ -1517,26 +1408,18 @@ function shakeInput(id){
     }
 }
 
-
 .popup-icon i{
     color:#1976D2;
     font-size:44px;
 }
 
-
 input#hp{
     letter-spacing:.3px;
 }
 
-
 .sizechart-close{
     display:none!important;
 }
-
-
-/* ===================================================== */
-/* ============ MODE HP LEBIH COMPACT / KECIL =========== */
-/* ===================================================== */
 
 @media(max-width:768px){
     body{
@@ -1772,18 +1655,12 @@ input#hp{
     }
 }
 
-
 .note-box,
 .countdown-box{
     will-change:box-shadow;
     transform:none!important;
     backface-visibility:hidden;
 }
-
-
-/* ===================================================== */
-/* ===== SIZE CHART MENGGUNAKAN ZOOM BAWAAN BROWSER ===== */
-/* ===================================================== */
 
 .sizechart-overlay,
 .sizechart-box,
@@ -1794,11 +1671,6 @@ input#hp{
 .sizechart-image{
     transform:none!important;
 }
-
-
-/* ===================================================== */
-/* ===== INFO PEMESANAN TIDAK IKUT SAAT SCROLL ========== */
-/* ===================================================== */
 
 .floating-wa{
     position:static!important;
@@ -1841,11 +1713,6 @@ input#hp{
         padding:0 12px;
     }
 }
-
-
-/* ===================================================== */
-/* ===== LOGO WA DI POJOK KANAN ATAS HEADER ============= */
-/* ===================================================== */
 
 .wa-header-btn{
     position:absolute;
@@ -1929,13 +1796,6 @@ input#hp{
         top:58px;
     }
 }
-
-
-
-
-/* ===================================================== */
-/* ========== FIX POPUP INFO ADMIN TAMPIL DI TENGAH ===== */
-/* ===================================================== */
 
 .admin-popup-overlay{
     position:fixed!important;
@@ -2057,11 +1917,6 @@ input#hp{
     }
 }
 
-
-/* ===================================================== */
-/* ============== EFEK GLOW LEBIH HALUS ================= */
-/* ===================================================== */
-
 .container{
     box-shadow:0 10px 24px rgba(15,23,42,.08)!important;
 }
@@ -2161,11 +2016,6 @@ input#hp{
     }
 }
 
-
-/* ===================================================== */
-/* ===== ANIMASI LOGO WA SAAT SCROLL KE ATAS ============ */
-/* ===================================================== */
-
 .wa-header-btn.wa-notice{
     animation:waNoticeMove 1.15s ease-in-out 1;
 }
@@ -2226,11 +2076,6 @@ input#hp{
     }
 }
 
-
-/* ===================================================== */
-/* ===== ANIMASI HALUS TOMBOL PENTING =================== */
-/* ===================================================== */
-
 .btn-send{
     animation:sendButtonNotice 4s ease-in-out infinite;
 }
@@ -2279,7 +2124,6 @@ input#hp{
     }
 }
 
-/* Saat user hover/klik, animasi tidak melawan interaksi */
 .btn-send:hover{
     animation-play-state:paused;
 }
@@ -2288,7 +2132,6 @@ input#hp{
     animation-play-state:paused;
 }
 
-/* Hormati pengguna yang memilih mengurangi animasi */
 @media(prefers-reduced-motion:reduce){
     .btn-send,
     .size-chart-btn i,
@@ -2297,11 +2140,6 @@ input#hp{
         animation:none!important;
     }
 }
-
-
-/* ===================================================== */
-/* ===== ANIMASI DATA BARU SAAT BERHASIL DISIMPAN ======= */
-/* ===================================================== */
 
 tr.new-saved-row{
     animation:newSavedRowNotice 3s ease-in-out 1;
@@ -2379,12 +2217,6 @@ tr.new-saved-row td{
     }
 }
 
-
-/* ===================================================== */
-/* ===== TAMBAHAN ANIMASI AGAR FORM LEBIH HIDUP ========= */
-/* ===================================================== */
-
-/* Radio yang dipilih terasa lebih responsif */
 .radio-group label.radio-pop{
     animation:radioPop .32s ease-out 1;
 }
@@ -2403,7 +2235,6 @@ tr.new-saved-row td{
     }
 }
 
-/* Popup muncul lebih smooth */
 .popup-box,
 .admin-popup-box{
     animation:popupSmoothIn .18s ease-out 1!important;
@@ -2421,7 +2252,6 @@ tr.new-saved-row td{
     }
 }
 
-/* Efek shake kecil untuk error hanya dipakai pada input agar popup tidak terasa muncul 2x */
 .popup-box.popup-error-shake,
 .admin-popup-box.popup-error-shake{
     animation:none!important;
@@ -2466,11 +2296,6 @@ tr.new-saved-row td{
     }
 }
 
-
-/* ===================================================== */
-/* ===== FIX SHAKE ERROR POPUP JELAS TANPA DOUBLE ======= */
-/* ===================================================== */
-
 .popup-box.popup-error-mode{
     animation:popupErrorIn .42s ease-in-out 1!important;
 }
@@ -2513,20 +2338,6 @@ tr.new-saved-row td{
         animation:none!important;
     }
 }
-
-
-/* ===================================================== */
-/* ===== FIX ANIMASI HP AGAR LEBIH TERLIHAT ============= */
-/*
-    Beberapa HP/browser membuat animasi kecil terlihat terlalu halus.
-    Bagian ini memperkuat animasi khusus di HP agar lebih mudah terlihat:
-    - Logo WA
-    - Warning popup
-    - Icon penggaris Size Chart
-    - Tombol radio saat dipilih
-    - Tombol Kirim ke Google Spreadsheet
-*/
-/* ===================================================== */
 
 .wa-header-btn,
 .size-chart-btn i,
@@ -2742,16 +2553,6 @@ tr.new-saved-row td{
     }
 }
 
-
-/* ===================================================== */
-/* ===== FIX ANIMASI TABEL DATA BARU AGAR TERLIHAT DI HP */
-/*
-    Di tampilan HP, tabel berubah menjadi card.
-    Bagian ini memperkuat animasi card data baru agar lebih terlihat
-    setelah klik OK pada popup simpan.
-*/
-/* ===================================================== */
-
 @media(max-width:768px){
     tr.new-saved-row{
         position:relative!important;
@@ -2845,15 +2646,6 @@ tr.new-saved-row td{
     }
 }
 
-
-/* ===================================================== */
-/* ===== REVISI BADGE DATA BARU DI HP =================== */
-/*
-    Badge "Baru" dipindah ke kiri atas dan diperkecil
-    agar tidak menutupi nama pesanan.
-*/
-/* ===================================================== */
-
 @media(max-width:768px){
     tr.new-saved-row{
         padding-top:28px!important;
@@ -2868,15 +2660,6 @@ tr.new-saved-row td{
         left:9px!important;
     }
 }
-
-
-/* ===================================================== */
-/* ===== TOMBOL DAN POPUP DESAIN BAJU =================== */
-/*
-    Tombol desain baju diletakkan sejajar dengan Size Chart.
-    Popup memakai zoom bawaan browser, sama seperti Size Chart.
-*/
-/* ===================================================== */
 
 .design-btn{
     display:inline-flex;
@@ -2989,16 +2772,6 @@ tr.new-saved-row td{
     }
 }
 
-
-/* ===================================================== */
-/* ===== FIX ANIMASI LIHAT DESAIN BAJU AGAR TERLIHAT HP = */
-/*
-    Animasi sebelumnya hanya di icon dan terlalu halus di HP.
-    Bagian ini membuat tombol "Lihat Desain Baju" sedikit bergerak,
-    glow halus, dan icon baju ikut pop agar lebih terlihat.
-*/
-/* ===================================================== */
-
 .design-btn{
     position:relative;
     overflow:hidden;
@@ -3104,18 +2877,6 @@ tr.new-saved-row td{
         animation:none!important;
     }
 }
-
-
-/* ===================================================== */
-/* ===== FIX FINAL ANIMASI DESAIN BAJU SUPER TERLIHAT HP */
-/*
-    Animasi dibuat lebih jelas agar terlihat di HP:
-    - tombol pulse
-    - ring/outline biru
-    - badge kecil "Lihat"
-    - icon baju bergerak lebih kuat
-*/
-/* ===================================================== */
 
 .design-btn{
     position:relative!important;
@@ -3261,18 +3022,6 @@ tr.new-saved-row td{
     }
 }
 
-
-/* ===================================================== */
-/* ===== REVISI ANIMASI DESAIN BAJU SEPERTI SIZE CHART == */
-/*
-    Animasi tombol desain dibuat sama seperti tombol Size Chart:
-    - hanya icon yang bergerak
-    - tidak ada badge "Lihat"
-    - tidak ada ring/outline
-    - tombol tidak ikut pulse agar tidak mengganggu
-*/
-/* ===================================================== */
-
 .design-btn{
     overflow:hidden!important;
     animation:none!important;
@@ -3316,15 +3065,6 @@ tr.new-saved-row td{
     }
 }
 
-
-/* ===================================================== */
-/* ===== ANIMASI DESAIN BAJU DISAMAKAN DENGAN SIZE CHART */
-/*
-    Icon tombol Lihat Desain Baju memakai animasi yang sama
-    dengan icon tombol Lihat Size Chart.
-*/
-/* ===================================================== */
-
 .design-btn{
     overflow:hidden!important;
     animation:none!important;
@@ -3350,15 +3090,6 @@ tr.new-saved-row td{
     }
 }
 
-
-/* ===================================================== */
-/* ===== EFEK KLIK DESAIN BAJU SAMA DENGAN SIZE CHART === */
-/*
-    Saat tombol diklik/hover, Lihat Desain Baju ikut naik sedikit
-    seperti tombol Lihat Size Chart.
-*/
-/* ===================================================== */
-
 .design-btn:hover,
 .design-btn:active{
     transform:translateY(-1px)!important;
@@ -3367,16 +3098,6 @@ tr.new-saved-row td{
 .design-btn{
     transition:.2s!important;
 }
-
-
-/* ===================================================== */
-/* ===== FIX ANIMASI ICON DESAIN BAJU TERLIHAT DI HP ==== */
-/*
-    Animasi hanya pada icon baju.
-    Dibuat sedikit lebih jelas agar terlihat di HP,
-    tetapi tombolnya tidak ikut bergerak agar tidak mengganggu.
-*/
-/* ===================================================== */
 
 .design-btn{
     position:relative!important;
@@ -3433,18 +3154,6 @@ tr.new-saved-row td{
         animation:none!important;
     }
 }
-
-
-/* ===================================================== */
-/* ===== FIX FINAL: ICON DESAIN BAJU LEBIH NOTICE DI HP = */
-/*
-    Animasi tetap hanya pada icon, tetapi dibuat jelas:
-    - icon bergoyang kiri-kanan
-    - icon membesar
-    - warna icon berubah kuning sebentar
-    - tidak ada badge/ring/tombol pulse
-*/
-/* ===================================================== */
 
 .design-btn{
     animation:none!important;
@@ -3503,17 +3212,6 @@ tr.new-saved-row td{
         animation:none!important;
     }
 }
-
-
-/* ===================================================== */
-/* ===== FIX FINAL ANIMASI ICON DESAIN BAJU ============= */
-/*
-    Penyebab animasi sebelumnya kurang terlihat di HP:
-    ada banyak aturan CSS lama yang sama-sama menargetkan .design-btn i.
-    Sekarang icon dibungkus dengan .design-icon-wrap dan animasi dipasang
-    pada wrapper tersebut, sehingga tidak bentrok dengan aturan icon lain.
-*/
-/* ===================================================== */
 
 .design-btn{
     overflow:hidden!important;
@@ -3590,16 +3288,6 @@ tr.new-saved-row td{
         animation:none!important;
     }
 }
-
-
-/* ===================================================== */
-/* ===== FIX PASTI TERLIHAT: ICON DESAIN BAJU PAKAI SVG = */
-/*
-    Animasi icon desain baju sekarang memakai SVG inline, bukan Font Awesome.
-    Ini menghindari bentrok dengan aturan .design-btn i sebelumnya.
-    Yang bergerak tetap hanya icon, bukan tombol.
-*/
-/* ===================================================== */
 
 .design-btn{
     animation:none!important;
@@ -3695,18 +3383,6 @@ tr.new-saved-row td{
     }
 }
 
-
-/* ===================================================== */
-/* ===== REVISI ANIMASI DESAIN BAJU LEBIH HALUS ========= */
-/*
-    Animasi icon desain baju dibuat lebih kalem:
-    - gerakan lebih kecil
-    - scale lebih kecil
-    - glow lebih lembut
-    - durasi sedikit lebih pelan
-*/
-/* ===================================================== */
-
 .design-icon-wrap{
     animation:designSvgIconMoveSoft 3.2s ease-in-out infinite!important;
 }
@@ -3759,15 +3435,6 @@ tr.new-saved-row td{
         animation-duration:3.2s!important;
     }
 }
-
-
-/* ===================================================== */
-/* ===== SAMAKAN UKURAN TOMBOL DESAIN DENGAN SIZE CHART = */
-/*
-    Khusus HP, tombol Lihat Desain Baju disamakan tinggi dan padding-nya
-    dengan tombol Lihat Size Chart.
-*/
-/* ===================================================== */
 
 @media(max-width:768px){
     .size-chart-btn,
@@ -3831,20 +3498,6 @@ tr.new-saved-row td{
         line-height:15px!important;
     }
 }
-
-
-/* ===================================================== */
-/* ===== MODE HP SUPER COMPACT - FORM LEBIH KECIL ======= */
-/*
-    Revisi ini mengecilkan tampilan khusus HP agar tidak terlalu besar:
-    - Header lebih pendek
-    - Note dan countdown lebih ramping
-    - Input lebih kecil
-    - Tombol Size Chart / Desain Baju lebih kecil
-    - Tombol radio lebih kecil
-    - Tombol Simpan / Kirim lebih compact
-*/
-/* ===================================================== */
 
 @media(max-width:768px){
     .container{
@@ -4151,19 +3804,6 @@ tr.new-saved-row td{
     }
 }
 
-
-/* ===================================================== */
-/* ===== REVISI CARD TABEL HP LEBIH RAMPING ============= */
-/*
-    Card tabel di HP dibuat lebih kecil dan tidak terlalu lebar:
-    - Ada margin kiri-kanan
-    - Padding card dikurangi
-    - Font tabel sedikit diperkecil
-    - Jarak antar baris lebih rapat
-    - Tombol hapus lebih compact
-*/
-/* ===================================================== */
-
 @media(max-width:768px){
     .table-wrapper{
         padding:0 4px!important;
@@ -4250,15 +3890,6 @@ tr.new-saved-row td{
     }
 }
 
-
-/* ===================================================== */
-/* ===== LEBAR CARD TABEL HP DIKEMBALIKAN SEPERTI SEMULA */
-/*
-    Tinggi card tetap ramping seperti revisi terakhir.
-    Lebar card dikembalikan hampir full seperti sebelumnya.
-*/
-/* ===================================================== */
-
 @media(max-width:768px){
     .table-wrapper{
         padding:0!important;
@@ -4289,15 +3920,6 @@ tr.new-saved-row td{
         width:100%!important;
     }
 }
-
-
-/* ===================================================== */
-/* ===== REVISI TOMBOL HP SEDIKIT LEBIH BESAR =========== */
-/*
-    Ukuran form/container tetap sama.
-    Yang diperbesar hanya tombol-tombol agar lebih nyaman disentuh di HP.
-*/
-/* ===================================================== */
 
 @media(max-width:768px){
     .size-chart-btn,
@@ -4376,15 +3998,6 @@ tr.new-saved-row td{
     }
 }
 
-
-/* ===================================================== */
-/* ===== REVISI INPUT HP SEDIKIT LEBIH BESAR ============ */
-/*
-    Input Nama dan No WA Aktif dibuat sedikit lebih besar agar lebih nyaman disentuh
-    tanpa mengubah ukuran form/container.
-*/
-/* ===================================================== */
-
 @media(max-width:768px){
     input[type="text"],
     input[type="tel"]{
@@ -4420,15 +4033,6 @@ tr.new-saved-row td{
         left:12.5px!important;
     }
 }
-
-
-/* ===================================================== */
-/* ===== REVISI TINGGI BOX BATAS PEMESANAN ============== */
-/*
-    Box countdown / batas pemesanan dibuat sedikit lebih pendek di HP
-    tanpa mengubah lebar form.
-*/
-/* ===================================================== */
 
 @media(max-width:768px){
     .countdown-box{
@@ -4479,12 +4083,6 @@ tr.new-saved-row td{
     }
 }
 
-
-
-/* ===================================================== */
-/* ================= FOOTER COPYRIGHT ================== */
-/* ===================================================== */
-
 .site-footer{
     margin-top:24px;
     padding:16px 10px 6px;
@@ -4507,12 +4105,6 @@ tr.new-saved-row td{
         font-size:11px;
     }
 }
-
-
-
-/* ===================================================== */
-/* ===== OFFLINE BOX LEBIH TERLIHAT ===================== */
-/* ===================================================== */
 
 .network-status{
     display:none;
@@ -4618,12 +4210,6 @@ tr.new-saved-row td{
         line-height:1.45!important;
     }
 }
-
-
-
-/* ===================================================== */
-/* ===== FINAL POPUP SUPER COMPACT ====================== */
-/* ===================================================== */
 
 #customPopup{
     padding:10px!important;
@@ -4798,13 +4384,6 @@ tr.new-saved-row td{
     }
 }
 
-
-
-/* ===================================================== */
-/* ===== REVISI POPUP UKURAN SEDANG ===================== */
-/* Dibuat tidak terlalu compact: masih muat di HP, tapi teks/card lebih lega */
-/* ===================================================== */
-
 #customPopup{
     padding:14px!important;
 }
@@ -4978,9 +4557,6 @@ tr.new-saved-row td{
     }
 }
 
-</style>
-
-<style id="popup-tf-back-override">
 #customPopup .popup-box{
     padding:18px 16px 14px !important;
 }
@@ -5061,11 +4637,7 @@ tr.new-saved-row td{
         min-width:78px !important;
     }
 }
-</style>
 
-
-<style id="popup-maximize-top-gap-final">
-/* Maksimalkan ruang popup: ringkasan dan total TF dinaikkan */
 #customPopup .popup-box{
     padding-top:12px!important;
 }
@@ -5157,12 +4729,7 @@ tr.new-saved-row td{
         max-height:285px!important;
     }
 }
-</style>
 
-
-
-<style id="revisi-jarak-icon-dan-wa-slide">
-/* Revisi jarak icon popup dengan box isi */
 #customPopup .popup-icon{
     margin:0 auto 12px!important;
 }
@@ -5182,10 +4749,6 @@ tr.new-saved-row td{
     }
 }
 
-/*
-   Animasi logo WA sesuai request:
-   tombol/logo geser ke kiri -> melebar -> tulisan "Butuh Bantuan?" muncul -> kembali lagi.
-*/
 .wa-header-btn.wa-help-slide{
     overflow:hidden!important;
     white-space:nowrap!important;
@@ -5352,12 +4915,7 @@ tr.new-saved-row td{
         animation:none!important;
     }
 }
-</style>
 
-
-
-<style id="wa-slide-text-fix-final">
-/* FIX: logo WA geser ke kiri, tulisan muncul, lalu kembali jadi logo */
 .wa-header-btn.wa-help-slide{
     position:absolute!important;
     top:18px!important;
@@ -5530,12 +5088,7 @@ tr.new-saved-row td{
         }
     }
 }
-</style>
 
-
-
-<style id="wa-slide-text-benar-benar-muncul">
-/* FINAL FIX WA: logo geser kiri, teks muncul jelas, lalu balik jadi logo */
 .title-box{
     overflow:visible!important;
 }
@@ -5679,11 +5232,7 @@ tr.new-saved-row td{
         30%,70%{transform:translateX(-110px) scale(1.02);}
     }
 }
-</style>
 
-
-<style id="wa-slide-bantuan-fixed-real">
-/* FIX NYATA: tombol WA melebar ke kiri, icon pindah ke kiri, tulisan muncul */
 .title-box{
     overflow:visible!important;
 }
@@ -5833,11 +5382,7 @@ tr.new-saved-row td{
         transform:translateX(-120px)!important;
     }
 }
-</style>
 
-
-<style id="wa-slide-smooth-slower-final">
-/* Revisi: animasi WA lebih halus dan interval lebih lambat */
 .wa-header-btn.wa-help-slide,
 .wa-header-btn.wa-help-slide.wa-notice{
     transition:
@@ -5886,12 +5431,7 @@ tr.new-saved-row td{
         transform:translateX(-130px)!important;
     }
 }
-</style>
 
-
-
-<style id="wa-slide-text-terseret-final">
-/* Revisi: teks ikut terseret/slide saat tombol WA terbuka, bukan muncul tiba-tiba */
 .wa-header-btn.wa-help-slide,
 .wa-header-btn.wa-help-slide.wa-notice{
     overflow:hidden!important;
@@ -5945,12 +5485,7 @@ tr.new-saved-row td{
         transform:translateX(0)!important;
     }
 }
-</style>
 
-
-
-<style id="final-mobile-popup-tf-wa-small">
-/* Final: kecilkan bagian info rekening pada popup Total Transfer agar nyaman di HP */
 #customPopup .rekening-title-bank{
     margin-top:4px!important;
     margin-bottom:4px!important;
@@ -6035,7 +5570,6 @@ tr.new-saved-row td{
     }
 }
 
-/* Final: kecilkan animasi sliding WA di HP agar tidak kebesaran */
 @media(max-width:480px){
     .wa-header-btn.wa-help-slide,
     .wa-header-btn.wa-help-slide.wa-notice{
@@ -6129,7 +5663,133 @@ tr.new-saved-row td{
         transform:translateX(90px)!important;
     }
 }
+
+#customPopup #popupIcon.popup-icon{
+    width:auto!important;
+    height:auto!important;
+    min-width:0!important;
+    min-height:0!important;
+    max-width:none!important;
+    max-height:none!important;
+    padding:0!important;
+    margin:0 auto 10px!important;
+    border-radius:0!important;
+    background:transparent!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    line-height:1!important;
+    flex:none!important;
+    aspect-ratio:auto!important;
+}
+
+#customPopup #popupIcon .loading-spinner{
+    flex:0 0 42px!important;
+    width:42px!important;
+    height:42px!important;
+    min-width:42px!important;
+    min-height:42px!important;
+    max-width:42px!important;
+    max-height:42px!important;
+    aspect-ratio:1 / 1!important;
+    border-radius:50%!important;
+    border:5px solid #e5e7eb!important;
+    border-top-color:#1976D2!important;
+    display:block!important;
+    box-sizing:border-box!important;
+    margin:0 auto 8px!important;
+    padding:0!important;
+    transform-origin:center center!important;
+}
+
+#customPopup #popupIcon .success-check{
+    flex:0 0 52px!important;
+    width:52px!important;
+    height:52px!important;
+    min-width:52px!important;
+    min-height:52px!important;
+    max-width:52px!important;
+    max-height:52px!important;
+    aspect-ratio:1 / 1!important;
+    border-radius:50%!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    box-sizing:border-box!important;
+    margin:0 auto 10px!important;
+    padding:0!important;
+    line-height:1!important;
+    background:#4CAF50!important;
+    color:#ffffff!important;
+    font-size:32px!important;
+    font-weight:900!important;
+    transform:none!important;
+}
+
+#customPopup #popupIcon .success-check,
+#customPopup #popupIcon .loading-spinner{
+    align-self:center!important;
+    justify-self:center!important;
+    overflow:hidden!important;
+}
+
+@media(max-width:390px){
+    #customPopup #popupIcon .loading-spinner{
+        flex-basis:40px!important;
+        width:40px!important;
+        height:40px!important;
+        min-width:40px!important;
+        min-height:40px!important;
+        max-width:40px!important;
+        max-height:40px!important;
+    }
+
+    #customPopup #popupIcon .success-check{
+        flex-basis:48px!important;
+        width:48px!important;
+        height:48px!important;
+        min-width:48px!important;
+        min-height:48px!important;
+        max-width:48px!important;
+        max-height:48px!important;
+        font-size:30px!important;
+    }
+}
 </style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </head>
 
@@ -7669,7 +7329,7 @@ function showRekeningTransfer(listPesanan){
             </div>
 
             <div class="rekening-note">
-                Setelah transfer, kirim bukti TF ke salah satu admin.
+                Setelah transfer, kirim bukti TF ke salah satu admin di menu Butuh Bantuan.
             </div>
         </div>
         `;
