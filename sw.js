@@ -2,7 +2,7 @@
 /* ================= SERVICE WORKER CACHE =============== */
 /* ===================================================== */
 
-const CACHE_NAME = "order-online-cache-v11";
+const CACHE_NAME = "order-online-cache-v12";
 
 const FILES_TO_CACHE = [
     "./",
@@ -56,14 +56,22 @@ self.addEventListener("fetch", function(event){
 
     const url = new URL(event.request.url);
 
-    if(url.origin.includes("script.google.com")){
+    if(
+        url.hostname.includes("script.google.com") ||
+        url.hostname.includes("script.googleusercontent.com")
+    ){
         return;
     }
 
     event.respondWith(
         fetch(event.request)
             .then(function(response){
-                let responseClone = response.clone();
+
+                if(!response || response.status !== 200){
+                    return response;
+                }
+
+                const responseClone = response.clone();
 
                 caches.open(CACHE_NAME).then(function(cache){
                     cache.put(event.request, responseClone);
@@ -72,7 +80,15 @@ self.addEventListener("fetch", function(event){
                 return response;
             })
             .catch(function(){
-                return caches.match(event.request);
+                return caches.match(event.request).then(function(cachedResponse){
+                    if(cachedResponse){
+                        return cachedResponse;
+                    }
+
+                    if(event.request.mode === "navigate"){
+                        return caches.match("./index.html");
+                    }
+                });
             })
     );
 });
