@@ -5947,6 +5947,190 @@ tr.new-saved-row td{
 }
 </style>
 
+
+
+<style id="final-mobile-popup-tf-wa-small">
+/* Final: kecilkan bagian info rekening pada popup Total Transfer agar nyaman di HP */
+#customPopup .rekening-title-bank{
+    margin-top:4px!important;
+    margin-bottom:4px!important;
+    font-size:15px!important;
+    line-height:1.15!important;
+}
+
+#customPopup .rekening-row{
+    padding:5px 0!important;
+    gap:8px!important;
+    font-size:13px!important;
+    line-height:1.2!important;
+}
+
+#customPopup .rekening-row span,
+#customPopup .rekening-row b{
+    font-size:13px!important;
+    line-height:1.2!important;
+}
+
+#customPopup .rekening-note{
+    margin-top:8px!important;
+    padding:7px 8px!important;
+    border-radius:9px!important;
+    font-size:12px!important;
+    line-height:1.28!important;
+}
+
+#customPopup .rekening-box{
+    padding-bottom:10px!important;
+}
+
+@media(max-width:480px){
+    #customPopup .rekening-title-bank{
+        margin-top:3px!important;
+        margin-bottom:3px!important;
+        font-size:14px!important;
+    }
+
+    #customPopup .rekening-row{
+        padding:4px 0!important;
+        gap:6px!important;
+        font-size:12px!important;
+    }
+
+    #customPopup .rekening-row span,
+    #customPopup .rekening-row b{
+        font-size:12px!important;
+        line-height:1.18!important;
+    }
+
+    #customPopup .rekening-row span{
+        min-width:76px!important;
+    }
+
+    #customPopup .rekening-row b{
+        max-width:170px!important;
+    }
+
+    #customPopup .rekening-note{
+        margin-top:7px!important;
+        padding:6px 8px!important;
+        font-size:11.5px!important;
+        line-height:1.25!important;
+    }
+}
+
+@media(max-width:380px){
+    #customPopup .rekening-row{
+        padding:3px 0!important;
+        font-size:11.5px!important;
+    }
+
+    #customPopup .rekening-row span,
+    #customPopup .rekening-row b{
+        font-size:11.5px!important;
+    }
+
+    #customPopup .rekening-note{
+        font-size:11px!important;
+        padding:6px 7px!important;
+    }
+}
+
+/* Final: kecilkan animasi sliding WA di HP agar tidak kebesaran */
+@media(max-width:480px){
+    .wa-header-btn.wa-help-slide,
+    .wa-header-btn.wa-help-slide.wa-notice{
+        top:10px!important;
+        right:10px!important;
+        width:38px!important;
+        min-width:38px!important;
+        height:38px!important;
+        min-height:38px!important;
+        transition:
+            width 1.2s cubic-bezier(.16,1,.3,1),
+            min-width 1.2s cubic-bezier(.16,1,.3,1),
+            box-shadow .7s ease!important;
+    }
+
+    .wa-header-btn.wa-help-slide i{
+        width:38px!important;
+        min-width:38px!important;
+        height:38px!important;
+        min-height:38px!important;
+        font-size:22px!important;
+        transition:transform 1.2s cubic-bezier(.16,1,.3,1)!important;
+    }
+
+    .wa-header-btn.wa-help-slide .wa-help-text{
+        left:45px!important;
+        right:9px!important;
+        height:38px!important;
+        min-height:38px!important;
+        line-height:38px!important;
+        font-size:10.8px!important;
+        transform:translateX(98px)!important;
+        transition:transform 1.2s cubic-bezier(.16,1,.3,1)!important;
+    }
+
+    .wa-header-btn.wa-help-slide.wa-help-open{
+        width:145px!important;
+        min-width:145px!important;
+    }
+
+    .wa-header-btn.wa-help-slide.wa-help-open i{
+        transform:translateX(-107px)!important;
+    }
+
+    .wa-header-btn.wa-help-slide.wa-help-open .wa-help-text{
+        transform:translateX(0)!important;
+    }
+
+    .wa-header-btn.wa-help-slide:not(.wa-help-open) .wa-help-text{
+        transform:translateX(98px)!important;
+    }
+}
+
+@media(max-width:380px){
+    .wa-header-btn.wa-help-slide,
+    .wa-header-btn.wa-help-slide.wa-notice{
+        width:36px!important;
+        min-width:36px!important;
+        height:36px!important;
+        min-height:36px!important;
+    }
+
+    .wa-header-btn.wa-help-slide i{
+        width:36px!important;
+        min-width:36px!important;
+        height:36px!important;
+        min-height:36px!important;
+        font-size:21px!important;
+    }
+
+    .wa-header-btn.wa-help-slide .wa-help-text{
+        left:42px!important;
+        right:8px!important;
+        height:36px!important;
+        min-height:36px!important;
+        line-height:36px!important;
+        font-size:10.2px!important;
+        transform:translateX(90px)!important;
+    }
+
+    .wa-header-btn.wa-help-slide.wa-help-open{
+        width:132px!important;
+        min-width:132px!important;
+    }
+
+    .wa-header-btn.wa-help-slide.wa-help-open i{
+        transform:translateX(-96px)!important;
+    }
+
+    .wa-header-btn.wa-help-slide:not(.wa-help-open) .wa-help-text{
+        transform:translateX(90px)!important;
+    }
+}
+</style>
+
 </head>
 
 <body>
