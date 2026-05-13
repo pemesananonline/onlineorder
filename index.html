@@ -1169,6 +1169,323 @@ function shakeInput(id){
     text-align:center;
 }
 
+/* ===================================================== */
+/* ===== PILIHAN METODE PEMBAYARAN - COMPACT ============ */
+/* ===================================================== */
+
+.payment-box{
+    margin-top:10px;
+    padding:10px;
+    border-radius:14px;
+    background:linear-gradient(180deg,#f8fbff,#eef6ff);
+    border:1.5px solid #dbeafe;
+}
+
+.payment-title{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+    color:#14365f;
+    font-size:13px;
+    font-weight:900;
+    margin-bottom:8px;
+    line-height:1.2;
+}
+
+.payment-title i{
+    color:#1976D2;
+    font-size:13px;
+}
+
+.payment-choice{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+}
+
+.payment-choice label{
+    position:relative;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:9px 34px 9px 9px;
+    border:1.5px solid #dbeafe;
+    border-radius:12px;
+    background:#ffffff;
+    cursor:pointer;
+    color:#14365f;
+    text-align:left;
+    transition:.2s;
+    box-shadow:0 4px 10px rgba(15,23,42,.05);
+}
+
+.payment-choice label:hover{
+    border-color:#93c5fd;
+    transform:translateY(-1px);
+}
+
+.payment-choice input{
+    display:none;
+}
+
+.payment-icon{
+    width:26px;
+    height:26px;
+    min-width:26px;
+    border-radius:9px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#eff6ff;
+    color:#1976D2;
+    font-size:13px;
+}
+
+.payment-text{
+    flex:1;
+    min-width:0;
+}
+
+.payment-text b{
+    display:block;
+    color:#0f172a;
+    font-size:12px;
+    line-height:1.15;
+    font-weight:900;
+}
+
+.payment-text small{
+    display:block;
+    margin-top:2px;
+    color:#64748b;
+    font-size:10px;
+    font-weight:800;
+    line-height:1.25;
+}
+
+.payment-choice label:has(input:checked){
+    border-color:#1976D2;
+    background:linear-gradient(135deg,#1976D2,#0D6EFD);
+    color:white;
+    box-shadow:0 8px 16px rgba(25,118,210,.18);
+}
+
+.payment-choice label:has(input:checked) .payment-icon{
+    background:white;
+    color:#1976D2;
+}
+
+.payment-choice label:has(input:checked) .payment-text b,
+.payment-choice label:has(input:checked) .payment-text small{
+    color:white;
+}
+
+.payment-choice label:has(input:checked)::after{
+    content:"✓";
+    position:absolute;
+    right:9px;
+    top:50%;
+    transform:translateY(-50%);
+    width:19px;
+    height:19px;
+    border-radius:50%;
+    background:white;
+    color:#1976D2;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:12px;
+    font-weight:900;
+}
+
+.payment-error{
+    margin-top:8px;
+    display:none;
+    color:#dc2626;
+    background:#fee2e2;
+    border:1px solid #fecaca;
+    border-radius:9px;
+    padding:7px 8px;
+    font-size:10.5px;
+    line-height:1.3;
+    font-weight:900;
+    text-align:center;
+}
+
+@media(max-width:768px){
+    .payment-box{
+        padding:8px;
+        border-radius:12px;
+    }
+
+    .payment-title{
+        font-size:12px;
+        margin-bottom:7px;
+        gap:5px;
+    }
+
+    .payment-title i{
+        font-size:12px;
+    }
+
+    .payment-choice{
+        gap:7px;
+    }
+
+    .payment-choice label{
+        padding:8px 31px 8px 8px;
+        border-radius:11px;
+        gap:7px;
+    }
+
+    .payment-icon{
+        width:24px;
+        height:24px;
+        min-width:24px;
+        border-radius:8px;
+        font-size:12px;
+    }
+
+    .payment-text b{
+        font-size:11.2px;
+    }
+
+    .payment-text small{
+        font-size:9.2px;
+        line-height:1.2;
+    }
+
+    .payment-choice label:has(input:checked)::after{
+        right:8px;
+        width:17px;
+        height:17px;
+        font-size:11px;
+    }
+
+    .payment-error{
+        font-size:10px;
+        padding:6px 7px;
+    }
+}
+
+.rekening-box{
+    text-align:left;
+    background:#f8fbff;
+    border:1.5px solid #dbeafe;
+    border-radius:16px;
+    padding:14px;
+    margin-top:8px;
+}
+
+.rekening-title{
+    color:#14365f;
+    font-size:16px;
+    font-weight:900;
+    text-align:center;
+    margin-bottom:10px;
+}
+
+.rekening-total{
+    text-align:center;
+    color:#16a34a;
+    font-size:24px;
+    font-weight:900;
+    line-height:1.1;
+    margin:4px 0 4px;
+}
+
+.rekening-subtitle{
+    text-align:center;
+    color:#64748b;
+    font-size:12px;
+    font-weight:900;
+    margin-bottom:9px;
+}
+
+.rekening-detail-list{
+    max-height:150px;
+    overflow:auto;
+    display:flex;
+    flex-direction:column;
+    gap:7px;
+    margin:8px 0 12px;
+}
+
+.rekening-detail-card{
+    background:#ffffff;
+    border:1px solid #dbeafe;
+    border-radius:11px;
+    padding:8px 9px;
+    font-size:12px;
+}
+
+.rekening-detail-title{
+    color:#1976D2;
+    font-weight:900;
+    margin-bottom:4px;
+}
+
+.rekening-detail-line{
+    display:flex;
+    justify-content:space-between;
+    gap:8px;
+    color:#334155;
+    font-weight:800;
+}
+
+.rekening-detail-line b{
+    color:#0f172a;
+    text-align:right;
+}
+
+.rekening-detail-small{
+    margin-top:3px;
+    color:#64748b;
+    font-size:11px;
+    font-weight:800;
+    line-height:1.35;
+}
+
+.rekening-title-bank{
+    margin-top:4px;
+}
+
+.rekening-row{
+    display:flex;
+    justify-content:space-between;
+    gap:12px;
+    padding:8px 0;
+    border-bottom:1px solid #e5edf8;
+    font-size:14px;
+}
+
+.rekening-row:last-child{
+    border-bottom:none;
+}
+
+.rekening-row span{
+    color:#64748b;
+    font-weight:800;
+}
+
+.rekening-row b{
+    color:#0f172a;
+    text-align:right;
+}
+
+.rekening-note{
+    margin-top:12px;
+    color:#d97706;
+    background:#fff7d6;
+    border:1px solid #ffe08a;
+    border-radius:10px;
+    padding:9px 10px;
+    font-size:13px;
+    font-weight:900;
+    text-align:center;
+}
+
 @media(max-width:768px){
     .summary-confirm{
         padding:14px;
@@ -4293,6 +4610,365 @@ tr.new-saved-row td{
     }
 }
 
+
+
+/* ===================================================== */
+/* ===== FINAL POPUP SUPER COMPACT ====================== */
+/* ===================================================== */
+
+#customPopup{
+    padding:10px!important;
+}
+
+#customPopup .popup-box{
+    max-width:316px!important;
+    padding:14px!important;
+    border-radius:17px!important;
+}
+
+#customPopup .popup-icon{
+    font-size:32px!important;
+    margin-bottom:6px!important;
+}
+
+#customPopup .popup-icon i{
+    font-size:34px!important;
+}
+
+#customPopup .popup-message{
+    font-size:12.5px!important;
+    line-height:1.35!important;
+    margin-bottom:12px!important;
+}
+
+#customPopup .popup-buttons{
+    gap:8px!important;
+}
+
+#customPopup .popup-buttons button{
+    padding:8px 15px!important;
+    border-radius:10px!important;
+    font-size:12.5px!important;
+}
+
+#customPopup .summary-confirm{
+    padding:10px!important;
+    margin:4px 0 0!important;
+    border-radius:14px!important;
+}
+
+#customPopup .summary-title{
+    font-size:16px!important;
+    margin-bottom:6px!important;
+    line-height:1.2!important;
+}
+
+#customPopup .summary-total{
+    font-size:12.5px!important;
+    margin-bottom:7px!important;
+}
+
+#customPopup .summary-row{
+    padding:5px 0!important;
+    font-size:12px!important;
+    gap:8px!important;
+}
+
+#customPopup .summary-list{
+    max-height:145px!important;
+    gap:6px!important;
+}
+
+#customPopup .summary-card{
+    padding:7px 8px!important;
+    border-radius:10px!important;
+    font-size:11.5px!important;
+    line-height:1.25!important;
+}
+
+#customPopup .summary-card-title{
+    margin-bottom:2px!important;
+    font-size:11.5px!important;
+}
+
+#customPopup .summary-note{
+    margin-top:8px!important;
+    padding:7px 8px!important;
+    border-radius:9px!important;
+    font-size:11.2px!important;
+    line-height:1.35!important;
+}
+
+#customPopup .payment-box{
+    margin-top:8px!important;
+    padding:7px!important;
+    border-radius:12px!important;
+}
+
+#customPopup .payment-title{
+    font-size:11.5px!important;
+    margin-bottom:6px!important;
+    gap:5px!important;
+}
+
+#customPopup .payment-title i{
+    font-size:11.5px!important;
+}
+
+#customPopup .payment-choice{
+    gap:6px!important;
+}
+
+#customPopup .payment-choice label{
+    min-height:42px!important;
+    padding:7px 28px 7px 7px!important;
+    border-radius:10px!important;
+    gap:7px!important;
+}
+
+#customPopup .payment-icon{
+    width:23px!important;
+    height:23px!important;
+    min-width:23px!important;
+    border-radius:8px!important;
+    font-size:11px!important;
+}
+
+#customPopup .payment-text b{
+    font-size:11px!important;
+    line-height:1.15!important;
+}
+
+#customPopup .payment-text small{
+    margin-top:1px!important;
+    font-size:8.8px!important;
+    line-height:1.15!important;
+}
+
+#customPopup .payment-choice label:has(input:checked)::after{
+    right:7px!important;
+    width:16px!important;
+    height:16px!important;
+    font-size:10px!important;
+}
+
+#customPopup .payment-error{
+    margin-top:6px!important;
+    padding:5px 6px!important;
+    border-radius:8px!important;
+    font-size:9.5px!important;
+    line-height:1.25!important;
+}
+
+@media(max-width:390px){
+    #customPopup .popup-box{
+        max-width:292px!important;
+        padding:12px!important;
+        border-radius:16px!important;
+    }
+
+    #customPopup .summary-title{
+        font-size:15px!important;
+    }
+
+    #customPopup .summary-list{
+        max-height:130px!important;
+    }
+
+    #customPopup .summary-card{
+        font-size:11px!important;
+        padding:6px 7px!important;
+    }
+
+    #customPopup .summary-note{
+        font-size:10.5px!important;
+    }
+
+    #customPopup .payment-choice label{
+        min-height:40px!important;
+    }
+}
+
+
+
+/* ===================================================== */
+/* ===== REVISI POPUP UKURAN SEDANG ===================== */
+/* Dibuat tidak terlalu compact: masih muat di HP, tapi teks/card lebih lega */
+/* ===================================================== */
+
+#customPopup{
+    padding:14px!important;
+}
+
+#customPopup .popup-box{
+    max-width:340px!important;
+    padding:18px!important;
+    border-radius:18px!important;
+}
+
+#customPopup .popup-icon{
+    font-size:38px!important;
+    margin-bottom:8px!important;
+}
+
+#customPopup .popup-icon i{
+    font-size:38px!important;
+}
+
+#customPopup .popup-message{
+    font-size:13.5px!important;
+    line-height:1.45!important;
+    margin-bottom:14px!important;
+}
+
+#customPopup .popup-buttons{
+    gap:9px!important;
+}
+
+#customPopup .popup-buttons button{
+    padding:9px 16px!important;
+    border-radius:11px!important;
+    font-size:13px!important;
+}
+
+#customPopup .summary-confirm{
+    padding:12px!important;
+    margin:6px 0 0!important;
+    border-radius:15px!important;
+}
+
+#customPopup .summary-title{
+    font-size:17px!important;
+    margin-bottom:8px!important;
+    line-height:1.25!important;
+}
+
+#customPopup .summary-total{
+    font-size:13.2px!important;
+    margin-bottom:8px!important;
+}
+
+#customPopup .summary-row{
+    padding:6px 0!important;
+    font-size:12.8px!important;
+    gap:9px!important;
+}
+
+#customPopup .summary-list{
+    max-height:170px!important;
+    gap:7px!important;
+}
+
+#customPopup .summary-card{
+    padding:8px 9px!important;
+    border-radius:11px!important;
+    font-size:12.3px!important;
+    line-height:1.35!important;
+}
+
+#customPopup .summary-card-title{
+    margin-bottom:3px!important;
+    font-size:12.3px!important;
+}
+
+#customPopup .summary-note{
+    margin-top:10px!important;
+    padding:8px 9px!important;
+    border-radius:10px!important;
+    font-size:12px!important;
+    line-height:1.4!important;
+}
+
+#customPopup .payment-box{
+    margin-top:10px!important;
+    padding:9px!important;
+    border-radius:13px!important;
+}
+
+#customPopup .payment-title{
+    font-size:12.7px!important;
+    margin-bottom:8px!important;
+    gap:6px!important;
+}
+
+#customPopup .payment-title i{
+    font-size:12.7px!important;
+}
+
+#customPopup .payment-choice{
+    gap:7px!important;
+}
+
+#customPopup .payment-choice label{
+    min-height:48px!important;
+    padding:8px 30px 8px 8px!important;
+    border-radius:11px!important;
+    gap:8px!important;
+}
+
+#customPopup .payment-icon{
+    width:27px!important;
+    height:27px!important;
+    min-width:27px!important;
+    border-radius:9px!important;
+    font-size:12.5px!important;
+}
+
+#customPopup .payment-text b{
+    font-size:12px!important;
+    line-height:1.2!important;
+}
+
+#customPopup .payment-text small{
+    margin-top:2px!important;
+    font-size:9.8px!important;
+    line-height:1.2!important;
+}
+
+#customPopup .payment-choice label:has(input:checked)::after{
+    right:8px!important;
+    width:18px!important;
+    height:18px!important;
+    font-size:11px!important;
+}
+
+#customPopup .payment-error{
+    margin-top:7px!important;
+    padding:6px 7px!important;
+    border-radius:9px!important;
+    font-size:10.5px!important;
+    line-height:1.3!important;
+}
+
+@media(max-width:390px){
+    #customPopup .popup-box{
+        max-width:318px!important;
+        padding:16px!important;
+        border-radius:17px!important;
+    }
+
+    #customPopup .summary-title{
+        font-size:16px!important;
+    }
+
+    #customPopup .summary-list{
+        max-height:150px!important;
+    }
+
+    #customPopup .summary-card{
+        font-size:11.8px!important;
+        padding:7px 8px!important;
+    }
+
+    #customPopup .summary-note{
+        font-size:11.5px!important;
+    }
+
+    #customPopup .payment-choice label{
+        min-height:45px!important;
+    }
+}
+
 </style>
 </head>
 
@@ -5254,6 +5930,49 @@ if(inputHp){
 /* ========== RINGKASAN KONFIRMASI SEBELUM KIRIM ======== */
 /* ===================================================== */
 
+function pilihanPembayaranHtml(){
+    return `
+        <div class="payment-box">
+            <div class="payment-title">
+                <i class="fa-solid fa-wallet"></i>
+                Pilih Metode Pembayaran
+            </div>
+
+            <div class="payment-choice">
+                <label>
+                    <input type="radio" name="metodeBayar" value="Bayar nanti setelah dapat baju">
+
+                    <span class="payment-icon">
+                        <i class="fa-solid fa-hand-holding-heart"></i>
+                    </span>
+
+                    <span class="payment-text">
+                        <b>Bayar nanti</b>
+                        <small>Setelah dapat baju.</small>
+                    </span>
+                </label>
+
+                <label>
+                    <input type="radio" name="metodeBayar" value="Bayar sekarang via TF">
+
+                    <span class="payment-icon">
+                        <i class="fa-solid fa-building-columns"></i>
+                    </span>
+
+                    <span class="payment-text">
+                        <b>Bayar via TF</b>
+                        <small>Kirim bukti ke admin.</small>
+                    </span>
+                </label>
+            </div>
+
+            <div class="payment-error" id="paymentError">
+                Pilih metode pembayaran terlebih dahulu.
+            </div>
+        </div>
+    `;
+}
+
 function ringkasanPesanan(d){
     return `
         <div class="summary-confirm">
@@ -5292,6 +6011,8 @@ function ringkasanPesanan(d){
             <div class="summary-note">
                 Pastikan data sudah benar sebelum dikirim.
             </div>
+
+            ${pilihanPembayaranHtml()}
         </div>
     `;
 }
@@ -5315,6 +6036,8 @@ function ringkasanSemuaPesanan(list){
             <div class="summary-note">
                 Pastikan semua data sudah benar sebelum dikirim.
             </div>
+
+            ${pilihanPembayaranHtml()}
         </div>
     `;
 }
@@ -5440,12 +6163,18 @@ async function kirimKeSheet(){
             return;
         }
 
-        let konfirmasi = await showConfirm(
+        let konfirmasi = await showConfirmPembayaran(
             ringkasanPesanan(form),
             '<i class="fa-solid fa-clipboard-check"></i>'
         );
 
-        if(!konfirmasi) return;
+        if(!konfirmasi.ok) return;
+
+        form.metodeBayar = konfirmasi.metodeBayar;
+
+        if(form.metodeBayar === "Bayar sekarang via TF"){
+            await showRekeningTransfer([form]);
+        }
 
         showLoading();
         kirim(form);
@@ -5457,7 +6186,7 @@ async function kirimKeSheet(){
             resetForm();
             hideLoading();
 
-            await showSuccess("Data berhasil dikirim!");
+            await showSuccess("Pesanan terkirim ke Google Spreadsheet.<br>Terima kasih telah order.");
         },1200);
 
         return;
@@ -5470,12 +6199,21 @@ async function kirimKeSheet(){
         return;
     }
 
-    let konfirmasi = await showConfirm(
+    let konfirmasi = await showConfirmPembayaran(
         ringkasanSemuaPesanan(data),
         '<i class="fa-solid fa-clipboard-check"></i>'
     );
 
-    if(!konfirmasi) return;
+    if(!konfirmasi.ok) return;
+
+    data = data.map(d=>({
+        ...d,
+        metodeBayar:konfirmasi.metodeBayar
+    }));
+
+    if(konfirmasi.metodeBayar === "Bayar sekarang via TF"){
+        await showRekeningTransfer(data);
+    }
 
     showLoading();
 
@@ -5493,7 +6231,7 @@ async function kirimKeSheet(){
         render();
         hideLoading();
 
-        await showSuccess("Semua data berhasil dikirim!");
+        await showSuccess("Pesanan terkirim ke Google Spreadsheet.<br>Terima kasih telah order.");
     },1200);
 }
 
@@ -5518,10 +6256,55 @@ async function kirimKeSheet(){
     - Gender
     - No HP
     - Waktu
+    - Metode Pembayaran
 */
 /* ===================================================== */
 
 const GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxOgwT4Zn7QK8DQy4dGDjJGa-lXCYj1NhPcPmRqxtEAFSJ5FeT5Wbm3lwPAoJ0hw6v6/exec";
+
+/* ===================================================== */
+/* =============== HARGA & TOTAL TRANSFER =============== */
+/*
+    Jika harga berubah, cukup ubah angka const di bawah ini.
+    - Dewasa: harga dasar baju dewasa
+    - Anak-Anak: harga dasar baju anak-anak
+    - Lengan Panjang: tambahan biaya jika memilih lengan panjang
+*/
+/* ===================================================== */
+
+const HARGA_DEWASA = 100000;
+const HARGA_ANAK = 80000;
+const TAMBAHAN_LENGAN_PANJANG = 15000;
+
+function formatRupiah(angka){
+    return new Intl.NumberFormat("id-ID", {
+        style:"currency",
+        currency:"IDR",
+        minimumFractionDigits:0
+    }).format(Number(angka || 0));
+}
+
+function hitungHargaPesanan(d){
+    let harga = 0;
+
+    if(d.umur === "Dewasa"){
+        harga = HARGA_DEWASA;
+    }else if(d.umur === "Anak-Anak"){
+        harga = HARGA_ANAK;
+    }
+
+    if(d.lengan === "Panjang"){
+        harga += TAMBAHAN_LENGAN_PANJANG;
+    }
+
+    return harga;
+}
+
+function hitungTotalBayar(listPesanan){
+    return listPesanan.reduce(function(total, item){
+        return total + hitungHargaPesanan(item);
+    }, 0);
+}
 
 function kirim(d){
     /*
@@ -5554,6 +6337,8 @@ function kirim(d){
     f.append("gender", d.gender || "");
     f.append("hp", d.hp || "");
     f.append("waktu", d.waktu || "");
+    f.append("metodeBayar", d.metodeBayar || "");
+    f.append("totalBayar", hitungHargaPesanan(d) || 0);
 
     fetch(GAS_WEB_APP_URL, {
         method:"POST",
@@ -5625,6 +6410,81 @@ function showSuccess(message){
 }
 
 /* ===================================================== */
+/* ================= POPUP NOMOR REKENING =============== */
+/* ===================================================== */
+
+const INFO_REKENING = {
+    bank:"ISI NAMA BANK",
+    nomor:"ISI NOMOR REKENING",
+    atasNama:"ISI NAMA PEMILIK REKENING"
+};
+
+function showRekeningTransfer(listPesanan){
+    const totalBayar = hitungTotalBayar(listPesanan);
+
+    const rincian = listPesanan.map(function(d, i){
+        const hargaDasar = d.umur === "Dewasa" ? HARGA_DEWASA : HARGA_ANAK;
+        const tambahan = d.lengan === "Panjang" ? TAMBAHAN_LENGAN_PANJANG : 0;
+        const subtotal = hitungHargaPesanan(d);
+
+        return `
+            <div class="rekening-detail-card">
+                <div class="rekening-detail-title">Pesanan ${i + 1}</div>
+                <div class="rekening-detail-line">
+                    <span>${d.umur} • ${d.lengan}</span>
+                    <b>${formatRupiah(subtotal)}</b>
+                </div>
+                <div class="rekening-detail-small">
+                    Dasar ${formatRupiah(hargaDasar)}${tambahan > 0 ? " + lengan panjang " + formatRupiah(tambahan) : ""}
+                </div>
+            </div>
+        `;
+    }).join("");
+
+    return showAlert(
+        `
+        <div class="rekening-box">
+            <div class="rekening-title">Total Transfer</div>
+
+            <div class="rekening-total">
+                ${formatRupiah(totalBayar)}
+            </div>
+
+            <div class="rekening-subtitle">
+                Rincian ${listPesanan.length} pesanan
+            </div>
+
+            <div class="rekening-detail-list">
+                ${rincian}
+            </div>
+
+            <div class="rekening-title rekening-title-bank">Bayar ke rekening ini</div>
+
+            <div class="rekening-row">
+                <span>Bank</span>
+                <b>${INFO_REKENING.bank}</b>
+            </div>
+
+            <div class="rekening-row">
+                <span>No Rekening</span>
+                <b>${INFO_REKENING.nomor}</b>
+            </div>
+
+            <div class="rekening-row">
+                <span>Atas Nama</span>
+                <b>${INFO_REKENING.atasNama}</b>
+            </div>
+
+            <div class="rekening-note">
+                Setelah transfer, kirim bukti TF ke salah satu admin.
+            </div>
+        </div>
+        `,
+        "🏦"
+    );
+}
+
+/* ===================================================== */
 /* ================= POPUP ALERT ======================== */
 /* ===================================================== */
 
@@ -5684,6 +6544,47 @@ function showConfirm(message,icon="⚠️"){
         document.getElementById("popupCancel").onclick = function(){
             document.getElementById("customPopup").style.display = "none";
             resolve(false);
+        };
+    });
+}
+
+/* ===================================================== */
+/* ===== POPUP CONFIRM KHUSUS METODE PEMBAYARAN ========= */
+/* ===================================================== */
+
+function showConfirmPembayaran(message,icon="⚠️"){
+    return new Promise(resolve=>{
+        document.getElementById("popupIcon").innerHTML = icon;
+        document.getElementById("popupMessage").innerHTML = message;
+        document.getElementById("popupCancel").style.display = "inline-block";
+        document.getElementById("popupOk").style.display = "inline-block";
+        document.getElementById("customPopup").style.display = "flex";
+
+        document.getElementById("popupOk").onclick = function(){
+            let metode = document.querySelector('input[name="metodeBayar"]:checked');
+            let paymentError = document.getElementById("paymentError");
+
+            if(!metode){
+                if(paymentError){
+                    paymentError.style.display = "block";
+                }
+                return;
+            }
+
+            document.getElementById("customPopup").style.display = "none";
+
+            resolve({
+                ok:true,
+                metodeBayar:metode.value
+            });
+        };
+
+        document.getElementById("popupCancel").onclick = function(){
+            document.getElementById("customPopup").style.display = "none";
+            resolve({
+                ok:false,
+                metodeBayar:""
+            });
         };
     });
 }
