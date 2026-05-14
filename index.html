@@ -5755,6 +5755,12 @@ tr.new-saved-row td{
         font-size:30px!important;
     }
 }
+
+#customPopup .rekening-note-highlight{
+    color:#dc2626!important;
+    font-weight:900!important;
+    white-space:nowrap!important;
+}
 </style>
 
 
@@ -6026,7 +6032,7 @@ tr.new-saved-row td{
         <h3>Butuh Bantuan?</h3>
 
         <p>
-            Kalau masih bingung soal ukuran, cara mengisi form, pembayaran,
+            Kalau masih bingung soal ukuran, cara mengisi form, kirim bukti pembayaran,
             atau ada kendala pemesanan, silakan hubungi salah satu admin di bawah ini.
         </p>
 
@@ -6055,7 +6061,7 @@ tr.new-saved-row td{
 
         <div class="popup-buttons">
             <button class="popup-cancel" id="popupCancel">Batal</button>
-            <button class="popup-ok" id="popupOk">OK</button>
+            <button class="popup-ok" id="popupOk">Kirim</button>
         </div>
     </div>
 </div>
@@ -7329,7 +7335,11 @@ function showRekeningTransfer(listPesanan){
             </div>
 
             <div class="rekening-note">
-                Setelah transfer, kirim bukti TF ke salah satu admin di menu Butuh Bantuan.
+                Setelah transfer, kirim bukti TF ke salah satu admin di
+                <span class="rekening-note-highlight">Menu Butuh Bantuan</span>
+                dan jangan lupa klik
+                <span class="rekening-note-highlight">Kirim</span>
+                di bawah ini agar data masuk spreadsheet.
             </div>
         </div>
         `;
@@ -7339,8 +7349,8 @@ function showRekeningTransfer(listPesanan){
 
         btnCancel.style.display = "inline-block";
         btnOk.style.display = "inline-block";
-        btnCancel.textContent = "Back";
-        btnOk.textContent = "OK";
+        btnCancel.textContent = "Kembali";
+        btnOk.textContent = "Kirim";
         document.getElementById("customPopup").style.display = "flex";
 
         btnOk.onclick = function(){
@@ -7429,13 +7439,31 @@ function showConfirm(message,icon="⚠️"){
 
 function showConfirmPembayaran(message,icon="⚠️",selectedMetode=""){
     return new Promise(resolve=>{
-        document.getElementById("popupIcon").innerHTML = icon;
-        document.getElementById("popupMessage").innerHTML = message;
-        document.getElementById("popupCancel").style.display = "inline-block";
-        document.getElementById("popupOk").style.display = "inline-block";
-        document.getElementById("popupCancel").textContent = "Batal";
-        document.getElementById("popupOk").textContent = "OK";
-        document.getElementById("customPopup").style.display = "flex";
+        const popupIcon = document.getElementById("popupIcon");
+        const popupMessage = document.getElementById("popupMessage");
+        const btnCancel = document.getElementById("popupCancel");
+        const btnOk = document.getElementById("popupOk");
+        const customPopup = document.getElementById("customPopup");
+
+        popupIcon.innerHTML = icon;
+        popupMessage.innerHTML = message;
+
+        btnCancel.style.display = "inline-block";
+        btnOk.style.display = "inline-block";
+        btnCancel.textContent = "Batal";
+        btnOk.textContent = "Kirim";
+
+        customPopup.style.display = "flex";
+
+        function updateTombolPembayaran(){
+            let metode = document.querySelector('input[name="metodeBayar"]:checked');
+
+            if(metode && metode.value === "Bayar sekarang via TF"){
+                btnOk.textContent = "Bayar";
+            }else{
+                btnOk.textContent = "Kirim";
+            }
+        }
 
         if(selectedMetode){
             const radioTerpilih = document.querySelector('input[name="metodeBayar"][value="' + selectedMetode.replace(/"/g,'\"') + '"]');
@@ -7444,7 +7472,21 @@ function showConfirmPembayaran(message,icon="⚠️",selectedMetode=""){
             }
         }
 
-        document.getElementById("popupOk").onclick = function(){
+        document.querySelectorAll('input[name="metodeBayar"]').forEach(function(radio){
+            radio.addEventListener("change", function(){
+                let paymentError = document.getElementById("paymentError");
+
+                if(paymentError){
+                    paymentError.style.display = "none";
+                }
+
+                updateTombolPembayaran();
+            });
+        });
+
+        updateTombolPembayaran();
+
+        btnOk.onclick = function(){
             let metode = document.querySelector('input[name="metodeBayar"]:checked');
             let paymentError = document.getElementById("paymentError");
 
@@ -7455,7 +7497,7 @@ function showConfirmPembayaran(message,icon="⚠️",selectedMetode=""){
                 return;
             }
 
-            document.getElementById("customPopup").style.display = "none";
+            customPopup.style.display = "none";
 
             resolve({
                 ok:true,
@@ -7463,8 +7505,8 @@ function showConfirmPembayaran(message,icon="⚠️",selectedMetode=""){
             });
         };
 
-        document.getElementById("popupCancel").onclick = function(){
-            document.getElementById("customPopup").style.display = "none";
+        btnCancel.onclick = function(){
+            customPopup.style.display = "none";
             resolve({
                 ok:false,
                 metodeBayar:""
