@@ -6860,6 +6860,8 @@ function render(){
 /* ===================================================== */
 
 function resetForm(){
+    hapusDraftForm();
+
     document.getElementById("nama").value = "";
     document.getElementById("hp").value = "";
     document.getElementById("sizeLainnya").value = "";
@@ -6876,6 +6878,96 @@ function resetForm(){
     });
 
     document.getElementById("genderGroup").style.display = "flex";
+}
+
+/* ===================================================== */
+/* ============= AUTOSAVE DRAFT FORM ==================== */
+/* ===================================================== */
+
+function ambilDraftFormTanpaValidasi(){
+    let sizeInput = document.querySelector('input[name="size"]:checked');
+    let lenganInput = document.querySelector('input[name="lengan"]:checked');
+    let umurInput = document.querySelector('input[name="umur"]:checked');
+    let genderInput = document.querySelector('input[name="gender"]:checked');
+
+    return{
+        nama:document.getElementById("nama").value.trim(),
+        hp:document.getElementById("hp").value.trim().replace(/\D/g, ""),
+        size:sizeInput ? sizeInput.value : "",
+        sizeLainnya:document.getElementById("sizeLainnya").value.trim(),
+        lengan:lenganInput ? lenganInput.value : "",
+        umur:umurInput ? umurInput.value : "",
+        gender:genderInput ? genderInput.value : ""
+    };
+}
+
+function simpanDraftForm(){
+    const draft = ambilDraftFormTanpaValidasi();
+    const adaIsi = draft.nama || draft.hp || draft.size || draft.sizeLainnya || draft.lengan || draft.umur || draft.gender;
+
+    if(adaIsi){
+        localStorage.setItem(DRAFT_FORM_STORAGE_KEY, JSON.stringify(draft));
+    }else{
+        localStorage.removeItem(DRAFT_FORM_STORAGE_KEY);
+    }
+}
+
+function pilihRadioDraft(name, value){
+    if(!value) return;
+
+    const radio = document.querySelector(`input[name="${name}"][value="${value}"]`);
+
+    if(radio && !radio.disabled){
+        radio.checked = true;
+        radio.parentElement.classList.add("active");
+    }
+}
+
+function pulihkanDraftForm(){
+    const draft = JSON.parse(localStorage.getItem(DRAFT_FORM_STORAGE_KEY) || "null");
+
+    if(!draft) return;
+
+    document.getElementById("nama").value = draft.nama || "";
+    document.getElementById("hp").value = draft.hp || "";
+    document.getElementById("sizeLainnya").value = draft.sizeLainnya || "";
+
+    pilihRadioDraft("umur", draft.umur);
+    toggleGender();
+
+    pilihRadioDraft("size", draft.size);
+    toggleSize();
+
+    pilihRadioDraft("lengan", draft.lengan);
+
+    if(draft.umur === "Dewasa"){
+        pilihRadioDraft("gender", draft.gender);
+    }
+
+    if(draft.size === "Lainnya"){
+        document.getElementById("sizeLainnya").style.display = "block";
+    }
+}
+
+function hapusDraftForm(){
+    localStorage.removeItem(DRAFT_FORM_STORAGE_KEY);
+}
+
+function aktifkanAutosaveDraftForm(){
+    ["nama", "hp", "sizeLainnya"].forEach(function(id){
+        const el = document.getElementById(id);
+
+        if(el){
+            el.addEventListener("input", simpanDraftForm);
+            el.addEventListener("change", simpanDraftForm);
+        }
+    });
+
+    document.querySelectorAll('input[name="size"], input[name="lengan"], input[name="umur"], input[name="gender"]').forEach(function(el){
+        el.addEventListener("change", function(){
+            setTimeout(simpanDraftForm, 0);
+        });
+    });
 }
 
 /* ===================================================== */
@@ -7225,6 +7317,8 @@ async function kirimKeSheet(){
 
         if(!form) return;
 
+        simpanDraftForm();
+
         if(isDuplicate(form)){
             await showAlert("Data sudah ada / pernah dikirim!", "❌");
             return;
@@ -7262,6 +7356,7 @@ async function kirimKeSheet(){
         sentData.push(form);
         localStorage.setItem("sent", JSON.stringify(sentData));
 
+        hapusKodeUnikTFCache(form.kodeUnikTFSignature);
         resetForm();
         hideLoading();
 
@@ -7321,6 +7416,10 @@ async function kirimKeSheet(){
     }
 
     localStorage.setItem("sent", JSON.stringify(sentData));
+
+    if(dataKirim.length > 0){
+        hapusKodeUnikTFCache(dataKirim[0].kodeUnikTFSignature);
+    }
 
     data = [];
     localStorage.removeItem("orders");
@@ -7408,7 +7507,26 @@ function generateKodeUnikTF(){
     return `TF${acak}`;
 }
 
-let kodeUnikTFCache = {};
+const KODE_UNIK_TF_STORAGE_KEY = "pendingKodeUnikTF";
+const DRAFT_FORM_STORAGE_KEY = "draftFormPemesanan";
+
+let kodeUnikTFCache = JSON.parse(
+    localStorage.getItem(KODE_UNIK_TF_STORAGE_KEY) || "{}"
+);
+
+function simpanKodeUnikTFCache(){
+    localStorage.setItem(
+        KODE_UNIK_TF_STORAGE_KEY,
+        JSON.stringify(kodeUnikTFCache)
+    );
+}
+
+function hapusKodeUnikTFCache(signature){
+    if(!signature) return;
+
+    delete kodeUnikTFCache[signature];
+    simpanKodeUnikTFCache();
+}
 
 function buatSignatureKodeUnikTF(listPesanan){
     return JSON.stringify(listPesanan.map(function(d){
@@ -7431,6 +7549,8 @@ function ambilKodeUnikTFUntukPesanan(listPesanan){
 
     if(kodeDariData){
         kodeUnikTFCache[signature] = kodeDariData.kodeUnikTF;
+        simpanKodeUnikTFCache();
+
         return{
             kodeUnikTF:kodeDariData.kodeUnikTF,
             signature
@@ -7439,6 +7559,7 @@ function ambilKodeUnikTFUntukPesanan(listPesanan){
 
     if(!kodeUnikTFCache[signature]){
         kodeUnikTFCache[signature] = generateKodeUnikTF();
+        simpanKodeUnikTFCache();
     }
 
     return{
@@ -7997,6 +8118,9 @@ window.addEventListener("online", function(){
 window.addEventListener("offline", function(){
     updateTombolKirim(true);
 });
+
+pulihkanDraftForm();
+aktifkanAutosaveDraftForm();
 
 updateTombolKirim(false);
 
