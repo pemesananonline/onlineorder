@@ -1333,6 +1333,40 @@ th{
     border:1px solid #fde68a;
 }
 
+.kode-unik-copy-wrap{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+    margin:2px 0 1px;
+}
+
+.kode-unik-copy-btn{
+    border:none;
+    border-radius:8px;
+    padding:5px 9px;
+    background:#1976D2;
+    color:#ffffff;
+    font-size:11px;
+    font-weight:900;
+    cursor:pointer;
+    line-height:1;
+    box-shadow:0 4px 10px rgba(25,118,210,.16);
+}
+
+.kode-unik-copy-btn:active{
+    transform:scale(.97);
+}
+
+.kode-unik-copy-info{
+    min-height:12px;
+    margin-top:2px;
+    color:#16a34a;
+    font-size:9px;
+    font-weight:900;
+    line-height:1.1;
+}
+
 .kode-unik-note{
     margin-top:4px;
     color:#7c2d12;
@@ -7456,7 +7490,7 @@ async function kirimKeSheet(){
             metodeDipilih = konfirmasi.metodeBayar;
 
             if(form.metodeBayar === "Bayar sekarang via TF"){
-                let aksiPopupTf = await showRekeningTransfer([form]);
+                let aksiPopupTf = await showRekeningTransfer([form], {sumber:"form"});
 
                 if(aksiPopupTf === "back"){
                     continue;
@@ -7506,7 +7540,7 @@ async function kirimKeSheet(){
         metodeDipilih = konfirmasi.metodeBayar;
 
         if(konfirmasi.metodeBayar === "Bayar sekarang via TF"){
-            let aksiPopupTf = await showRekeningTransfer(data);
+            let aksiPopupTf = await showRekeningTransfer(data, {sumber:"orders"});
 
             if(aksiPopupTf === "back"){
                 continue;
@@ -7606,6 +7640,51 @@ function generateKodeUnikTF(){
 
 const KODE_UNIK_TF_STORAGE_KEY = "pendingKodeUnikTF";
 const DRAFT_FORM_STORAGE_KEY = "draftFormPemesanan";
+const POPUP_TF_STATE_KEY = "popupTFSedangAktif";
+
+let sedangMemulihkanPopupTF = false;
+
+function ambilPopupTFState(){
+    try{
+        return JSON.parse(localStorage.getItem(POPUP_TF_STATE_KEY) || "{}");
+    }catch(error){
+        localStorage.removeItem(POPUP_TF_STATE_KEY);
+        return {};
+    }
+}
+
+function simpanPopupTFState(listPesanan, opsi = {}){
+    const listAman = (listPesanan || [])
+        .filter(Boolean)
+        .map(function(item){
+            return pastikanIdKirim({...item});
+        });
+
+    if(listAman.length === 0) return;
+
+    localStorage.setItem(POPUP_TF_STATE_KEY, JSON.stringify({
+        aktif:true,
+        waktu:Date.now(),
+        sumber:opsi.sumber || "orders",
+        listPesanan:listAman
+    }));
+}
+
+function hapusPopupTFState(){
+    localStorage.removeItem(POPUP_TF_STATE_KEY);
+}
+
+function popupTFMasihTerbuka(){
+    const popup = document.getElementById("customPopup");
+    const popupMessage = document.getElementById("popupMessage");
+
+    return !!(
+        popup &&
+        popup.style.display === "flex" &&
+        popupMessage &&
+        popupMessage.querySelector(".rekening-box")
+    );
+}
 
 let kodeUnikTFCache = JSON.parse(
     localStorage.getItem(KODE_UNIK_TF_STORAGE_KEY) || "{}"
@@ -7955,7 +8034,7 @@ const INFO_REKENING = {
     atasNama:"ISI NAMA PEMILIK REKENING"
 };
 
-function showRekeningTransfer(listPesanan){
+function showRekeningTransfer(listPesanan, opsi = {}){
     const kodeInfo = ambilKodeUnikTFUntukPesanan(listPesanan);
     const kodeUnikTF = kodeInfo.kodeUnikTF;
     const signatureKodeUnikTF = kodeInfo.signature;
@@ -8001,9 +8080,13 @@ function showRekeningTransfer(listPesanan){
                     <i class="fa-solid fa-fingerprint"></i>
                     Kode Unik TF
                 </div>
-                <div class="kode-unik-value">${kodeUnikTF}</div>
+                <div class="kode-unik-copy-wrap">
+                    <div class="kode-unik-value" id="kodeUnikTFText">${kodeUnikTF}</div>
+                    <button type="button" class="kode-unik-copy-btn" data-kode="${kodeUnikTF}" onclick="salinKodeUnikTF(this)">Salin</button>
+                </div>
+                <div class="kode-unik-copy-info" id="kodeUnikTFCopyInfo"></div>
                 <div class="kode-unik-note">
-                    Silakan tulis kode unik ini di keterangan TF agar data mudah dicek.
+                    Silakan salin / tulis kode unik ini di keterangan TF agar data mudah dicek.
                 </div>
             </div>
 
@@ -8043,11 +8126,14 @@ function showRekeningTransfer(listPesanan){
         btnOk.textContent = "Kirim";
         document.getElementById("customPopup").style.display = "flex";
 
+        simpanPopupTFState(listPesanan, opsi);
+
         btnOk.onclick = function(){
             btnOk.disabled = true;
             btnCancel.disabled = true;
 
             terapkanKodeUnikTF(listPesanan, kodeUnikTF, signatureKodeUnikTF);
+            hapusPopupTFState();
             document.getElementById("customPopup").style.display = "none";
             btnCancel.disabled = false;
             btnOk.disabled = false;
@@ -8057,12 +8143,137 @@ function showRekeningTransfer(listPesanan){
         };
 
         btnCancel.onclick = function(){
+            hapusPopupTFState();
             document.getElementById("customPopup").style.display = "none";
             btnCancel.textContent = "Batal";
             btnOk.textContent = "OK";
             resolve("back");
         };
     });
+}
+
+function salinKodeUnikTF(button){
+    const kode = String(
+        (button && button.dataset && button.dataset.kode) ||
+        (document.getElementById("kodeUnikTFText") ? document.getElementById("kodeUnikTFText").textContent : "") ||
+        ""
+    ).trim();
+
+    const info = document.getElementById("kodeUnikTFCopyInfo");
+
+    if(!kode) return;
+
+    function tampilkanInfo(pesan, sukses){
+        if(info){
+            info.textContent = pesan;
+            info.style.color = sukses ? "#16a34a" : "#dc2626";
+
+            setTimeout(function(){
+                if(info.textContent === pesan){
+                    info.textContent = "";
+                }
+            }, 2200);
+        }
+
+        if(button){
+            const teksAwal = button.textContent;
+            button.textContent = sukses ? "Disalin" : "Salin manual";
+
+            setTimeout(function(){
+                button.textContent = teksAwal || "Salin";
+            }, 1600);
+        }
+    }
+
+    if(navigator.clipboard && window.isSecureContext){
+        navigator.clipboard.writeText(kode).then(function(){
+            tampilkanInfo("Kode " + kode + " berhasil disalin.", true);
+        }).catch(function(){
+            salinKodeUnikTFFallback(kode, tampilkanInfo);
+        });
+    }else{
+        salinKodeUnikTFFallback(kode, tampilkanInfo);
+    }
+}
+
+function salinKodeUnikTFFallback(kode, callback){
+    const textarea = document.createElement("textarea");
+
+    textarea.value = kode;
+    textarea.setAttribute("readonly", "");
+    textarea.style.position = "fixed";
+    textarea.style.left = "-9999px";
+    textarea.style.top = "0";
+
+    document.body.appendChild(textarea);
+    textarea.focus();
+    textarea.select();
+    textarea.setSelectionRange(0, 99999);
+
+    try{
+        const sukses = document.execCommand("copy");
+        callback(
+            sukses ? "Kode " + kode + " berhasil disalin." : "Silakan salin manual: " + kode,
+            sukses
+        );
+    }catch(error){
+        callback("Silakan salin manual: " + kode, false);
+    }
+
+    document.body.removeChild(textarea);
+}
+
+async function pulihkanPopupTFOtomatis(){
+    if(
+        sedangMemulihkanPopupTF ||
+        sedangMengirimKeSheet ||
+        pemesananDitutup ||
+        popupTFMasihTerbuka() ||
+        ambilPendingKirim().length > 0
+    ){
+        return;
+    }
+
+    const state = ambilPopupTFState();
+
+    if(!state.aktif || !Array.isArray(state.listPesanan) || state.listPesanan.length === 0){
+        return;
+    }
+
+    if(!navigator.onLine){
+        return;
+    }
+
+    sedangMemulihkanPopupTF = true;
+
+    try{
+        const listPesanan = state.listPesanan
+            .filter(Boolean)
+            .map(function(item){
+                return pastikanIdKirim({...item});
+            });
+
+        if(listPesanan.length === 0){
+            hapusPopupTFState();
+            return;
+        }
+
+        const aksi = await showRekeningTransfer(listPesanan, {
+            sumber:state.sumber || "orders",
+            restore:true
+        });
+
+        if(aksi === "ok"){
+            await kirimPendingDenganAman(listPesanan, {
+                tampilkanPopup:true,
+                pesan:"Sedang mengirim data...",
+                hapusDraftSetelahSelesai:state.sumber === "form",
+                tampilkanSukses:true
+            });
+        }
+    }finally{
+        sedangMemulihkanPopupTF = false;
+    }
 }
 
 /* ===================================================== */
@@ -8367,6 +8578,7 @@ function updateTombolKirim(tampilkanPopup = false){
 window.addEventListener("online", function(){
     updateTombolKirim(true);
     lanjutkanPendingKirimOtomatis();
+    pulihkanPopupTFOtomatis();
 });
 
 window.addEventListener("offline", function(){
@@ -8375,11 +8587,13 @@ window.addEventListener("offline", function(){
 
 window.addEventListener("pageshow", function(){
     lanjutkanPendingKirimOtomatis();
+    setTimeout(pulihkanPopupTFOtomatis, 350);
 });
 
 document.addEventListener("visibilitychange", function(){
     if(!document.hidden){
         lanjutkanPendingKirimOtomatis();
+        setTimeout(pulihkanPopupTFOtomatis, 350);
     }
 });
 
@@ -8391,6 +8605,7 @@ updateTombolKirim(false);
 render();
 
 setTimeout(lanjutkanPendingKirimOtomatis, 600);
+setTimeout(pulihkanPopupTFOtomatis, 900);
 
 let tahunCopyright = document.getElementById("tahunCopyright");
 
