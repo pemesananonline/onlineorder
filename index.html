@@ -7570,7 +7570,7 @@ async function kirimKeSheet(){
 
     await kirimPendingDenganAman(dataKirim, {
         tampilkanPopup:true,
-        pesan:"Sedang mengirim data sekaligus...<div class="loading-warning-text">Mohon tetap di halaman ini sampai data berhasil terkirim.</div>",
+        pesan:`Sedang mengirim data sekaligus...<div class="loading-warning-text">Mohon tetap di halaman ini sampai data berhasil terkirim.</div>`,
         tampilkanSukses:true
     });
 }
@@ -7998,10 +7998,19 @@ function setPageButtonsDisabled(status){
 function showLoading(message="Sedang mengirim data..."){
     setPageButtonsDisabled(true);
 
+    const pesanLoading = String(message || "");
+    const perluPeringatanLoading =
+        /mengirim data/i.test(pesanLoading) &&
+        !pesanLoading.includes("loading-warning-text");
+
+    const pesanFinal = perluPeringatanLoading
+        ? pesanLoading + `<div class="loading-warning-text">Mohon tetap di halaman ini sampai data berhasil terkirim.</div>`
+        : pesanLoading;
+
     document.getElementById("popupIcon").innerHTML =
     `<div class="loading-spinner"></div>`;
 
-    document.getElementById("popupMessage").innerHTML = message;
+    document.getElementById("popupMessage").innerHTML = pesanFinal;
     document.getElementById("popupCancel").style.display = "none";
     document.getElementById("popupOk").style.display = "none";
     document.getElementById("customPopup").style.display = "flex";
