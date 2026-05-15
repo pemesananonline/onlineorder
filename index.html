@@ -6034,6 +6034,20 @@ tr.new-saved-row td{
     }
 }
 
+
+.loading-warning-text{
+    margin-top:6px;
+    color:#dc2626;
+    font-size:12px;
+    font-weight:900;
+    line-height:1.35;
+}
+@media(max-width:480px){
+    .loading-warning-text{
+        font-size:11.5px;
+    }
+}
+
 </style>
 
 
@@ -7556,7 +7570,7 @@ async function kirimKeSheet(){
 
     await kirimPendingDenganAman(dataKirim, {
         tampilkanPopup:true,
-        pesan:"Sedang mengirim data sekaligus...",
+        pesan:"Sedang mengirim data sekaligus...<div class="loading-warning-text">Mohon tetap di halaman ini sampai data berhasil terkirim.</div>",
         tampilkanSukses:true
     });
 }
