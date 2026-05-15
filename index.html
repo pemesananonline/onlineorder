@@ -6348,7 +6348,7 @@ tr.new-saved-row td{
 
         <div class="popup-buttons">
             <button class="popup-cancel" id="popupCancel">Batal</button>
-            <button class="popup-ok" id="popupOk">Kirim</button>
+            <button class="popup-ok" id="popupOk">Oke</button>
         </div>
     </div>
 </div>
@@ -8019,8 +8019,15 @@ function showLoading(message="Sedang mengirim data..."){
 function hideLoading(){
     setPageButtonsDisabled(false);
 
+    const btnCancel = document.getElementById("popupCancel");
+    const btnOk = document.getElementById("popupOk");
+
     document.getElementById("customPopup").style.display = "none";
-    document.getElementById("popupOk").style.display = "inline-block";
+    btnOk.style.display = "inline-block";
+    btnOk.textContent = "Oke";
+    btnCancel.textContent = "Batal";
+    btnOk.disabled = false;
+    btnCancel.disabled = false;
 
     updateTombolKirim(false);
 }
@@ -8032,16 +8039,25 @@ function hideLoading(){
 
 function showSuccess(message){
     return new Promise(resolve=>{
+        const btnCancel = document.getElementById("popupCancel");
+        const btnOk = document.getElementById("popupOk");
+
         document.getElementById("popupIcon").innerHTML =
         `<div class="success-check">✓</div>`;
 
         document.getElementById("popupMessage").innerHTML = message;
-        document.getElementById("popupCancel").style.display = "none";
-        document.getElementById("popupOk").style.display = "inline-block";
+        btnCancel.style.display = "none";
+        btnCancel.textContent = "Batal";
+        btnOk.style.display = "inline-block";
+        btnOk.textContent = "Oke";
+        btnOk.disabled = false;
+        btnCancel.disabled = false;
         document.getElementById("customPopup").style.display = "flex";
 
-        document.getElementById("popupOk").onclick = function(){
+        btnOk.onclick = function(){
             document.getElementById("customPopup").style.display = "none";
+            btnOk.textContent = "Oke";
+            btnCancel.textContent = "Batal";
             resolve(true);
         };
     });
@@ -8161,7 +8177,7 @@ function showRekeningTransfer(listPesanan, opsi = {}){
             btnCancel.disabled = false;
             btnOk.disabled = false;
             btnCancel.textContent = "Batal";
-            btnOk.textContent = "OK";
+            btnOk.textContent = "Oke";
             resolve("ok");
         };
 
@@ -8169,7 +8185,7 @@ function showRekeningTransfer(listPesanan, opsi = {}){
             hapusPopupTFState();
             document.getElementById("customPopup").style.display = "none";
             btnCancel.textContent = "Batal";
-            btnOk.textContent = "OK";
+            btnOk.textContent = "Oke";
             resolve("back");
         };
     });
@@ -8306,6 +8322,9 @@ async function pulihkanPopupTFOtomatis(){
 function showAlert(message,icon="✅"){
     return new Promise(resolve=>{
         let popupBox = document.querySelector("#customPopup .popup-box");
+        const btnCancel = document.getElementById("popupCancel");
+        const btnOk = document.getElementById("popupOk");
+
         let isErrorAlert =
             icon === "⚠️" ||
             icon === "❌" ||
@@ -8317,8 +8336,12 @@ function showAlert(message,icon="✅"){
 
         document.getElementById("popupIcon").innerHTML = icon;
         document.getElementById("popupMessage").innerHTML = message;
-        document.getElementById("popupCancel").style.display = "none";
-        document.getElementById("popupOk").style.display = "inline-block";
+        btnCancel.style.display = "none";
+        btnCancel.textContent = "Batal";
+        btnOk.style.display = "inline-block";
+        btnOk.textContent = "Oke";
+        btnOk.disabled = false;
+        btnCancel.disabled = false;
 
         if(isErrorAlert && popupBox){
             void popupBox.offsetWidth;
@@ -8327,8 +8350,10 @@ function showAlert(message,icon="✅"){
 
         document.getElementById("customPopup").style.display = "flex";
 
-        document.getElementById("popupOk").onclick = function(){
+        btnOk.onclick = function(){
             document.getElementById("customPopup").style.display = "none";
+            btnOk.textContent = "Oke";
+            btnCancel.textContent = "Batal";
 
             if(popupBox){
                 popupBox.classList.remove("popup-error-mode");
@@ -8345,19 +8370,30 @@ function showAlert(message,icon="✅"){
 
 function showConfirm(message,icon="⚠️"){
     return new Promise(resolve=>{
+        const btnCancel = document.getElementById("popupCancel");
+        const btnOk = document.getElementById("popupOk");
+
         document.getElementById("popupIcon").innerHTML = icon;
         document.getElementById("popupMessage").innerHTML = message;
-        document.getElementById("popupCancel").style.display = "inline-block";
-        document.getElementById("popupOk").style.display = "inline-block";
+        btnCancel.style.display = "inline-block";
+        btnOk.style.display = "inline-block";
+        btnCancel.textContent = "Batal";
+        btnOk.textContent = "Oke";
+        btnOk.disabled = false;
+        btnCancel.disabled = false;
         document.getElementById("customPopup").style.display = "flex";
 
-        document.getElementById("popupOk").onclick = function(){
+        btnOk.onclick = function(){
             document.getElementById("customPopup").style.display = "none";
+            btnOk.textContent = "Oke";
+            btnCancel.textContent = "Batal";
             resolve(true);
         };
 
-        document.getElementById("popupCancel").onclick = function(){
+        btnCancel.onclick = function(){
             document.getElementById("customPopup").style.display = "none";
+            btnOk.textContent = "Oke";
+            btnCancel.textContent = "Batal";
             resolve(false);
         };
     });
@@ -8429,14 +8465,26 @@ function showConfirmPembayaran(message,icon="⚠️",selectedMetode=""){
 
             customPopup.style.display = "none";
 
+            const metodeTerpilih = metode.value;
+
+            btnCancel.textContent = "Batal";
+            btnOk.textContent = "Oke";
+            btnOk.disabled = false;
+            btnCancel.disabled = false;
+
             resolve({
                 ok:true,
-                metodeBayar:metode.value
+                metodeBayar:metodeTerpilih
             });
         };
 
         btnCancel.onclick = function(){
             customPopup.style.display = "none";
+            btnCancel.textContent = "Batal";
+            btnOk.textContent = "Oke";
+            btnOk.disabled = false;
+            btnCancel.disabled = false;
+
             resolve({
                 ok:false,
                 metodeBayar:""
