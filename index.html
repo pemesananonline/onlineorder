@@ -6371,6 +6371,92 @@ let data = JSON.parse(localStorage.getItem("orders")) || [];
 let sentData = JSON.parse(localStorage.getItem("sent")) || [];
 let lastSavedIndex = -1;
 
+const PENDING_KIRIM_KEY = "pendingKirimOrders";
+let sedangMengirimKeSheet = false;
+
+function buatIdKirimBaru(){
+    return "KIRIM-" +
+        Date.now().toString(36).toUpperCase() +
+        "-" +
+        Math.random().toString(36).slice(2, 10).toUpperCase();
+}
+
+function pastikanIdKirim(d){
+    if(!d) return d;
+
+    if(!d.idKirim){
+        d.idKirim = buatIdKirimBaru();
+    }
+
+    return d;
+}
+
+function simpanPendingKirim(list){
+    localStorage.setItem(PENDING_KIRIM_KEY, JSON.stringify(list || []));
+}
+
+function ambilPendingKirim(){
+    return JSON.parse(localStorage.getItem(PENDING_KIRIM_KEY) || "[]");
+}
+
+function hapusPendingKirim(){
+    localStorage.removeItem(PENDING_KIRIM_KEY);
+}
+
+function simpanOrdersSekarang(){
+    if(data.length > 0){
+        localStorage.setItem("orders", JSON.stringify(data));
+    }else{
+        localStorage.removeItem("orders");
+    }
+}
+
+function hapusOrderLokalBerdasarkanIdKirim(idKirim){
+    if(!idKirim) return;
+
+    data = (JSON.parse(localStorage.getItem("orders")) || []).filter(function(item){
+        return item.idKirim !== idKirim;
+    });
+
+    simpanOrdersSekarang();
+    render();
+}
+
+function hapusOrderLokalBerdasarkanIdKirimBanyak(idList){
+    const idSet = new Set((idList || []).filter(Boolean));
+
+    if(idSet.size === 0) return;
+
+    data = (JSON.parse(localStorage.getItem("orders")) || []).filter(function(item){
+        return !idSet.has(item.idKirim);
+    });
+
+    simpanOrdersSekarang();
+    render();
+}
+
+
+function simpanSentJikaBelumAda(d){
+    if(!d) return;
+
+    sentData = JSON.parse(localStorage.getItem("sent")) || [];
+
+    const sudahAda = sentData.some(function(item){
+        return item.idKirim && d.idKirim && item.idKirim === d.idKirim;
+    });
+
+    if(!sudahAda){
+        sentData.push(d);
+        localStorage.setItem("sent", JSON.stringify(sentData));
+    }
+}
+
+data = data.map(pastikanIdKirim);
+localStorage.setItem("orders", JSON.stringify(data));
+
+sentData = sentData.map(pastikanIdKirim);
+localStorage.setItem("sent", JSON.stringify(sentData));
+
 /* ===================================================== */
 /* ===== STATUS PEMESANAN & INTERNET ==================== */
 /*
@@ -7225,6 +7311,8 @@ async function simpan(){
 
     if(!form) return;
 
+    pastikanIdKirim(form);
+
     if(isDuplicate(form)){
         await showAlert("Data sudah ada / pernah dikirim!", "❌");
         return;
@@ -7290,6 +7378,34 @@ async function hapus(i){
 
 async function kirimKeSheet(){
 
+    if(sedangMengirimKeSheet){
+        await showAlert(
+            "Pengiriman sedang diproses. Mohon tunggu sampai selesai.",
+            "⏳"
+        );
+        return;
+    }
+
+    const pendingTersimpan = ambilPendingKirim();
+
+    if(pendingTersimpan.length > 0){
+        if(!navigator.onLine){
+            await showAlert(
+                "<b>Masih ada data yang belum selesai dikirim.</b><br><br>Hubungkan internet, lalu buka halaman ini kembali. Sistem akan melanjutkan pengiriman otomatis.",
+                "📡"
+            );
+            return;
+        }
+
+        await kirimPendingDenganAman(pendingTersimpan, {
+            tampilkanPopup:true,
+            pesan:"Melanjutkan pengiriman yang sempat tertunda...",
+            tampilkanSukses:true
+        });
+
+        return;
+    }
+
     if(pemesananDitutup){
         await showAlert(
             "Maaf, waktu pemesanan sudah ditutup.",
@@ -7317,6 +7433,7 @@ async function kirimKeSheet(){
 
         if(!form) return;
 
+        pastikanIdKirim(form);
         simpanDraftForm();
 
         if(isDuplicate(form)){
@@ -7349,23 +7466,18 @@ async function kirimKeSheet(){
             break;
         }
 
-        showLoading();
-
-        await kirim(form);
-
-        sentData.push(form);
-        localStorage.setItem("sent", JSON.stringify(sentData));
-
-        hapusKodeUnikTFCache(form.kodeUnikTFSignature);
-        resetForm();
-        hideLoading();
-
-        await showSuccess("Pesanan terkirim ke Google Spreadsheet.<br>Terima kasih telah order.");
+        await kirimPendingDenganAman([form], {
+            tampilkanPopup:true,
+            pesan:"Sedang mengirim data...",
+            hapusDraftSetelahSelesai:true,
+            tampilkanSukses:true
+        });
 
         return;
     }
 
-    data = JSON.parse(localStorage.getItem("orders")) || [];
+    data = (JSON.parse(localStorage.getItem("orders")) || []).map(pastikanIdKirim);
+    localStorage.setItem("orders", JSON.stringify(data));
 
     if(data.length === 0){
         await showAlert("Tidak ada data tersimpan", "⚠️");
@@ -7383,11 +7495,14 @@ async function kirimKeSheet(){
 
         if(!konfirmasi.ok) return;
 
-        data = data.map(d=>({
-            ...d,
-            metodeBayar:konfirmasi.metodeBayar
-        }));
+        data = data.map(function(d){
+            return pastikanIdKirim({
+                ...d,
+                metodeBayar:konfirmasi.metodeBayar
+            });
+        });
 
+        localStorage.setItem("orders", JSON.stringify(data));
         metodeDipilih = konfirmasi.metodeBayar;
 
         if(konfirmasi.metodeBayar === "Bayar sekarang via TF"){
@@ -7401,33 +7516,15 @@ async function kirimKeSheet(){
         break;
     }
 
-    showLoading("Sedang mengirim data satu per satu...");
-
     let dataKirim = [...data].reverse();
     // Dibalik supaya urutan masuk Spreadsheet menjadi Pesanan 1, Pesanan 2, Pesanan 3.
     // Di tabel web, data terbaru memang tampil paling atas.
 
-    for(let d of dataKirim){
-        await kirim(d);
-        sentData.push(d);
-
-        // Jeda kecil agar Apps Script dan Spreadsheet memproses data secara berurutan.
-        await new Promise(resolve => setTimeout(resolve, 350));
-    }
-
-    localStorage.setItem("sent", JSON.stringify(sentData));
-
-    if(dataKirim.length > 0){
-        hapusKodeUnikTFCache(dataKirim[0].kodeUnikTFSignature);
-    }
-
-    data = [];
-    localStorage.removeItem("orders");
-
-    render();
-    hideLoading();
-
-    await showSuccess("Pesanan terkirim ke Google Spreadsheet.<br>Terima kasih telah order.");
+    await kirimPendingDenganAman(dataKirim, {
+        tampilkanPopup:true,
+        pesan:"Sedang mengirim data sekaligus...",
+        tampilkanSukses:true
+    });
 }
 
 /* ===================================================== */
@@ -7589,17 +7686,57 @@ function terapkanKodeUnikTF(listPesanan, kodeUnikTF, signature){
     });
 }
 
-function kirim(d){
+function buatPayloadPesanan(d){
+    pastikanIdKirim(d);
+
+    return {
+        nama:d.nama || "",
+        size:d.size || "",
+        lengan:d.lengan || "",
+        umur:d.umur || "",
+        gender:d.gender || "",
+        hp:d.hp || "",
+        waktu:d.waktu || "",
+        metodeBayar:d.metodeBayar || "",
+        kodeUnikTF:d.kodeUnikTF || "",
+        keteranganTF:d.kodeUnikTF || d.keteranganTF || "",
+        totalBayar:hitungHargaPesanan(d) || 0,
+        idKirim:d.idKirim || "",
+        clientOrderId:d.idKirim || "",
+        kodeUnikTFSignature:d.kodeUnikTFSignature || ""
+    };
+}
+
+function bagiBatchPesanan(listPesanan){
+    const MAKSIMAL_PANJANG_JSON_KEEPALIVE = 55000;
+    const hasil = [];
+    let chunk = [];
+
+    (listPesanan || []).forEach(function(item){
+        const calon = chunk.concat([item]);
+        const panjangCalon = JSON.stringify(calon.map(buatPayloadPesanan)).length;
+
+        if(chunk.length > 0 && panjangCalon > MAKSIMAL_PANJANG_JSON_KEEPALIVE){
+            hasil.push(chunk);
+            chunk = [item];
+        }else{
+            chunk = calon;
+        }
+    });
+
+    if(chunk.length > 0){
+        hasil.push(chunk);
+    }
+
+    return hasil;
+}
+
+function kirimBatch(listPesanan){
     /*
-        MODE FRONTEND GITHUB + BACKEND GOOGLE APPS SCRIPT
+        MODE BATCH FRONTEND GITHUB + BACKEND GOOGLE APPS SCRIPT
 
-        Cara pakai:
-        1. Deploy backend Apps Script sebagai Web App.
-        2. Copy URL Web App yang berakhiran /exec.
-        3. Ganti nilai GAS_WEB_APP_URL di atas.
-
-        Data dikirim sebagai form biasa agar aman dipakai dari GitHub Pages
-        tanpa masalah CORS/preflight. Backend GAS cukup membaca e.parameter.
+        Banyak pesanan dikirim dalam 1 request agar lebih cepat.
+        Setiap item tetap membawa idKirim, jadi backend tetap bisa menolak duplikat.
     */
 
     if(!GAS_WEB_APP_URL || GAS_WEB_APP_URL.includes("PASTE_URL")){
@@ -7607,28 +7744,142 @@ function kirim(d){
             "URL Web App Apps Script belum diisi di file index.html.<br><br>Ganti GAS_WEB_APP_URL dengan URL deploy Web App yang berakhiran /exec.",
             "⚠️"
         );
-        return;
+        return Promise.reject(new Error("GAS_WEB_APP_URL belum diisi"));
+    }
+
+    const payload = (listPesanan || [])
+        .filter(Boolean)
+        .map(function(item){
+            return buatPayloadPesanan(item);
+        });
+
+    if(payload.length === 0){
+        return Promise.resolve();
     }
 
     let f = new FormData();
-
     f.append("token", "adi_wirawan_orderonline2026###");
-    f.append("nama", d.nama || "");
-    f.append("size", d.size || "");
-    f.append("lengan", d.lengan || "");
-    f.append("umur", d.umur || "");
-    f.append("gender", d.gender || "");
-    f.append("hp", d.hp || "");
-    f.append("waktu", d.waktu || "");
-    f.append("metodeBayar", d.metodeBayar || "");
-    f.append("kodeUnikTF", d.kodeUnikTF || "");
-    f.append("keteranganTF", d.kodeUnikTF || "");
-    f.append("totalBayar", hitungHargaPesanan(d) || 0);
+    f.append("mode", "batch");
+    f.append("ordersBatch", JSON.stringify(payload));
+    f.append("jumlahOrder", String(payload.length));
+
+    // Field single tetap dikirim sebagai fallback untuk backend lama.
+    const pertama = payload[0];
+    Object.keys(pertama).forEach(function(key){
+        f.append(key, pertama[key] || "");
+    });
 
     return fetch(GAS_WEB_APP_URL, {
         method:"POST",
         mode:"no-cors",
-        body:f
+        body:f,
+        keepalive:true
+    });
+}
+
+function kirim(d){
+    // Wrapper kompatibilitas lama: 1 data tetap dikirim lewat jalur batch.
+    return kirimBatch([d]);
+}
+
+async function kirimPendingDenganAman(listPesanan, opsi = {}){
+    if(sedangMengirimKeSheet) return false;
+
+    const tampilkanPopup = opsi.tampilkanPopup !== false;
+    const tampilkanSukses = opsi.tampilkanSukses === true;
+    const pesan = opsi.pesan || "Sedang mengirim data...";
+
+    let pending = (listPesanan || [])
+        .filter(Boolean)
+        .map(pastikanIdKirim);
+
+    if(pending.length === 0) return true;
+
+    simpanPendingKirim(pending);
+    sedangMengirimKeSheet = true;
+
+    if(tampilkanPopup){
+        showLoading(pesan);
+    }
+
+    try{
+        pending = ambilPendingKirim().map(pastikanIdKirim);
+        const daftarBatch = bagiBatchPesanan(pending);
+
+        for(let batch of daftarBatch){
+            await kirimBatch(batch);
+
+            batch.forEach(function(d){
+                simpanSentJikaBelumAda(d);
+
+                if(d.kodeUnikTFSignature){
+                    hapusKodeUnikTFCache(d.kodeUnikTFSignature);
+                }
+            });
+
+            const idTerkirim = batch.map(function(d){
+                return d.idKirim;
+            });
+
+            pending = pending.filter(function(item){
+                return idTerkirim.indexOf(item.idKirim) === -1;
+            });
+
+            simpanPendingKirim(pending);
+            hapusOrderLokalBerdasarkanIdKirimBanyak(idTerkirim);
+        }
+
+        hapusPendingKirim();
+
+        if(opsi.hapusDraftSetelahSelesai){
+            resetForm();
+        }
+
+        if(tampilkanPopup){
+            hideLoading();
+        }
+
+        if(tampilkanSukses){
+            await showSuccess("Pesanan terkirim ke Google Spreadsheet.<br>Terima kasih telah order.");
+        }
+
+        return true;
+    }catch(error){
+        console.error("Pengiriman tertunda:", error);
+
+        if(tampilkanPopup){
+            hideLoading();
+
+            await showAlert(
+                "<b>Pengiriman belum selesai.</b><br><br>Data sudah diamankan di browser. Jangan hapus cache. Saat internet stabil atau web dibuka kembali, sistem akan melanjutkan pengiriman otomatis.",
+                "📡"
+            );
+        }
+
+        return false;
+    }finally{
+        sedangMengirimKeSheet = false;
+        updateTombolKirim(false);
+        render();
+    }
+}
+
+function lanjutkanPendingKirimOtomatis(){
+    const pending = ambilPendingKirim();
+
+    if(
+        pending.length === 0 ||
+        sedangMengirimKeSheet ||
+        !navigator.onLine ||
+        pemesananDitutup
+    ){
+        return;
+    }
+
+    kirimPendingDenganAman(pending, {
+        tampilkanPopup:true,
+        pesan:"Melanjutkan pengiriman yang sempat tertunda...",
+        tampilkanSukses:true
     });
 }
 
@@ -7796,8 +8047,13 @@ function showRekeningTransfer(listPesanan){
         document.getElementById("customPopup").style.display = "flex";
 
         btnOk.onclick = function(){
+            btnOk.disabled = true;
+            btnCancel.disabled = true;
+
             terapkanKodeUnikTF(listPesanan, kodeUnikTF, signatureKodeUnikTF);
             document.getElementById("customPopup").style.display = "none";
+            btnCancel.disabled = false;
+            btnOk.disabled = false;
             btnCancel.textContent = "Batal";
             btnOk.textContent = "OK";
             resolve("ok");
@@ -8113,10 +8369,21 @@ function updateTombolKirim(tampilkanPopup = false){
 
 window.addEventListener("online", function(){
     updateTombolKirim(true);
+    lanjutkanPendingKirimOtomatis();
 });
 
 window.addEventListener("offline", function(){
     updateTombolKirim(true);
+});
+
+window.addEventListener("pageshow", function(){
+    lanjutkanPendingKirimOtomatis();
+});
+
+document.addEventListener("visibilitychange", function(){
+    if(!document.hidden){
+        lanjutkanPendingKirimOtomatis();
+    }
 });
 
 pulihkanDraftForm();
@@ -8125,6 +8392,8 @@ aktifkanAutosaveDraftForm();
 updateTombolKirim(false);
 
 render();
+
+setTimeout(lanjutkanPendingKirimOtomatis, 600);
 
 let tahunCopyright = document.getElementById("tahunCopyright");
 
