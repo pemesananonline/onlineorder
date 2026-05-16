@@ -6308,6 +6308,128 @@ tr.new-saved-row td{
     border-bottom:none!important;
 }
 
+
+/* =====================================================
+   UPDATE TERBARU: TOMBOL TAMBAH DAFTAR + DESAIN DEPAN BELAKANG
+===================================================== */
+
+button[onclick="simpan()"]{
+    line-height:1.2!important;
+}
+
+.design-split-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+    margin-bottom:7px;
+}
+
+.design-side-card{
+    background:#f8fbff;
+    border:1px solid #dbeafe;
+    border-radius:12px;
+    padding:9px;
+}
+
+.design-side-title{
+    text-align:center;
+    color:#14365f;
+    font-size:12.5px;
+    font-weight:900;
+    margin:0 0 7px;
+}
+
+.design-side-image{
+    width:100%;
+    max-height:56vh;
+    object-fit:contain;
+    display:block;
+    border-radius:10px;
+    background:#ffffff;
+}
+
+.design-info-panel.ultra-compact-info{
+    margin:7px 0 0!important;
+    padding:7px 8px!important;
+    border-radius:10px!important;
+    background:#f8fbff!important;
+    border:1px solid #dbeafe!important;
+    text-align:center!important;
+    color:#0f172a!important;
+    line-height:1.25!important;
+}
+
+.design-ultra-line{
+    font-size:10.8px!important;
+    font-weight:900!important;
+    color:#0f172a!important;
+    margin:2px 0!important;
+}
+
+.design-ultra-line b{
+    color:#14365f!important;
+}
+
+.design-ultra-note{
+    margin-top:4px!important;
+    padding-top:4px!important;
+    border-top:1px dashed #dbeafe!important;
+    color:#92400e!important;
+    font-size:9.2px!important;
+    font-weight:900!important;
+    line-height:1.2!important;
+}
+
+.design-box{
+    max-height:90vh!important;
+    overflow:auto!important;
+}
+
+@media(max-width:640px){
+    .design-split-grid{
+        grid-template-columns:1fr;
+        gap:9px;
+    }
+
+    .design-side-card{
+        padding:7px;
+    }
+
+    .design-side-title{
+        font-size:11.5px;
+        margin-bottom:5px;
+    }
+
+    .design-side-image{
+        max-height:34vh;
+    }
+}
+
+@media(max-width:480px){
+    button[onclick="simpan()"]{
+        font-size:12.5px!important;
+        padding-left:10px!important;
+        padding-right:10px!important;
+    }
+
+    .design-info-panel.ultra-compact-info{
+        margin-top:6px!important;
+        padding:6px 7px!important;
+        border-radius:9px!important;
+    }
+
+    .design-ultra-line{
+        font-size:9.7px!important;
+        line-height:1.22!important;
+    }
+
+    .design-ultra-note{
+        font-size:8.4px!important;
+        margin-top:3px!important;
+        padding-top:3px!important;
+    }
+}
+
 </style>
 
 
@@ -6379,8 +6501,8 @@ tr.new-saved-row td{
 <div class="note-box">
     Kalau ingin memesan lebih dari satu baju,
     silakan klik
-    <span class="note-highlight">“Simpan”</span>
-    terlebih dahulu untuk setiap pesanan.
+    <span class="note-highlight">“Tambah ke Daftar Pesanan”</span>
+    untuk setiap pesanan.
     Setelah semua data sudah diisi dan dipastikan benar,
     klik
     <span class="note-highlight">“Kirim ke Google Spreadsheets”</span>.
@@ -6429,7 +6551,7 @@ tr.new-saved-row td{
 <div id="networkStatus" class="network-status">
     <div class="offline-title">📡 Anda sedang offline</div>
     <div class="offline-message">
-        Pesanan belum bisa dikirim ke Google Spreadsheet. Simpan data terlebih dahulu, lalu kirim kembali saat internet aktif.
+        Pesanan belum bisa dikirim ke Google Spreadsheet. Tambahkan pesanan ke daftar terlebih dahulu, lalu kirim kembali saat internet aktif.
     </div>
 </div>
 
@@ -6459,7 +6581,7 @@ tr.new-saved-row td{
                 <path d="M8.5 3.5 5.2 5.1 2.7 9.7l3.1 1.8 1.4-2.2V20.5h9.6V9.3l1.4 2.2 3.1-1.8-2.5-4.6-3.3-1.6c-.8 1.2-2 1.8-3.5 1.8s-2.7-.6-3.5-1.8Z"></path>
             </svg>
         </span>
-        Lihat Desain Baju dan Harga
+        Informasi Baju dan Harga
     </button>
 </div>
 
@@ -6517,8 +6639,8 @@ tr.new-saved-row td{
 <div class="button-group">
     <div class="left-buttons">
         <button class="btn" onclick="simpan()">
-            <i class="fa-solid fa-floppy-disk"></i>
-            Simpan
+            <i class="fa-solid fa-plus"></i>
+            Tambah ke Daftar Pesanan
         </button>
     </div>
 
@@ -6579,7 +6701,7 @@ tr.new-saved-row td{
         <h3>Butuh Bantuan?</h3>
 
         <p>
-            Kalau masih bingung soal ukuran, cara mengisi form, kirim bukti pembayaran,
+            Kalau masih bingung soal ukuran, cara mengisi form,
             atau ada kendala pemesanan, silakan hubungi salah satu admin di bawah ini.
         </p>
 
@@ -6646,16 +6768,42 @@ tr.new-saved-row td{
 <div id="desainBajuPopup" class="design-overlay">
     <div class="design-box">
         <!-- 
-            GAMBAR DESAIN BAJU
+            GAMBAR DESAIN BAJU DEPAN & BELAKANG
 
-            Pastikan file desainbaju.webp berada 1 folder dengan file index.html.
-            Karena file akan ditaruh di GitHub, susunannya bisa seperti ini:
+            Pastikan file desain-depan.webp dan desain-belakang.webp berada
+            1 folder dengan file index.html.
+
+            Susunan file yang disarankan:
             - index.html
-            - desainbaju.webp
+            - desain-depan.webp
+            - desain-belakang.webp
+            - size-chart.webp
 
             Jika nama file berbeda, ganti bagian src di bawah ini.
         -->
-        <img src="desainbaju.webp" class="design-image" id="desainBajuImage" alt="Desain Baju">
+        <div class="design-split-grid">
+            <div class="design-side-card">
+                <div class="design-side-title">Desain Depan</div>
+                <img src="desain-depan.webp" class="design-side-image" id="desainBajuDepanImage" alt="Desain Baju Depan">
+            </div>
+
+            <div class="design-side-card">
+                <div class="design-side-title">Desain Belakang</div>
+                <img src="desain-belakang.webp" class="design-side-image" id="desainBajuBelakangImage" alt="Desain Baju Belakang">
+            </div>
+        </div>
+
+        <div class="design-info-panel ultra-compact-info">
+            <div class="design-ultra-line">
+                <b>Info:</b> O-neck/leher bulat • Cotton combed 30s • Hitam • Desain sesuai gambar
+            </div>
+            <div class="design-ultra-line">
+                <b>Harga:</b> Anak Rp80rb • Dewasa Rp100rb • Panjang +Rp15rb
+            </div>
+            <div class="design-ultra-note">
+                Warna bisa sedikit berbeda tergantung layar HP.
+            </div>
+        </div>
     </div>
 </div>
 
@@ -7632,7 +7780,7 @@ async function simpan(){
     resetForm();
 
     await showAlert(
-        "Pesanan berhasil disimpan.<br>Silakan isi data berikutnya jika ingin menambahkan pesanan lain.",
+        "Pesanan berhasil ditambahkan ke daftar pesanan.<br>Silakan isi data berikutnya jika ingin menambahkan pesanan lain.",
         "✅"
     );
 
@@ -7726,7 +7874,7 @@ async function kirimKeSheet(){
 
     if(!navigator.onLine){
         await showAlert(
-            "<b>Anda sedang offline.</b><br><br>Pesanan belum bisa dikirim ke Google Spreadsheet.<br>Simpan data terlebih dahulu, lalu kirim kembali saat internet aktif.",
+            "<b>Anda sedang offline.</b><br><br>Pesanan belum bisa dikirim ke Google Spreadsheet.<br>Tambahkan pesanan ke daftar terlebih dahulu, lalu kirim kembali saat internet aktif.",
             "📡"
         );
 
@@ -7788,7 +7936,7 @@ async function kirimKeSheet(){
     localStorage.setItem("orders", JSON.stringify(data));
 
     if(data.length === 0){
-        await showAlert("Tidak ada data tersimpan", "⚠️");
+        await showAlert("Belum ada pesanan di daftar", "⚠️");
         return;
     }
 
@@ -9107,7 +9255,7 @@ function updateTombolKirim(tampilkanPopup = false){
             popupOfflineSudahTampil = true;
 
             showAlert(
-                "<b>Anda sedang offline.</b><br><br>Pesanan belum bisa dikirim ke Google Spreadsheet.<br>Simpan data terlebih dahulu, lalu kirim kembali saat internet aktif.",
+                "<b>Anda sedang offline.</b><br><br>Pesanan belum bisa dikirim ke Google Spreadsheet.<br>Tambahkan pesanan ke daftar terlebih dahulu, lalu kirim kembali saat internet aktif.",
                 "📡"
             );
         }
