@@ -2,7 +2,7 @@
 /* ================= SERVICE WORKER CACHE =============== */
 /* ===================================================== */
 
-const CACHE_NAME = "order-online-cache-v30";
+const CACHE_NAME = "order-online-cache-v31";
 
 const FILES_TO_CACHE = [
     "./",
