@@ -6048,6 +6048,102 @@ tr.new-saved-row td{
     }
 }
 
+
+.bukti-tf-success-box{
+    margin-top:12px;
+    padding:10px;
+    border-radius:12px;
+    background:#f0fdf4;
+    border:1.5px solid #bbf7d0;
+    color:#166534;
+    font-size:12px;
+    font-weight:900;
+    line-height:1.35;
+}
+.bukti-tf-success-btn{
+    width:100%;
+    margin-top:10px;
+    border:none;
+    border-radius:12px;
+    padding:12px 14px;
+    background:#25D366;
+    color:#ffffff;
+    font-size:13px;
+    font-weight:900;
+    cursor:pointer;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+}
+.bukti-tf-success-btn:active{
+    transform:scale(.98);
+}
+@media(max-width:480px){
+    .bukti-tf-success-box{
+        font-size:11.5px;
+        padding:9px;
+    }
+    .bukti-tf-success-btn{
+        font-size:12.5px;
+        padding:11px 12px;
+    }
+}
+
+
+.rekening-row-copy{
+    align-items:center;
+}
+.rekening-copy-wrap{
+    display:inline-flex;
+    align-items:center;
+    justify-content:flex-end;
+    gap:6px;
+    flex-wrap:wrap;
+}
+.rekening-copy-number{
+    color:#0f172a;
+    font-weight:900;
+    text-align:right;
+}
+.rekening-copy-btn{
+    border:none;
+    border-radius:8px;
+    padding:5px 9px;
+    background:#1976D2;
+    color:#ffffff;
+    font-size:11px;
+    font-weight:900;
+    cursor:pointer;
+    line-height:1;
+    box-shadow:0 4px 10px rgba(25,118,210,.16);
+}
+.rekening-copy-btn:active{
+    transform:scale(.97);
+}
+.rekening-copy-info{
+    min-height:12px;
+    margin:-3px 0 4px;
+    color:#16a34a;
+    font-size:9px;
+    font-weight:900;
+    line-height:1.15;
+    text-align:right;
+}
+@media(max-width:480px){
+    .rekening-copy-wrap{
+        gap:5px;
+    }
+    .rekening-copy-btn{
+        font-size:10px;
+        padding:4px 8px;
+    }
+    .rekening-copy-info{
+        font-size:8.8px;
+        text-align:right;
+    }
+}
+
 </style>
 
 
@@ -6822,7 +6918,7 @@ document.addEventListener("click", function(e){
 
 function hubungiWA1(){
     window.open(
-        "https://wa.me/628814842970",
+        "https://wa.me/6285240761698",
         "_blank"
     );
 }
@@ -7824,6 +7920,136 @@ function bagiBatchPesanan(listPesanan){
     return hasil;
 }
 
+
+const NOMOR_WA_BUKTI_TF = "6285240761698";
+let dataBuktiTFTerakhir = null;
+
+function nomorWABersih(nomor){
+    return String(nomor || "")
+        .replace(/\D/g, "")
+        .replace(/^0/, "62");
+}
+
+function pesananMenggunakanTF(item){
+    const metode = String((item && item.metodeBayar) || "");
+    const kode = String(
+        (item && (item.kodeUnikTF || item.kodeUnik || item.keteranganTF)) ||
+        ""
+    );
+
+    return (
+        metode.indexOf("Bayar sekarang via TF") !== -1 ||
+        /TF\d{6}/i.test(kode) ||
+        /TF\d{6}/i.test(metode)
+    );
+}
+
+function ambilKodeUnikDariPesanan(item){
+    const sumber = [
+        item && item.kodeUnikTF,
+        item && item.kodeUnik,
+        item && item.keteranganTF,
+        item && item.metodeBayar
+    ].join(" ");
+
+    const match = String(sumber || "").match(/TF\d{6}/i);
+    return match ? String(match[0]).toUpperCase() : "-";
+}
+
+function buatInfoBuktiTF(listPesanan){
+    const daftarTF = (listPesanan || [])
+        .filter(Boolean)
+        .filter(pesananMenggunakanTF);
+
+    if(daftarTF.length === 0){
+        return null;
+    }
+
+    const kodeUnik = ambilKodeUnikDariPesanan(daftarTF[0]);
+    const totalTransfer = hitungTotalBayar(daftarTF);
+    const namaPertama = String(daftarTF[0].nama || "-").trim() || "-";
+
+    const rincian = daftarTF.map(function(item, index){
+        return {
+            no:index + 1,
+            nama:item.nama || "-",
+            size:item.size || "-",
+            lengan:item.lengan || "-",
+            umur:item.umur || "-",
+            gender:item.gender || "-",
+            subtotal:hitungHargaPesanan(item)
+        };
+    });
+
+    return {
+        nama:namaPertama,
+        kodeUnik:kodeUnik,
+        totalTransfer:totalTransfer,
+        jumlahPesanan:daftarTF.length,
+        rincian:rincian
+    };
+}
+
+function buatPesanWABuktiTF(info){
+    const data = info || dataBuktiTFTerakhir || {};
+    const rincian = Array.isArray(data.rincian) ? data.rincian : [];
+
+    const rincianText = rincian.map(function(item){
+        return item.no + ". " +
+            item.nama + " - " +
+            item.umur + " - " +
+            item.lengan + " - " +
+            item.size + " - " +
+            formatRupiah(item.subtotal);
+    }).join("\n");
+
+    return [
+        "Halo admin, saya sudah transfer.",
+        "",
+        "Nama Pemesan: " + (data.nama || "-"),
+        "Kode Unik: " + (data.kodeUnik || "-"),
+        "Total Transfer: " + formatRupiah(data.totalTransfer || 0),
+        "Jumlah Pesanan: " + (data.jumlahPesanan || rincian.length || "-"),
+        "",
+        "Rincian Pesanan:",
+        rincianText || "-",
+        "",
+        "Saya akan kirim bukti transfer di chat ini."
+    ].join("\n");
+}
+
+function bukaWABuktiTFTerakhir(){
+    if(!dataBuktiTFTerakhir){
+        alert("Data bukti transfer belum tersedia.");
+        return;
+    }
+
+    const nomor = nomorWABersih(NOMOR_WA_BUKTI_TF);
+    const pesan = buatPesanWABuktiTF(dataBuktiTFTerakhir);
+    const url = "https://wa.me/" + nomor + "?text=" + encodeURIComponent(pesan);
+
+    window.open(url, "_blank");
+}
+
+function buatHTMLTombolBuktiTF(info){
+    dataBuktiTFTerakhir = info;
+
+    if(!info){
+        return "";
+    }
+
+    return `
+        <div class="bukti-tf-success-box">
+            Data pesanan sudah tersimpan. Silakan kirim bukti TF ke admin agar pembayaran dapat dicek.
+            <button type="button" class="bukti-tf-success-btn" onclick="bukaWABuktiTFTerakhir()">
+                <i class="fa-brands fa-whatsapp"></i>
+                Kirim Bukti TF ke Admin
+            </button>
+        </div>
+    `;
+}
+
+
 function kirimBatch(listPesanan){
     /*
         MODE BATCH FRONTEND GITHUB + BACKEND GOOGLE APPS SCRIPT
@@ -7886,6 +8112,10 @@ async function kirimPendingDenganAman(listPesanan, opsi = {}){
         .filter(Boolean)
         .map(pastikanIdKirim);
 
+    const daftarAwalKirim = pending.map(function(item){
+        return Object.assign({}, item);
+    });
+
     if(pending.length === 0) return true;
 
     simpanPendingKirim(pending);
@@ -7933,7 +8163,15 @@ async function kirimPendingDenganAman(listPesanan, opsi = {}){
         }
 
         if(tampilkanSukses){
-            await showSuccess("Pesanan terkirim ke Google Spreadsheet.<br>Terima kasih telah order.");
+            const infoBuktiTF = buatInfoBuktiTF(daftarAwalKirim);
+
+            let pesanSukses = "Pesanan terkirim ke Google Spreadsheet.<br>Terima kasih telah order.";
+
+            if(infoBuktiTF){
+                pesanSukses += buatHTMLTombolBuktiTF(infoBuktiTF);
+            }
+
+            await showSuccess(pesanSukses);
         }
 
         return true;
@@ -8068,9 +8306,9 @@ function showSuccess(message){
 /* ===================================================== */
 
 const INFO_REKENING = {
-    bank:"ISI NAMA BANK",
-    nomor:"ISI NOMOR REKENING",
-    atasNama:"ISI NAMA PEMILIK REKENING"
+    bank:"SeaBank",
+    nomor:"901668835931",
+    atasNama:"I Komang Adi Wirawan"
 };
 
 function showRekeningTransfer(listPesanan, opsi = {}){
@@ -8140,10 +8378,14 @@ function showRekeningTransfer(listPesanan, opsi = {}){
                 <b>${INFO_REKENING.bank}</b>
             </div>
 
-            <div class="rekening-row">
+            <div class="rekening-row rekening-row-copy">
                 <span>No Rekening</span>
-                <b>${INFO_REKENING.nomor}</b>
+                <b class="rekening-copy-wrap">
+                    <span class="rekening-copy-number" id="nomorRekeningTFText">${INFO_REKENING.nomor}</span>
+                    <button type="button" class="rekening-copy-btn" data-rekening="${INFO_REKENING.nomor}" onclick="salinNomorRekeningTF(this)">Salin</button>
+                </b>
             </div>
+            <div class="rekening-copy-info" id="nomorRekeningTFCopyInfo"></div>
 
             <div class="rekening-row">
                 <span>Atas Nama</span>
@@ -8151,7 +8393,7 @@ function showRekeningTransfer(listPesanan, opsi = {}){
             </div>
 
             <div class="rekening-note">
-                Silahkan <b style="color:#dc2626;">transfer terlebih dahulu</b>. Setelah berhasil, klik <b style="color:#dc2626;">Kirim</b> agar data pesanan tersimpan. Lalu kirim bukti TF ke admin melalui <b style="color:#dc2626;">Menu Butuh Bantuan</b>.
+                Silahkan <b style="color:#dc2626;">transfer terlebih dahulu</b>. Setelah berhasil, klik <b style="color:#dc2626;">Kirim</b> agar data pesanan tersimpan. Setelah itu, klik tombol <b style="color:#dc2626;">Kirim Bukti TF ke Admin</b>.
             </div>
         </div>
         `;
@@ -8190,6 +8432,79 @@ function showRekeningTransfer(listPesanan, opsi = {}){
         };
     });
 }
+
+
+function salinNomorRekeningTF(button){
+    const nomor = String(
+        (button && button.dataset && button.dataset.rekening) ||
+        (document.getElementById("nomorRekeningTFText") ? document.getElementById("nomorRekeningTFText").textContent : "") ||
+        ""
+    ).replace(/\D/g, "").trim();
+
+    const info = document.getElementById("nomorRekeningTFCopyInfo");
+
+    if(!nomor) return;
+
+    function tampilkanInfo(pesan, sukses){
+        if(info){
+            info.textContent = pesan;
+            info.style.color = sukses ? "#16a34a" : "#dc2626";
+
+            setTimeout(function(){
+                if(info.textContent === pesan){
+                    info.textContent = "";
+                }
+            }, 2200);
+        }
+
+        if(button){
+            const teksAwal = button.textContent;
+            button.textContent = sukses ? "Disalin" : "Salin manual";
+
+            setTimeout(function(){
+                button.textContent = teksAwal || "Salin";
+            }, 1600);
+        }
+    }
+
+    if(navigator.clipboard && window.isSecureContext){
+        navigator.clipboard.writeText(nomor).then(function(){
+            tampilkanInfo("Nomor rekening " + nomor + " berhasil disalin.", true);
+        }).catch(function(){
+            salinNomorRekeningTFFallback(nomor, tampilkanInfo);
+        });
+    }else{
+        salinNomorRekeningTFFallback(nomor, tampilkanInfo);
+    }
+}
+
+function salinNomorRekeningTFFallback(nomor, callback){
+    const textarea = document.createElement("textarea");
+
+    textarea.value = nomor;
+    textarea.setAttribute("readonly", "");
+    textarea.style.position = "fixed";
+    textarea.style.left = "-9999px";
+    textarea.style.top = "0";
+
+    document.body.appendChild(textarea);
+    textarea.focus();
+    textarea.select();
+    textarea.setSelectionRange(0, 99999);
+
+    try{
+        const sukses = document.execCommand("copy");
+        callback(
+            sukses ? "Nomor rekening " + nomor + " berhasil disalin." : "Silakan salin manual: " + nomor,
+            sukses
+        );
+    }catch(error){
+        callback("Silakan salin manual: " + nomor, false);
+    }
+
+    document.body.removeChild(textarea);
+}
+
 
 function salinKodeUnikTF(button){
     const kode = String(
