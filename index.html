@@ -769,7 +769,7 @@ th{
     }
 
     .note-box{
-        font-size:17px;
+        font-size:15px;
         padding:22px 18px;
         border-radius:18px;
     }
@@ -8504,6 +8504,143 @@ button.btn.btn-send.btn-send-big:active{
     }
 }
 
+
+
+
+
+/* =====================================================
+   FINAL OVERRIDE - NOTE LEBIH KECIL & TANPA SPACE PANJANG
+   ===================================================== */
+.note-box{
+    text-align:left!important;
+    text-align-last:auto!important;
+    font-size:12.5px!important;
+    line-height:1.58!important;
+    padding:14px 14px 15px!important;
+    margin:12px 0!important;
+    border-radius:14px!important;
+}
+
+.note-box::before{
+    text-align:center!important;
+    text-align-last:center!important;
+    font-size:18px!important;
+    margin-bottom:7px!important;
+}
+
+.note-box .note-highlight,
+.note-highlight{
+    font-weight:900!important;
+}
+
+@media(max-width:768px){
+    .note-box{
+        font-size:11.4px!important;
+        line-height:1.54!important;
+        padding:12px 12px 13px!important;
+        margin:10px 0!important;
+        border-radius:12px!important;
+    }
+
+    .note-box::before{
+        font-size:16px!important;
+        margin-bottom:6px!important;
+    }
+}
+
+@media(max-width:390px){
+    .note-box{
+        font-size:10.8px!important;
+        line-height:1.5!important;
+        padding:11px 10px 12px!important;
+        margin:9px 0!important;
+        border-radius:11px!important;
+    }
+
+    .note-box::before{
+        font-size:15px!important;
+        margin-bottom:5px!important;
+    }
+}
+
+
+
+/* =====================================================
+   FINAL OVERRIDE - BOUNCE TOMBOL GENDER DIPERLEMBUT
+   ===================================================== */
+#genderGroup label.radio-pop,
+.gender-options label.radio-pop{
+    animation:genderRadioPopSoftFinal .26s ease-out 1!important;
+}
+
+@keyframes genderRadioPopSoftFinal{
+    0%{
+        transform:scale(1);
+    }
+
+    45%{
+        transform:scale(1.03);
+    }
+
+    100%{
+        transform:scale(1);
+    }
+}
+
+
+
+/* =====================================================
+   FINAL OVERRIDE - BOUNCE SEMUA TOMBOL RADIO DIPERLEMBUT
+   Berlaku untuk Size, Lengan, Umur, Gender, dan semua radio-group
+   ===================================================== */
+.radio-group label.radio-pop{
+    animation:radioPopSoftAllFinal .26s ease-out 1!important;
+}
+
+@keyframes radioPopSoftAllFinal{
+    0%{
+        transform:scale(1);
+    }
+
+    45%{
+        transform:scale(1.03);
+    }
+
+    100%{
+        transform:scale(1);
+    }
+}
+
+
+
+/* =====================================================
+   FINAL OVERRIDE - HANYA INPUT NAMA SEDIKIT DIPERBESAR
+   Input lain tidak diubah
+   ===================================================== */
+#nama{
+    font-size:14.5px!important;
+    min-height:42px!important;
+    padding-top:12px!important;
+    padding-bottom:12px!important;
+}
+
+.field-wrap:has(#nama) i{
+    font-size:14px!important;
+}
+
+@media(max-width:390px){
+    #nama{
+        font-size:14px!important;
+        min-height:41px!important;
+        padding-top:11.5px!important;
+        padding-bottom:11.5px!important;
+    }
+
+    .field-wrap:has(#nama) i{
+        font-size:13.5px!important;
+    }
+}
+
 </style>
 
 
@@ -8573,18 +8710,15 @@ button.btn.btn-send.btn-send-big:active{
 <!-- ===================================================== -->
 
 <div class="note-box">
-    Kalau ingin memesan lebih dari satu baju,
-    silahkan klik
+    Jika ingin memesan lebih dari satu baju, klik
     <span class="note-highlight">“Tambah ke Daftar Pesanan”</span>
-    untuk setiap pesanan.
-    Setelah semua data diisi dan dipastikan benar,
-    klik
+    setiap kali selesai mengisi satu pesanan.<br>
+    Setelah semua pesanan sudah lengkap dan benar, klik
     <span class="note-highlight">“Kirim Pesanan”</span>.
-    Data akan tersimpan ke Google Spreadsheet.
-    Jika hanya memesan satu baju,
-    Anda bisa langsung klik
+    Data pesanan akan tersimpan ke Google Spreadsheet.<br>
+    Jika hanya memesan satu baju, Anda bisa langsung klik
     <span class="note-highlight">“Kirim Pesanan”</span>
-    tanpa perlu menyiapkan terlebih dahulu.
+    tanpa perlu menambahkan ke daftar terlebih dahulu.
 </div>
 
 <!-- ===================================================== -->
