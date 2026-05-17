@@ -6803,6 +6803,1263 @@ button[onclick="simpan()"]{
     }
 }
 
+
+
+/* ===================================================== */
+/* === TAMPILAN NOTE & BATAS PEMESANAN SEPERTI CONTOH === */
+/* ===================================================== */
+
+.note-box{
+    position:relative!important;
+    background:linear-gradient(135deg,#fffdf8,#fffaf1)!important;
+    border:1.5px solid #f5b942!important;
+    color:#111827!important;
+    padding:22px 20px 24px!important;
+    border-radius:18px!important;
+    font-size:16px!important;
+    font-weight:500!important;
+    text-align:left!important;
+    margin:18px 0!important;
+    line-height:1.78!important;
+    box-shadow:0 8px 22px rgba(15,23,42,.06)!important;
+    animation:none!important;
+}
+
+.note-box::before{
+    content:"⚠️  PENTING  ⚠️"!important;
+    display:block!important;
+    text-align:center!important;
+    color:#ff4b16!important;
+    font-size:22px!important;
+    font-weight:900!important;
+    margin-bottom:10px!important;
+    letter-spacing:.2px!important;
+}
+
+.note-highlight{
+    color:#ff1515!important;
+    font-weight:900!important;
+}
+
+.countdown-box{
+    width:100%!important;
+    background:#ffffff!important;
+    border:1.5px solid #e3e8f0!important;
+    color:#101828!important;
+    border-radius:18px!important;
+    padding:20px 18px 22px!important;
+    margin:18px 0 24px!important;
+    box-shadow:0 10px 28px rgba(15,23,42,.05)!important;
+    animation:none!important;
+}
+
+.countdown-row{
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:center!important;
+    gap:14px!important;
+}
+
+.countdown-title{
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    gap:10px!important;
+    color:#11183a!important;
+    font-size:18px!important;
+    font-weight:800!important;
+    text-transform:none!important;
+    text-align:center!important;
+    white-space:nowrap!important;
+}
+
+.countdown-title::before{
+    display:none!important;
+    content:none!important;
+}
+
+.countdown-title i{
+    color:#0d6efd!important;
+    font-size:20px!important;
+}
+
+.countdown-wrapper{
+    width:100%!important;
+    display:grid!important;
+    grid-template-columns:repeat(4,1fr)!important;
+    gap:0!important;
+}
+
+.count-item{
+    position:relative!important;
+    min-width:0!important;
+    padding:10px 6px!important;
+    border-radius:0!important;
+    background:transparent!important;
+    box-shadow:none!important;
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:center!important;
+    justify-content:center!important;
+}
+
+.count-item:not(:last-child)::after{
+    content:""!important;
+    position:absolute!important;
+    right:0!important;
+    top:18%!important;
+    width:1px!important;
+    height:64%!important;
+    background:#d9dee8!important;
+}
+
+.count-number{
+    color:#0d6efd!important;
+    font-size:31px!important;
+    font-weight:900!important;
+    line-height:1!important;
+    width:100%!important;
+    text-align:center!important;
+}
+
+.count-label{
+    color:#1b2145!important;
+    font-size:13px!important;
+    margin-top:8px!important;
+    text-transform:none!important;
+    width:100%!important;
+    text-align:center!important;
+    font-weight:500!important;
+}
+
+.countdown-end-date{
+    color:#8c91a8!important;
+    font-size:15px!important;
+    font-weight:800!important;
+    margin-top:0!important;
+    text-align:center!important;
+}
+
+@media(max-width:768px){
+    .note-box{
+        font-size:14.5px!important;
+        padding:18px 16px!important;
+        border-radius:16px!important;
+        margin:14px 0!important;
+        line-height:1.65!important;
+    }
+
+    .note-box::before{
+        font-size:20px!important;
+        margin-bottom:8px!important;
+    }
+
+    .countdown-box{
+        padding:18px 12px!important;
+        border-radius:16px!important;
+        margin:14px 0 20px!important;
+    }
+
+    .countdown-row{
+        gap:12px!important;
+    }
+
+    .countdown-title{
+        font-size:16px!important;
+        gap:8px!important;
+    }
+
+    .countdown-title i{
+        font-size:18px!important;
+    }
+
+    .count-item{
+        padding:9px 4px!important;
+    }
+
+    .count-number{
+        font-size:26px!important;
+    }
+
+    .count-label{
+        font-size:12px!important;
+        margin-top:7px!important;
+    }
+
+    .countdown-end-date{
+        font-size:13px!important;
+    }
+}
+
+@media(max-width:390px){
+    .note-box{
+        font-size:13px!important;
+        padding:16px 14px!important;
+        line-height:1.6!important;
+    }
+
+    .note-box::before{
+        font-size:18px!important;
+    }
+
+    .countdown-box{
+        padding:16px 10px!important;
+    }
+
+    .countdown-title{
+        font-size:15px!important;
+    }
+
+    .count-number{
+        font-size:23px!important;
+    }
+
+    .count-label{
+        font-size:11px!important;
+    }
+
+    .countdown-end-date{
+        font-size:12px!important;
+    }
+}
+
+
+
+/* ===================================================== */
+/* === FINAL HP: NOTE DIPERKECIL, COUNTDOWN LEBIH KECIL === */
+/* ===================================================== */
+.note-box{
+    padding:16px 15px!important;
+    margin:12px 0!important;
+    border-radius:14px!important;
+    font-size:13.5px!important;
+    line-height:1.55!important;
+    border-width:1.2px!important;
+    box-shadow:0 5px 14px rgba(15,23,42,.045)!important;
+}
+
+.note-box::before{
+    font-size:17px!important;
+    margin-bottom:6px!important;
+    line-height:1.15!important;
+}
+
+.countdown-box{
+    padding:11px 10px 12px!important;
+    margin:10px 0 14px!important;
+    border-radius:13px!important;
+    border-width:1.2px!important;
+    box-shadow:0 5px 14px rgba(15,23,42,.04)!important;
+}
+
+.countdown-row{
+    gap:7px!important;
+}
+
+.countdown-title{
+    font-size:12.5px!important;
+    gap:5px!important;
+    line-height:1.1!important;
+}
+
+.countdown-title i{
+    font-size:14px!important;
+}
+
+.countdown-wrapper{
+    gap:0!important;
+}
+
+.count-item{
+    padding:5px 2px!important;
+}
+
+.count-item:not(:last-child)::after{
+    top:20%!important;
+    height:58%!important;
+}
+
+.count-number{
+    font-size:20px!important;
+    line-height:.95!important;
+}
+
+.count-label{
+    font-size:9px!important;
+    margin-top:4px!important;
+    line-height:1!important;
+}
+
+.countdown-end-date{
+    font-size:10.5px!important;
+    line-height:1.1!important;
+}
+
+@media(max-width:768px){
+    .note-box{
+        padding:13px 12px!important;
+        margin:10px 0!important;
+        border-radius:13px!important;
+        font-size:12.2px!important;
+        line-height:1.48!important;
+    }
+
+    .note-box::before{
+        font-size:15.5px!important;
+        margin-bottom:5px!important;
+    }
+
+    .countdown-box{
+        padding:8px 8px 9px!important;
+        margin:8px 0 11px!important;
+        border-radius:11px!important;
+    }
+
+    .countdown-row{
+        gap:5px!important;
+    }
+
+    .countdown-title{
+        font-size:10.5px!important;
+        gap:4px!important;
+    }
+
+    .countdown-title i{
+        font-size:12px!important;
+    }
+
+    .count-item{
+        padding:4px 2px!important;
+    }
+
+    .count-number{
+        font-size:16px!important;
+    }
+
+    .count-label{
+        font-size:7.2px!important;
+        margin-top:2px!important;
+    }
+
+    .countdown-end-date{
+        font-size:8.8px!important;
+    }
+}
+
+@media(max-width:390px){
+    .note-box{
+        padding:11px 10px!important;
+        margin:8px 0!important;
+        border-radius:12px!important;
+        font-size:11.2px!important;
+        line-height:1.43!important;
+    }
+
+    .note-box::before{
+        font-size:14px!important;
+        margin-bottom:4px!important;
+    }
+
+    .countdown-box{
+        padding:7px 7px 8px!important;
+        margin:7px 0 10px!important;
+        border-radius:10px!important;
+    }
+
+    .countdown-title{
+        font-size:9.5px!important;
+    }
+
+    .countdown-title i{
+        font-size:10.5px!important;
+    }
+
+    .count-item{
+        padding:3px 1px!important;
+    }
+
+    .count-number{
+        font-size:14px!important;
+    }
+
+    .count-label{
+        font-size:6.6px!important;
+        margin-top:2px!important;
+    }
+
+    .countdown-end-date{
+        font-size:8px!important;
+    }
+}
+
+
+
+/* ===================================================== */
+/* === FINAL HP: DATA PEMESAN NAMA + NO WA COMPACT ===== */
+/* ===================================================== */
+.data-pemesan-card{
+    width:100%!important;
+    background:#ffffff!important;
+    border:1.2px solid #e5eaf2!important;
+    border-radius:13px!important;
+    padding:11px 10px!important;
+    margin:9px 0 12px!important;
+    box-shadow:0 5px 14px rgba(15,23,42,.035)!important;
+}
+
+.data-pemesan-title{
+    margin:0 0 8px!important;
+    padding:0!important;
+    display:flex!important;
+    align-items:center!important;
+    gap:7px!important;
+    color:#10183a!important;
+    font-size:12.5px!important;
+    line-height:1.1!important;
+    font-weight:900!important;
+    text-transform:uppercase!important;
+}
+
+.data-pemesan-title i{
+    color:#0d6efd!important;
+    font-size:14px!important;
+    width:15px!important;
+    text-align:center!important;
+}
+
+.data-pemesan-card .pemesan-field{
+    margin:0 0 7px!important;
+    position:relative!important;
+}
+
+.data-pemesan-card .pemesan-field:last-child{
+    margin-bottom:0!important;
+}
+
+.data-pemesan-card .pemesan-field i{
+    left:12px!important;
+    font-size:12.5px!important;
+    color:#838aa3!important;
+}
+
+.data-pemesan-card .pemesan-field input{
+    margin:0!important;
+    width:100%!important;
+    padding:10px 10px 10px 34px!important;
+    min-height:37px!important;
+    border-radius:10px!important;
+    border:1.2px solid #e1e7ef!important;
+    background:#ffffff!important;
+    font-size:12.5px!important;
+    line-height:1.1!important;
+    box-shadow:none!important;
+}
+
+.data-pemesan-card .pemesan-field input::placeholder{
+    color:#8f96ad!important;
+}
+
+.data-pemesan-card .pemesan-field input:focus{
+    border-color:#0d6efd!important;
+    box-shadow:0 0 0 3px rgba(13,110,253,.09)!important;
+}
+
+@media(max-width:768px){
+    .data-pemesan-card{
+        padding:10px 9px!important;
+        margin:8px 0 11px!important;
+        border-radius:12px!important;
+    }
+
+    .data-pemesan-title{
+        margin-bottom:7px!important;
+        font-size:12px!important;
+        gap:6px!important;
+    }
+
+    .data-pemesan-title i{
+        font-size:13px!important;
+        width:14px!important;
+    }
+
+    .data-pemesan-card .pemesan-field{
+        margin-bottom:6px!important;
+    }
+
+    .data-pemesan-card .pemesan-field i{
+        left:11px!important;
+        font-size:12px!important;
+    }
+
+    .data-pemesan-card .pemesan-field input{
+        min-height:34px!important;
+        padding:9px 9px 9px 32px!important;
+        border-radius:9px!important;
+        font-size:12px!important;
+    }
+}
+
+@media(max-width:390px){
+    .data-pemesan-card{
+        padding:9px 8px!important;
+        margin:7px 0 10px!important;
+        border-radius:11px!important;
+    }
+
+    .data-pemesan-title{
+        font-size:11.3px!important;
+        margin-bottom:6px!important;
+    }
+
+    .data-pemesan-title i{
+        font-size:12px!important;
+    }
+
+    .data-pemesan-card .pemesan-field{
+        margin-bottom:5px!important;
+    }
+
+    .data-pemesan-card .pemesan-field i{
+        left:10px!important;
+        font-size:11.5px!important;
+    }
+
+    .data-pemesan-card .pemesan-field input{
+        min-height:32px!important;
+        padding:8px 8px 8px 30px!important;
+        border-radius:8px!important;
+        font-size:11.5px!important;
+    }
+}
+
+
+
+/* === FINAL HP: KATEGORI SIZE SEPERTI CONTOH ============ */
+.size-card.compact-ui-card{
+    background:#ffffff!important;
+    border:1px solid #e6ebf2!important;
+    border-radius:16px!important;
+    padding:14px 14px 16px!important;
+    margin:14px 0!important;
+    box-shadow:0 4px 14px rgba(15,23,42,.035)!important;
+}
+
+.size-card-header{
+    display:flex!important;
+    align-items:center!important;
+    justify-content:space-between!important;
+    gap:12px!important;
+    margin:0 0 12px!important;
+}
+
+.size-card-title{
+    margin:0!important;
+    min-width:max-content!important;
+    font-size:18px!important;
+    line-height:1!important;
+    text-transform:uppercase!important;
+    color:#0b123d!important;
+}
+
+.size-card-title i{
+    color:#0D6EFD!important;
+}
+
+.size-actions{
+    flex:1!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:flex-end!important;
+    gap:10px!important;
+    min-width:0!important;
+}
+
+.size-card .size-chart-btn,
+.size-card .design-btn{
+    width:auto!important;
+    min-width:0!important;
+    min-height:42px!important;
+    height:42px!important;
+    padding:0 15px!important;
+    border-radius:11px!important;
+    font-size:14px!important;
+    line-height:1!important;
+    white-space:nowrap!important;
+    display:inline-flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    gap:7px!important;
+    margin:0!important;
+}
+
+.size-card .size-options{
+    width:100%!important;
+    display:grid!important;
+    grid-template-columns:repeat(8, minmax(0, 1fr))!important;
+    gap:10px!important;
+    margin:0!important;
+}
+
+.size-card .size-options label{
+    min-width:0!important;
+    width:100%!important;
+    min-height:48px!important;
+    height:48px!important;
+    padding:0 6px!important;
+    border-radius:10px!important;
+    font-size:15px!important;
+    font-weight:800!important;
+    box-shadow:none!important;
+}
+
+.size-card #sizeLainnya{
+    margin:10px 0 0!important;
+}
+
+@media(max-width:768px){
+    .size-card.compact-ui-card{
+        border-radius:13px!important;
+        padding:10px!important;
+        margin:10px 0!important;
+    }
+
+    .size-card-header{
+        gap:7px!important;
+        margin-bottom:9px!important;
+    }
+
+    .size-card-title{
+        font-size:13px!important;
+        gap:5px!important;
+    }
+
+    .size-card-title i{
+        font-size:14px!important;
+    }
+
+    .size-actions{
+        gap:6px!important;
+    }
+
+    .size-card .size-chart-btn,
+    .size-card .design-btn{
+        height:32px!important;
+        min-height:32px!important;
+        padding:0 9px!important;
+        font-size:10.2px!important;
+        border-radius:8px!important;
+        gap:4px!important;
+    }
+
+    .size-card .size-chart-btn i{
+        font-size:11px!important;
+        width:11px!important;
+        height:11px!important;
+        line-height:11px!important;
+    }
+
+    .size-card .design-icon-wrap,
+    .size-card .design-shirt-svg{
+        width:12px!important;
+        height:12px!important;
+        min-width:12px!important;
+        max-width:12px!important;
+        max-height:12px!important;
+    }
+
+    .size-card .size-options{
+        grid-template-columns:repeat(8, minmax(0, 1fr))!important;
+        gap:6px!important;
+    }
+
+    .size-card .size-options label{
+        min-height:35px!important;
+        height:35px!important;
+        padding:0 3px!important;
+        border-radius:8px!important;
+        font-size:11.4px!important;
+        border-width:1.3px!important;
+    }
+
+    .size-card #sizeLainnya{
+        margin-top:8px!important;
+    }
+}
+
+@media(max-width:480px){
+    .size-card-header{
+        gap:6px!important;
+    }
+
+    .size-card-title{
+        font-size:12px!important;
+    }
+
+    .size-actions{
+        gap:5px!important;
+    }
+
+    .size-card .size-chart-btn,
+    .size-card .design-btn{
+        height:30px!important;
+        min-height:30px!important;
+        padding:0 7px!important;
+        font-size:9px!important;
+        border-radius:8px!important;
+    }
+
+    .size-card .size-options{
+        grid-template-columns:repeat(4, minmax(0, 1fr))!important;
+        gap:7px!important;
+    }
+
+    .size-card .size-options label{
+        height:32px!important;
+        min-height:32px!important;
+        font-size:11px!important;
+    }
+}
+
+@media(max-width:380px){
+    .size-card.compact-ui-card{
+        padding:9px!important;
+    }
+
+    .size-card-title{
+        font-size:11.3px!important;
+    }
+
+    .size-card .size-chart-btn,
+    .size-card .design-btn{
+        height:28px!important;
+        min-height:28px!important;
+        padding:0 6px!important;
+        font-size:8.2px!important;
+        gap:3px!important;
+    }
+
+    .size-card .size-options{
+        gap:6px!important;
+    }
+}
+
+/* === FINAL HP: LENGAN KIRI + KATEGORI UMUR KANAN ====== */
+.lengan-umur-row{
+    width:100%!important;
+    display:grid!important;
+    grid-template-columns:1fr 1fr!important;
+    gap:12px!important;
+    margin:12px 0!important;
+    align-items:stretch!important;
+}
+
+.choice-card{
+    min-width:0!important;
+    background:#ffffff!important;
+    border:1px solid #e6ebf2!important;
+    border-radius:15px!important;
+    padding:13px!important;
+    box-shadow:0 4px 14px rgba(15,23,42,.035)!important;
+}
+
+.choice-card-title{
+    margin:0 0 10px!important;
+    padding:0!important;
+    display:flex!important;
+    align-items:center!important;
+    gap:8px!important;
+    color:#0b123d!important;
+    font-size:16px!important;
+    line-height:1!important;
+    font-weight:900!important;
+    text-transform:uppercase!important;
+}
+
+.choice-card-title i{
+    color:#0D6EFD!important;
+    font-size:18px!important;
+    width:19px!important;
+    text-align:center!important;
+}
+
+.choice-card-options{
+    display:grid!important;
+    grid-template-columns:1fr 1fr!important;
+    gap:10px!important;
+    margin:0!important;
+    width:100%!important;
+}
+
+.choice-card-options label{
+    width:100%!important;
+    min-width:0!important;
+    min-height:46px!important;
+    height:46px!important;
+    padding:0 8px!important;
+    border-radius:11px!important;
+    font-size:14px!important;
+    font-weight:800!important;
+    gap:7px!important;
+    white-space:nowrap!important;
+    box-shadow:none!important;
+}
+
+.choice-card-options label i{
+    font-size:16px!important;
+}
+
+@media(max-width:768px){
+    .lengan-umur-row{
+        gap:8px!important;
+        margin:10px 0!important;
+    }
+
+    .choice-card{
+        border-radius:12px!important;
+        padding:10px!important;
+    }
+
+    .choice-card-title{
+        margin-bottom:8px!important;
+        gap:6px!important;
+        font-size:12px!important;
+    }
+
+    .choice-card-title i{
+        font-size:14px!important;
+        width:15px!important;
+    }
+
+    .choice-card-options{
+        gap:6px!important;
+    }
+
+    .choice-card-options label{
+        min-height:35px!important;
+        height:35px!important;
+        padding:0 5px!important;
+        border-radius:9px!important;
+        font-size:10.7px!important;
+        gap:4px!important;
+        border-width:1.3px!important;
+    }
+
+    .choice-card-options label i{
+        font-size:12px!important;
+    }
+}
+
+@media(max-width:480px){
+    .lengan-umur-row{
+        gap:7px!important;
+        margin:9px 0!important;
+    }
+
+    .choice-card{
+        padding:9px!important;
+    }
+
+    .choice-card-title{
+        font-size:11px!important;
+        margin-bottom:7px!important;
+    }
+
+    .choice-card-title i{
+        font-size:13px!important;
+    }
+
+    .choice-card-options{
+        gap:5px!important;
+    }
+
+    .choice-card-options label{
+        min-height:32px!important;
+        height:32px!important;
+        padding:0 4px!important;
+        border-radius:8px!important;
+        font-size:9.6px!important;
+        gap:3px!important;
+    }
+
+    .choice-card-options label i{
+        font-size:11px!important;
+    }
+}
+
+@media(max-width:380px){
+    .lengan-umur-row{
+        gap:6px!important;
+    }
+
+    .choice-card{
+        padding:8px!important;
+    }
+
+    .choice-card-title{
+        font-size:10.3px!important;
+        gap:5px!important;
+    }
+
+    .choice-card-options label{
+        min-height:30px!important;
+        height:30px!important;
+        font-size:8.8px!important;
+        padding:0 3px!important;
+    }
+
+    .choice-card-options label i{
+        font-size:10px!important;
+    }
+}
+
+
+
+/* === FINAL HP: GENDER FULL WIDTH ====== */
+.gender-card{
+    width:100%!important;
+    background:#ffffff!important;
+    border:1px solid #e6ebf2!important;
+    border-radius:15px!important;
+    padding:13px!important;
+    margin:12px 0!important;
+    box-shadow:0 4px 14px rgba(15,23,42,.035)!important;
+}
+
+.gender-card-title{
+    margin:0 0 10px!important;
+    padding:0!important;
+    display:flex!important;
+    align-items:center!important;
+    gap:8px!important;
+    color:#0b123d!important;
+    font-size:16px!important;
+    line-height:1!important;
+    font-weight:900!important;
+    text-transform:uppercase!important;
+}
+
+.gender-card-title .gender-icon{
+    display:inline-flex!important;
+    align-items:center!important;
+    gap:2px!important;
+    width:auto!important;
+    min-width:34px!important;
+}
+
+.gender-card-title .gender-icon i{
+    font-size:18px!important;
+    width:auto!important;
+}
+
+.gender-options{
+    width:100%!important;
+    display:flex;
+    flex-wrap:nowrap!important;
+    gap:10px!important;
+    margin:0!important;
+}
+
+.gender-options label{
+    flex:1 1 0!important;
+    width:100%!important;
+    min-width:0!important;
+    min-height:46px!important;
+    height:46px!important;
+    padding:0 8px!important;
+    border-radius:11px!important;
+    font-size:14px!important;
+    font-weight:800!important;
+    gap:7px!important;
+    white-space:nowrap!important;
+    box-shadow:none!important;
+}
+
+.gender-options label i{
+    font-size:17px!important;
+}
+
+@media(max-width:768px){
+    .gender-card{
+        border-radius:12px!important;
+        padding:10px!important;
+        margin:10px 0!important;
+    }
+
+    .gender-card-title{
+        margin-bottom:8px!important;
+        gap:6px!important;
+        font-size:12px!important;
+    }
+
+    .gender-card-title .gender-icon{
+        min-width:29px!important;
+    }
+
+    .gender-card-title .gender-icon i{
+        font-size:14px!important;
+    }
+
+    .gender-options{
+        gap:7px!important;
+    }
+
+    .gender-options label{
+        min-height:35px!important;
+        height:35px!important;
+        padding:0 6px!important;
+        border-radius:9px!important;
+        font-size:11px!important;
+        gap:5px!important;
+        border-width:1.3px!important;
+    }
+
+    .gender-options label i{
+        font-size:13px!important;
+    }
+}
+
+@media(max-width:480px){
+    .gender-card{
+        padding:9px!important;
+        margin:9px 0!important;
+    }
+
+    .gender-card-title{
+        font-size:11px!important;
+        margin-bottom:7px!important;
+    }
+
+    .gender-card-title .gender-icon i{
+        font-size:13px!important;
+    }
+
+    .gender-options{
+        gap:6px!important;
+    }
+
+    .gender-options label{
+        min-height:32px!important;
+        height:32px!important;
+        padding:0 5px!important;
+        border-radius:8px!important;
+        font-size:10px!important;
+        gap:4px!important;
+    }
+
+    .gender-options label i{
+        font-size:12px!important;
+    }
+}
+
+@media(max-width:380px){
+    .gender-card{
+        padding:8px!important;
+    }
+
+    .gender-card-title{
+        font-size:10.3px!important;
+        gap:5px!important;
+    }
+
+    .gender-options label{
+        min-height:30px!important;
+        height:30px!important;
+        font-size:9px!important;
+        padding:0 4px!important;
+    }
+
+    .gender-options label i{
+        font-size:11px!important;
+    }
+}
+
+
+
+/* =====================================================
+   FINAL OVERRIDE - TOMBOL KIRIM MODEL HP
+   ===================================================== */
+.action-button-stack{
+    display:flex!important;
+    flex-direction:column!important;
+    gap:10px!important;
+    margin-top:12px!important;
+    width:100%!important;
+}
+
+.action-button-stack .left-buttons{
+    width:100%!important;
+    display:block!important;
+}
+
+.action-button-stack .btn-add-order{
+    min-height:54px!important;
+    padding:12px 14px!important;
+    border-radius:12px!important;
+    font-size:17px!important;
+    line-height:1.15!important;
+    gap:9px!important;
+}
+
+.action-button-stack .btn-add-order i{
+    font-size:25px!important;
+    line-height:1!important;
+}
+
+.action-button-stack .btn-send-big{
+    min-height:64px!important;
+    padding:12px 14px 11px!important;
+    border-radius:12px!important;
+    background:linear-gradient(135deg,#00a328,#008d21)!important;
+    color:#ffffff!important;
+    border:none!important;
+    box-shadow:0 8px 16px rgba(0,141,33,.20)!important;
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:center!important;
+    justify-content:center!important;
+    gap:3px!important;
+    line-height:1.15!important;
+    animation:none!important;
+    transform:none!important;
+}
+
+.action-button-stack .btn-send-big .send-main{
+    display:block!important;
+    font-size:22px!important;
+    font-weight:900!important;
+    line-height:1.05!important;
+    letter-spacing:.1px!important;
+}
+
+.action-button-stack .btn-send-big .send-sub{
+    display:block!important;
+    font-size:12.5px!important;
+    font-weight:800!important;
+    line-height:1.2!important;
+    opacity:.95!important;
+}
+
+.action-button-stack .btn-send-big:hover,
+.action-button-stack .btn-send-big:active{
+    transform:translateY(-1px)!important;
+}
+
+@media(max-width:768px){
+    .action-button-stack{
+        gap:8px!important;
+        margin-top:10px!important;
+    }
+
+    .action-button-stack .btn-add-order{
+        min-height:48px!important;
+        padding:10px 12px!important;
+        border-radius:10px!important;
+        font-size:14px!important;
+        gap:7px!important;
+    }
+
+    .action-button-stack .btn-add-order i{
+        font-size:22px!important;
+    }
+
+    .action-button-stack .btn-send-big{
+        min-height:58px!important;
+        padding:10px 12px 9px!important;
+        border-radius:10px!important;
+        gap:2px!important;
+    }
+
+    .action-button-stack .btn-send-big .send-main{
+        font-size:19px!important;
+    }
+
+    .action-button-stack .btn-send-big .send-sub{
+        font-size:11.2px!important;
+    }
+}
+
+@media(max-width:390px){
+    .action-button-stack{
+        gap:7px!important;
+        margin-top:9px!important;
+    }
+
+    .action-button-stack .btn-add-order{
+        min-height:45px!important;
+        font-size:13.2px!important;
+        padding:10px 10px!important;
+        border-radius:10px!important;
+    }
+
+    .action-button-stack .btn-add-order i{
+        font-size:20px!important;
+    }
+
+    .action-button-stack .btn-send-big{
+        min-height:54px!important;
+        padding:9px 10px 8px!important;
+        border-radius:10px!important;
+    }
+
+    .action-button-stack .btn-send-big .send-main{
+        font-size:18px!important;
+    }
+
+    .action-button-stack .btn-send-big .send-sub{
+        font-size:10.5px!important;
+    }
+}
+
+
+
+/* === FINAL: JARAK ICON DENGAN TULISAN KATEGORI + UMUR ====== */
+.section-label,
+.size-card-title,
+.choice-card-title,
+.gender-card-title{
+    gap:10px!important;
+}
+
+.section-label > i,
+.size-card-title > i,
+.choice-card-title > i{
+    margin-right:2px!important;
+    flex-shrink:0!important;
+}
+
+.gender-card-title .gender-icon{
+    margin-right:4px!important;
+    flex-shrink:0!important;
+}
+
+@media(max-width:768px){
+    .section-label,
+    .size-card-title,
+    .choice-card-title,
+    .gender-card-title{
+        gap:8px!important;
+    }
+
+    .section-label > i,
+    .size-card-title > i,
+    .choice-card-title > i{
+        margin-right:1px!important;
+    }
+
+    .gender-card-title .gender-icon{
+        margin-right:3px!important;
+    }
+}
+
+@media(max-width:380px){
+    .section-label,
+    .size-card-title,
+    .choice-card-title,
+    .gender-card-title{
+        gap:7px!important;
+    }
+}
+
 </style>
 
 
@@ -6873,16 +8130,16 @@ button[onclick="simpan()"]{
 
 <div class="note-box">
     Kalau ingin memesan lebih dari satu baju,
-    silakan klik
+    silahkan klik
     <span class="note-highlight">“Tambah ke Daftar Pesanan”</span>
     untuk setiap pesanan.
-    Setelah semua data sudah diisi dan dipastikan benar,
+    Setelah semua data diisi dan dipastikan benar,
     klik
-    <span class="note-highlight">“Kirim ke Google Spreadsheets”</span>.
+    <span class="note-highlight">“Kirim ke Google Spreadsheet”</span>.
     Jika hanya memesan satu baju,
     Anda bisa langsung klik
-    <span class="note-highlight">“Kirim ke Google Spreadsheets”</span>
-    tanpa perlu menyimpan terlebih dahulu.
+    <span class="note-highlight">“Kirim ke Google Spreadsheet”</span>
+    tanpa perlu menyiapkan terlebih dahulu.
 </div>
 
 <!-- ===================================================== -->
@@ -6891,7 +8148,10 @@ button[onclick="simpan()"]{
 
 <div class="countdown-box">
     <div class="countdown-row">
-        <div class="countdown-title">⏰ BATAS PEMESANAN</div>
+        <div class="countdown-title">
+            <i class="fa-regular fa-clock"></i>
+            <span>Batas Pemesanan</span>
+        </div>
 
         <div class="countdown-wrapper">
             <div class="count-item">
@@ -6914,6 +8174,8 @@ button[onclick="simpan()"]{
                 <div class="count-label">Detik</div>
             </div>
         </div>
+
+        <div class="countdown-end-date" id="countdownEndDate"></div>
     </div>
 </div>
 
@@ -6932,94 +8194,111 @@ button[onclick="simpan()"]{
 <!-- ================= FORM INPUT ======================== -->
 <!-- ===================================================== -->
 
-<div class="field-wrap" id="inputNamaArea">
-    <i class="fa-regular fa-user"></i>
-    <input type="text" id="nama" placeholder="Masukkan Nama">
+<div class="data-pemesan-card">
+    <div class="section-label data-pemesan-title">
+        <i class="fa-solid fa-user"></i>
+        <span>Data Pemesan</span>
+    </div>
+
+    <div class="field-wrap pemesan-field" id="inputNamaArea">
+        <i class="fa-regular fa-user"></i>
+        <input type="text" id="nama" placeholder="Masukkan Nama">
+    </div>
+
+    <div class="field-wrap pemesan-field">
+        <i class="fa-solid fa-phone"></i>
+        <input type="tel" inputmode="numeric" id="hp" maxlength="15" placeholder="No WhatsApp Aktif (Opsional)">
+    </div>
 </div>
 
-<label class="section-label">
-    <i class="fa-solid fa-tags"></i>
-    Size
-</label>
+<div class="size-card compact-ui-card">
+    <div class="size-card-header">
+        <div class="section-label size-card-title">
+            <i class="fa-solid fa-tags"></i>
+            <span>Size</span>
+        </div>
 
-<div class="size-row">
-    <button class="size-chart-btn" onclick="showSizeChart()">
-        <i class="fa-solid fa-ruler-combined"></i>
-        Lihat Size Chart
-    </button>
+        <div class="size-actions">
+            <button class="size-chart-btn" onclick="showSizeChart()">
+                <i class="fa-solid fa-ruler-combined"></i>
+                Lihat Size Chart
+            </button>
 
-    <button class="design-btn" onclick="showDesainBaju()">
-        <span class="design-icon-wrap" aria-hidden="true">
-            <svg class="design-shirt-svg" viewBox="0 0 24 24" role="img">
-                <path d="M8.5 3.5 5.2 5.1 2.7 9.7l3.1 1.8 1.4-2.2V20.5h9.6V9.3l1.4 2.2 3.1-1.8-2.5-4.6-3.3-1.6c-.8 1.2-2 1.8-3.5 1.8s-2.7-.6-3.5-1.8Z"></path>
-            </svg>
+            <button class="design-btn" onclick="showDesainBaju()">
+                <span class="design-icon-wrap" aria-hidden="true">
+                    <svg class="design-shirt-svg" viewBox="0 0 24 24" role="img">
+                        <path d="M8.5 3.5 5.2 5.1 2.7 9.7l3.1 1.8 1.4-2.2V20.5h9.6V9.3l1.4 2.2 3.1-1.8-2.5-4.6-3.3-1.6c-.8 1.2-2 1.8-3.5 1.8s-2.7-.6-3.5-1.8Z"></path>
+                    </svg>
+                </span>
+                Informasi Baju dan Harga
+            </button>
+        </div>
+    </div>
+
+    <div class="radio-group size-options" onchange="toggleSize()">
+        <label><input type="radio" name="size" value="XS"> XS</label>
+        <label><input type="radio" name="size" value="S"> S</label>
+        <label><input type="radio" name="size" value="M"> M</label>
+        <label><input type="radio" name="size" value="L"> L</label>
+        <label><input type="radio" name="size" value="XL"> XL</label>
+        <label><input type="radio" name="size" value="XXL"> XXL</label>
+        <label><input type="radio" name="size" value="XXXL"> XXXL</label>
+        <label><input type="radio" name="size" value="Lainnya"> Lainnya</label>
+    </div>
+
+    <input type="text" id="sizeLainnya" placeholder="Isi size lainnya..." style="display:none;" oninput="this.value = this.value.toUpperCase()">
+</div>
+
+<div class="lengan-umur-row">
+    <div class="choice-card lengan-card">
+        <div class="section-label choice-card-title">
+            <i class="fa-solid fa-shirt"></i>
+            <span>Lengan</span>
+        </div>
+        <div class="radio-group choice-card-options">
+            <label><input type="radio" name="lengan" value="Pendek"> <i class="fa-solid fa-shirt"></i> Pendek</label>
+            <label><input type="radio" name="lengan" value="Panjang"> <i class="fa-solid fa-arrows-left-right"></i> Panjang</label>
+        </div>
+    </div>
+
+    <div class="choice-card umur-card">
+        <div class="section-label choice-card-title">
+            <i class="fa-solid fa-users"></i>
+            <span>Umur</span>
+        </div>
+        <div class="radio-group choice-card-options" onchange="toggleGender()">
+            <label><input type="radio" name="umur" value="Dewasa"> <i class="fa-solid fa-user"></i> Dewasa</label>
+            <label><input type="radio" name="umur" value="Anak-Anak"> <i class="fa-solid fa-children"></i> Anak-Anak</label>
+        </div>
+    </div>
+</div>
+
+<div class="gender-card compact-ui-card">
+    <div class="section-label gender-card-title">
+        <span class="gender-icon">
+            <i class="fa-solid fa-mars"></i>
+            <i class="fa-solid fa-venus"></i>
         </span>
-        Informasi Baju dan Harga
-    </button>
+        <span>Gender</span>
+    </div>
+
+    <div class="radio-group gender-options" id="genderGroup">
+        <label><input type="radio" name="gender" value="Cowok"> <i class="fa-solid fa-mars"></i> Cowok</label>
+        <label><input type="radio" name="gender" value="Cewek"> <i class="fa-solid fa-venus"></i> Cewek</label>
+    </div>
 </div>
 
-<div class="radio-group" onchange="toggleSize()">
-    <label><input type="radio" name="size" value="XS"> XS</label>
-    <label><input type="radio" name="size" value="S"> S</label>
-    <label><input type="radio" name="size" value="M"> M</label>
-    <label><input type="radio" name="size" value="L"> L</label>
-    <label><input type="radio" name="size" value="XL"> XL</label>
-    <label><input type="radio" name="size" value="XXL"> XXL</label>
-    <label><input type="radio" name="size" value="XXXL"> XXXL</label>
-    <label><input type="radio" name="size" value="Lainnya"> Lainnya</label>
-</div>
-
-<input type="text" id="sizeLainnya" placeholder="Isi size lainnya..." style="display:none;" oninput="this.value = this.value.toUpperCase()">
-
-<label class="section-label">
-    <i class="fa-solid fa-shirt"></i>
-    Lengan
-</label>
-
-<div class="radio-group">
-    <label><input type="radio" name="lengan" value="Pendek"> <i class="fa-solid fa-shirt"></i> Pendek</label>
-    <label><input type="radio" name="lengan" value="Panjang"> <i class="fa-solid fa-arrows-left-right"></i> Panjang</label>
-</div>
-
-<label class="section-label">
-    <i class="fa-solid fa-users"></i>
-    Kategori Umur
-</label>
-
-<div class="radio-group" onchange="toggleGender()">
-    <label><input type="radio" name="umur" value="Dewasa"> <i class="fa-solid fa-user-group"></i> Dewasa</label>
-    <label><input type="radio" name="umur" value="Anak-Anak"> <i class="fa-solid fa-children"></i> Anak-Anak</label>
-</div>
-
-<label class="section-label">
-    <span class="gender-icon">
-        <i class="fa-solid fa-mars"></i>
-        <i class="fa-solid fa-venus"></i>
-    </span>
-    Gender
-</label>
-
-<div class="radio-group" id="genderGroup">
-    <label><input type="radio" name="gender" value="Cowok"> <i class="fa-solid fa-mars"></i> Cowok</label>
-    <label><input type="radio" name="gender" value="Cewek"> <i class="fa-solid fa-venus"></i> Cewek</label>
-</div>
-
-<div class="field-wrap">
-    <i class="fa-solid fa-phone"></i>
-    <input type="tel" inputmode="numeric" id="hp" maxlength="15" placeholder="No WA Aktif (Opsional)">
-</div>
-
-<div class="button-group">
+<div class="button-group action-button-stack">
     <div class="left-buttons">
-        <button class="btn" onclick="simpan()">
+        <button class="btn btn-add-order" onclick="simpan()">
             <i class="fa-solid fa-plus"></i>
             Tambah ke Daftar Pesanan
         </button>
     </div>
 
-    <button class="btn btn-send" onclick="kirimKeSheet()">
-        <span class="sheet-icon"><i class="fa-brands fa-google"></i><i class="fa-solid fa-table-cells"></i></span>
-        Kirim ke Google Spreadsheet
+    <button class="btn btn-send btn-send-big" onclick="kirimKeSheet()">
+        <span class="send-main">Kirim Pesanan</span>
+        <span class="send-sub">Data akan tersimpan ke Google Spreadsheet</span>
     </button>
 </div>
 
@@ -7662,6 +8941,7 @@ function toggleSize(){
 function toggleGender(){
     let umur = document.querySelector('input[name="umur"]:checked');
     let genderGroup = document.getElementById("genderGroup");
+    let genderCard = document.querySelector(".gender-card");
     let labels = document.querySelectorAll('input[name="size"]');
 
     labels.forEach(r=>{
@@ -7671,7 +8951,11 @@ function toggleGender(){
     });
 
     if(umur && umur.value === "Anak-Anak"){
-        genderGroup.style.display = "none";
+        if(genderCard){
+            genderCard.style.display = "none";
+        }else{
+            genderGroup.style.display = "none";
+        }
 
         document.querySelectorAll('input[name="gender"]').forEach(g=>{
             g.checked = false;
@@ -7704,6 +8988,9 @@ function toggleGender(){
         document.getElementById("sizeLainnya").style.display = "none";
         document.getElementById("sizeLainnya").value = "";
     }else{
+        if(genderCard){
+            genderCard.style.display = "block";
+        }
         genderGroup.style.display = "flex";
     }
 }
@@ -7792,6 +9079,10 @@ function resetForm(){
         l.classList.remove("disabled");
     });
 
+    let genderCardReset = document.querySelector(".gender-card");
+    if(genderCardReset){
+        genderCardReset.style.display = "block";
+    }
     document.getElementById("genderGroup").style.display = "flex";
 }
 
@@ -9548,7 +10839,27 @@ window.onclick = function(e){
     karena 12 akan terbaca sebagai Januari tahun berikutnya.
 */
 
-let batasWaktu = new Date(2027, 1, 28, 23, 59, 59).getTime();
+let batasWaktuTanggal = new Date(2026, 10, 30, 23, 59, 59);
+let batasWaktu = batasWaktuTanggal.getTime();
+
+function tampilkanTanggalBatasPemesanan(){
+    let tanggalBox = document.getElementById("countdownEndDate");
+
+    if(!tanggalBox) return;
+
+    let bulan = [
+        "Jan", "Feb", "Mar", "Apr", "Mei", "Jun",
+        "Jul", "Agu", "Sep", "Okt", "Nov", "Des"
+    ];
+
+    tanggalBox.innerHTML =
+        "Berakhir pada " +
+        batasWaktuTanggal.getDate() + " " +
+        bulan[batasWaktuTanggal.getMonth()] + " " +
+        batasWaktuTanggal.getFullYear();
+}
+
+tampilkanTanggalBatasPemesanan();
 
 setInterval(function(){
     let sekarang = new Date().getTime();
@@ -9563,7 +10874,7 @@ setInterval(function(){
     document.getElementById("detik").innerHTML = "0";
 
     document.querySelector(".countdown-title").innerHTML =
-    "⛔ PEMESANAN DITUTUP";
+    '<i class="fa-solid fa-ban"></i><span>Pemesanan Ditutup</span>';
 
     updateTombolKirim(true);
 
@@ -9727,3 +11038,57 @@ if(tahunCopyright){
 
 </body>
 </html>
+<style id="final-size-satu-baris-hp">
+/* === FINAL HP: SIZE 1 BARIS SEPERTI LAYAR LAPTOP === */
+@media(max-width:768px){
+    .size-card .size-options{
+        display:grid!important;
+        grid-template-columns:repeat(8, minmax(0, 1fr))!important;
+        gap:5px!important;
+        width:100%!important;
+        margin:0!important;
+    }
+
+    .size-card .size-options label{
+        width:100%!important;
+        min-width:0!important;
+        height:32px!important;
+        min-height:32px!important;
+        padding:0 2px!important;
+        border-radius:7px!important;
+        font-size:8.7px!important;
+        line-height:1!important;
+        white-space:nowrap!important;
+        display:flex!important;
+        align-items:center!important;
+        justify-content:center!important;
+    }
+}
+
+@media(max-width:430px){
+    .size-card .size-options{
+        gap:4px!important;
+    }
+
+    .size-card .size-options label{
+        height:30px!important;
+        min-height:30px!important;
+        font-size:7.8px!important;
+        padding:0 1px!important;
+        border-radius:7px!important;
+    }
+}
+
+@media(max-width:360px){
+    .size-card .size-options{
+        gap:3px!important;
+    }
+
+    .size-card .size-options label{
+        height:28px!important;
+        min-height:28px!important;
+        font-size:7px!important;
+        border-radius:6px!important;
+    }
+}
+</style>
